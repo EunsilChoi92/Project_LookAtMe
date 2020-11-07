@@ -1,10 +1,17 @@
 package com.beautyshop.lookatme.shop;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.beautyshop.lookatme.Const;
+import com.beautyshop.lookatme.FileUtils;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
@@ -39,9 +46,52 @@ public class ShopService {
 		return shopMapper.selShop(param);
 	}
 
-	public int insShop(ShopPARAM param) {
-		return shopMapper.insShop(param);
+	public int insShop(ShopPARAM param, MultipartHttpServletRequest mReq) {
+		shopMapper.insShop(param);
+		
+		int i_user = param.getI_user();
+		param.setI_user(i_user);
+		
+		int i_shop = shopMapper.selMaxI_shop(param);
+		
+		List<MultipartFile> fileList = mReq.getFiles("shop_pic");
+		String path = Const.realPath + "/resources/img/shop/" + i_shop;
+		
+		List<ShopPicVO> list = new ArrayList<ShopPicVO>();
+		
+		for(int i=0; i<fileList.size(); i++) {
+			ShopPicVO vo = new ShopPicVO();
+			
+			vo.setI_shop(i_shop);
+			
+			MultipartFile mf = fileList.get(i);
+			
+			if(mf.isEmpty()) {
+				continue;
+			}
+			
+			String originFileNm = mf.getOriginalFilename();
+			String ext = FileUtils.getExt(originFileNm);
+			String saveFileNm = UUID.randomUUID() + ext;
+
+			System.out.println(path);
+			System.out.println(saveFileNm);
+			
+			try {
+				mf.transferTo(new File(path + saveFileNm));
+				vo.setShop_pic(saveFileNm);
+			} catch(Exception e) {
+				e.printStackTrace();
+			} 
+			
+			list.add(vo);
+			shopMapper.insShopPic(vo);
+		}
+		
+		return i_shop;
 	}
+	
+	
 
 
 	

@@ -40,6 +40,10 @@
 		WHERE A.i_shop = #{i_shop}
 	</select>
 	
+	<select id="selMaxI_shop" parameterType="shopPARAM" resultType="Integer">
+		SELECT MAX(i_shop) FROM t_beauty_shop WHERE i_user = #{i_user}
+	</select>
+	
 	<select id="selShopPicList" parameterType="shopPARAM" resultType="ShopPicVO">
 		SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
 	</select>
@@ -49,5 +53,12 @@
 		(i_user, shop, phone, addr, cd, lat, lng, hits)
 		VALUES
 		(#{i_user}, #{shop}, #{phone}, #{addr}, #{cd}, #{lat}, #{lng}, #{hits})
+	</insert>
+	
+	<insert id="insShopPic" parameterType="ShopPicVO">
+		INSERT INTO t_beauty_shop_pic
+		(i_shop, shop_pic)
+		VALUES
+		(#{i_shop}, #{shop_pic})
 	</insert>
 </mapper>

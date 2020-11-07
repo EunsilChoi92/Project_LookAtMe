@@ -1,5 +1,6 @@
 package com.beautyshop.lookatme;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,9 @@ public class MainController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request) {
+		if(Const.realPath == null) {
+			Const.realPath = request.getServletContext().getRealPath("");
+		}
 		System.out.println("root");
 		return "redirect:/shop/main";
 	}

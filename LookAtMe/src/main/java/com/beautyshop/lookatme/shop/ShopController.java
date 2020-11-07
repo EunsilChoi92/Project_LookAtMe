@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.SecurityUtils;
 import com.beautyshop.lookatme.ViewRef;
-import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
@@ -45,11 +47,11 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/regMod", method = RequestMethod.POST)
-	public String shopRegMod(ShopPARAM param, HttpSession hs) {
-		shopService.insShop(param);
-		System.out.println("누구 ?  : " + param.getI_user());
-		System.out.println("샵이름 ? : " + param.getShop());
-		return "redirect:/shop/main";
+	public String shopRegMod(ShopPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+		int i_shop = shopService.insShop(param, mReq);
+		System.out.println("이건..? : " + i_shop);
+		ra.addAttribute("i_shop", i_shop);
+		return "redirect:/shop/detail";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -68,8 +70,4 @@ public class ShopController {
 		
 		return ViewRef.TEMP_DEFAULT;
 	}
-	
-	
-	
-	
 }

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="sectionContainerCenter">
    <div>
-      <form id="frm" action="/shop/regMod" method="post" onsubmit="return chkFrm()">
+      <form id="frm" action="/shop/regMod" method="post" onsubmit="return chkFrm()" enctype="multipart/form-data">
          <div><input type="text" name="shop" placeholder="가게명"></div>
          <div>
             <div><input type="text" name="addr" placeholder="주소" onkeyup="changeAddr()"></div>
@@ -25,6 +25,8 @@
                </c:forEach>
             </select>
          </div>
+         <div>샵 사진 등록</div>
+         <div><input type="file" name="shop_pic" multiple></div>
          <div><input type="submit" value="등록"></div>
       </form>
    </div>

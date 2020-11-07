@@ -44,14 +44,19 @@ public class UserService {
 		}
 		
 		public int join(UserPARAM param) {
-			String pw = param.getUser_pw();
-			String salt = SecurityUtils.generateSalt();
-			String cryptPw = SecurityUtils.getEncrypt(pw, salt);
-			
-			param.setSalt(salt);
-			param.setUser_pw(cryptPw);
-			
-			return userMapper.insUser(param);
+			try {
+				String pw = param.getUser_pw();
+				String salt = SecurityUtils.generateSalt();
+				String cryptPw = SecurityUtils.getEncrypt(pw, salt);
+				
+				param.setSalt(salt);
+				param.setUser_pw(cryptPw);
+				
+				return userMapper.insUser(param);				
+			}catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			}
 		}
 
 }

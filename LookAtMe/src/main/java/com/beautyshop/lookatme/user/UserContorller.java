@@ -24,6 +24,12 @@ public class UserContorller {
 	@Autowired
 	UserService userService;
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(HttpSession hs) {
+		hs.invalidate();
+		return "redirect:/";
+	}	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		model.addAttribute(Const.TITLE, "로그인");
@@ -39,6 +45,7 @@ public class UserContorller {
 			hs.setAttribute(Const.LOGIN_USER, param);
 			return "redirect:/shop/main";
 		}
+		
 		String msg = null;
 		if(result == Const.NO_ID) {
 			msg = "아이디를 확인해 주세요.";
@@ -51,13 +58,8 @@ public class UserContorller {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.GET)
-	// required에 절대 true를 주면 안 됨 - err 값이 없으면 error가 남(default : true)
-	// name과 매개변수명이 같은 경우 value="err" 생략하고 int err만 적어도 됨
-	// null 값을 넣을 수 있도록 매개변수 type을 Integer로 바꾸거나 defaultValue="0"으로 설정
 	public String join(Model model, @RequestParam(defaultValue="0") int err) {
-		System.out.println("err : " + err);
-		
-		if(err > 0) {
+		if(err == -1) {
 			model.addAttribute("msg", "에러가 발생했습니다.");
 		}
 		model.addAttribute(Const.TITLE, "회원가입");
@@ -72,6 +74,7 @@ public class UserContorller {
 		if(result == 1) {
 			return "redirect:/user/login";
 		}
+		
 		ra.addAttribute("err", result);
 		return "redirect:/user/join";
 	}

@@ -11,11 +11,16 @@ import com.beautyshop.lookatme.shop.model.ShopPicVO;
 @Mapper
 public interface ShopMapper {
 	List<ShopDMI> selShopList();
-	List<ShopPicVO> selShopPicList(ShopPARAM param);
-
 	ShopDMI selShop(ShopPARAM param);
+	int selMaxI_shop(ShopPARAM param);
+
+	List<ShopPicVO> selShopPicList(ShopPARAM param);
 	
 	int insShop(ShopPARAM param);
+	int insShopPic(ShopPicVO param);
+
+	
+	int selShopChkUser(int i_shop);
 
 
 
