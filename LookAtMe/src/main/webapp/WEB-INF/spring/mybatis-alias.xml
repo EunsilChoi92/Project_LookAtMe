@@ -2,8 +2,16 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.beautyshop.lookatme.model.CodeVO" alias="CodeVO"/>
+	
 		<typeAlias type="com.beautyshop.lookatme.user.model.UserVO" alias="UserVO" />
 		<typeAlias type="com.beautyshop.lookatme.user.model.UserPARAM" alias="UserPARAM" />
 		<typeAlias type="com.beautyshop.lookatme.user.model.UserDMI" alias="UserDMI" />
+	
+		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopVO" alias="ShopVO" />
+		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopPARAM" alias="ShopPARAM" />
+		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopDMI" alias="ShopDMI" />
+		
+		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopPicVO" alias="ShopPicVO" />
 	</typeAliases>
 </configuration>

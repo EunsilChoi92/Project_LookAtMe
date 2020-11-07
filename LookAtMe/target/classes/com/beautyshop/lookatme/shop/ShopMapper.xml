@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beautyshop.lookatme.shop.ShopMapper">
+	<select id="selShopList" resultType="ShopDMI">
+		SELECT 
+			A.i_shop, A.shop, A.phone, A.addr, A.cd, 
+			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
+		FROM t_beauty_shop A
+		JOIN 
+			t_user B
+		ON 
+			A.i_user = B.i_user
+		ORDER BY A.i_shop DESC;
+	</select>
+	
+	<select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
+		SELECT 
+			A.i_shop, A.i_user, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
+			, ifnull(B.val, '') as cd_category
+			, C.nm as nm
+			, ifnull(D.cnt, 0) as cnt_favorite
+			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
+		FROM t_beauty_shop A
+		INNER JOIN c_code_d B
+			ON A.cd = B.cd
+			AND B.i_m = 1
+		LEFT JOIN t_user C
+			ON A.i_user = C.i_user
+		LEFT JOIN (
+			SELECT i_shop, COUNT(i_shop) as cnt
+			FROM t_user_favorite
+			WHERE i_shop = #{i_shop}
+			GROUP BY i_shop
+		) D	
+		ON A.i_shop = D.i_shop
+		LEFT JOIN t_user_favorite E
+		ON A.i_shop = E.i_shop
+		AND E.i_user = #{i_user}
+		WHERE A.i_shop = #{i_shop}
+	</select>
+	
+	<select id="selShopPicList" parameterType="shopPARAM" resultType="ShopPicVO">
+		SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
+	</select>
+	
+	<insert id="insShop" parameterType="ShopPARAM">
+		INSERT INTO t_beauty_shop
+		(i_user, shop, phone, addr, cd, lat, lng, hits)
+		VALUES
+		(#{i_user}, #{shop}, #{phone}, #{addr}, #{cd}, #{lat}, #{lng}, #{hits})
+	</insert>
+</mapper>

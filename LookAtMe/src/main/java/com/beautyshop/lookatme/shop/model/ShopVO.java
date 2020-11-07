@@ -5,10 +5,13 @@ public class ShopVO {
 	private int i_user;
 	private String shop;
 	private String phone;
-	private String old_addr;
-	private String new_addr;
-	private int zip_code;
-	private String cd;
+	private String addr;
+	private int cd;
+	private double lat;
+	private double lng;
+	private int hits;
+	private String r_dt;
+	private String m_dt;
 	
 	public int getI_shop() {
 		return i_shop;
@@ -34,31 +37,47 @@ public class ShopVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getOld_addr() {
-		return old_addr;
+	public String getAddr() {
+		return addr;
 	}
-	public void setOld_addr(String old_addr) {
-		this.old_addr = old_addr;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
-	public String getNew_addr() {
-		return new_addr;
-	}
-	public void setNew_addr(String new_addr) {
-		this.new_addr = new_addr;
-	}
-	public int getZip_code() {
-		return zip_code;
-	}
-	public void setZip_code(int zip_code) {
-		this.zip_code = zip_code;
-	}
-	public String getCd() {
+	public int getCd() {
 		return cd;
 	}
-	public void setCd(String cd) {
+	public void setCd(int cd) {
 		this.cd = cd;
 	}
-	
-		
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	public String getR_dt() {
+		return r_dt;
+	}
+	public void setR_dt(String r_dt) {
+		this.r_dt = r_dt;
+	}
+	public String getM_dt() {
+		return m_dt;
+	}
+	public void setM_dt(String m_dt) {
+		this.m_dt = m_dt;
+	}
 	
 }
