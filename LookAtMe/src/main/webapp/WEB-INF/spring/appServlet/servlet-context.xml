@@ -53,7 +53,7 @@
       
    <!-- mybatis가 쓰는 scan(spring 아님) mybatis에서는 DAO를 bean으로 등록해서 사용(DAO 만들 필요 없음) -->
    <!-- @Mapper를 찾음 -->
-   <mybatis-spring:scan base-package="com.koreait.matzip"/>
+   <mybatis-spring:scan base-package="com.beautyshop.lookatme"/>
    
    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
    		<beans:property name="dataSource" ref="dataSource"/>
