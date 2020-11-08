@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.FileUtils;
+import com.beautyshop.lookatme.comment.CommentMapper;
 import com.beautyshop.lookatme.comment.model.CommentVO;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
@@ -27,6 +28,9 @@ public class ShopService {
 	
 	@Autowired
 	private CommonMapper commonMapper;
+	
+	@Autowired
+	private CommentMapper commentMapper;
 	
 	
 	public List<ShopDMI> selShopList() {
@@ -97,7 +101,7 @@ public class ShopService {
 		FileUtils.delFile(path);
 		
 		shopMapper.delShopPic(param);
-		shopMapper.delComment(param);
+		commentMapper.delComment(param);
 		shopMapper.delShop(param);
 
 		return 0;

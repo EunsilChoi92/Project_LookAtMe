@@ -24,7 +24,7 @@ public interface ShopMapper {
 
 	int delShop(ShopPARAM param);
 	int delShopPic(ShopPARAM param);
-	int delComment(ShopPARAM param);
+	
 
 
 }

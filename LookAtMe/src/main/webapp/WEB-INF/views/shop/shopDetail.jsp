@@ -24,23 +24,81 @@
 <hr>
 <h1>코멘트 출력</h1>
 <c:forEach items="${commentList}" var="item">
-	<div>코멘트 쓴 사람 : ${item.nm}</div>
-	<div>코멘트 내용 : ${item.comment_ctnt}</div>
+	<div id="comment${item.i_comment }">
+		<c:if test="${loginUser.i_user == item.i_user }">
+			<button onclick="modifyComment(${item.i_comment})">수정</button>
+			<button onclick="ajaxDelComment(${item.i_comment})">삭제</button>
+		</c:if>
+		<div>코멘트 쓴 사람 : ${item.nm}</div>
+		<div>코멘트 내용 : ${item.comment_ctnt}</div>
+		<hr>
+	</div>
 </c:forEach>
 <hr>
-<form id="commentFrm" action="/comment/ajaxRegModComment" onsubmit="return chkComment()">
-	<textarea name="comment_ctnt"></textarea>
-	<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
-	<input type="hidden" name="i_user" value="${loginUser.i_user }">
-	<input type="hidden" name="i_comment" value="0">
-	<input type="submit" value="등록">
-</form>
+<c:if test="${loginUser != null }">
+	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()">
+		<textarea name="comment_ctnt"></textarea>
+		<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
+		<input type="hidden" name="i_comment" value="0">
+		<input type="hidden" name="score" value="3">
+		<input type="submit" value="등록">
+		<input type="button" value="취소" onclick="cancleComment()">
+	</form>
+</c:if>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	function ajaxDelComment(i_comment) {
+		const param = {
+				params: {
+					'i_shop' : ${shopDetail.i_shop},
+					'i_comment' : i_comment
+				}
+		};
+		
+		axios.get('/comment/ajaxDelComment', param)
+			.then(function(res) {
+				const result = res.data;
+				if(result == 1) {
+					alert('댓글이 삭제되었습니다.');
+					const element = document.querySelector('#comment' + i_comment);
+					element.remove();
+				} else {
+					alert('댓글 삭제 실패!');
+				}
+			})
+	}
+	
+	function modifyComment(i_comment) {
+		commentFrm.i_comment.value = i_comment;
+		
+		const param = {
+			params: {
+				'i_shop' : ${shopDetail.i_shop},
+				'i_comment' : i_comment
+			}	
+		};
+		
+		axios.get('/comment/ajaxSelComment', param)
+			.then(function(res) {
+				const result = res.data;
+				console.log(result);
+				console.log(result.comment_ctnt);
+				commentFrm.comment_ctnt.value = result.comment_ctnt;
+			});		
+	}
+	
+	function cancleComment() {
+		commentFrm.i_comment.value = 0;
+		commentFrm.comment_ctnt.value = null;
+	}
+
 	function chkComment() {
-		console.log('무적권 false');
-		return false;
+		if(commentFrm.comment_ctnt.value == 0) {
+			alert('내용을 입력해주세요!');
+			return false;
+		}
+		return true;
 	}
 
 	function ajaxDelShopPic(i_pic) {

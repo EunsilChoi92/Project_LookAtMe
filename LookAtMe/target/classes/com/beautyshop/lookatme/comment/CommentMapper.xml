@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beautyshop.lookatme.comment.CommentMapper">
+	<select id="selCommentList" parameterType="shopPARAM" resultType="CommentDMI" >
+		SELECT A.i_comment, A.i_shop, A.comment_ctnt,
+			A.score, A.i_user, A.r_dt, A.m_dt, B.nm, B.profile_img
+		FROM t_comment A
+		JOIN t_user B
+		ON A.i_user = B.i_user
+		ORDER BY A.i_comment DESC
+	</select>
+	
+	<select id="selComment" parameterType="CommentVO" resultType="CommentDMI" >
+		SELECT A.i_comment, A.i_shop, A.comment_ctnt,
+			A.score, A.i_user, A.r_dt, A.m_dt, B.nm, B.profile_img
+		FROM t_comment A
+		JOIN t_user B
+		ON A.i_user = B.i_user
+		WHERE A.i_comment = #{i_comment}
+	</select>
+	
+	<insert id="insComment" parameterType="CommentVO">
+		INSERT INTO t_comment
+			(i_shop, comment_ctnt, score, i_user)
+		VALUES
+			(#{i_shop}, #{comment_ctnt}, #{score}, #{i_user})
+	</insert>
+	
+	<update id="updComment" parameterType="CommentVO">
+		UPDATE t_comment
+		SET 
+			comment_ctnt = #{comment_ctnt},
+			m_dt = now()
+		WHERE i_comment = #{i_comment}
+		AND i_shop = #{i_shop}
+		AND i_user = #{i_user}
+	</update>
+	
+	<delete id="delComment" parameterType="ShopPARAM">
+		DELETE A FROM t_comment A
+		JOIN t_beauty_shop B
+		ON A.i_shop = B.i_shop
+		WHERE A.i_shop = #{i_shop}
+		AND B.i_user = #{i_user}
+		<if test="i_comment > 0">
+			AND A.i_comment = #{i_comment}
+		</if>
+	</delete>
+</mapper>

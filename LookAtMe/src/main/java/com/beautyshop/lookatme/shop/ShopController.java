@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.SecurityUtils;
 import com.beautyshop.lookatme.ViewRef;
+import com.beautyshop.lookatme.comment.CommentService;
+import com.beautyshop.lookatme.comment.model.CommentDMI;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
@@ -28,6 +30,9 @@ public class ShopController {
 
 	@Autowired
 	ShopService shopService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Model model) {
@@ -56,17 +61,20 @@ public class ShopController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
-		int i_user = SecurityUtils.getLoginUserPk(req);
-		param.setI_user(i_user);
+		
+//		int i_user = SecurityUtils.getLoginUserPk(req);
+//		param.setI_user(i_user);
 		
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
+		List<CommentDMI> commentList = commentService.selCommentList(param);
 		
 		model.addAttribute(Const.TITLE, "상세보기");
 		model.addAttribute(Const.VIEW, "shop/shopDetail");
 		
 		model.addAttribute("shopDetail", shopDetail);
 		model.addAttribute("shopPicList", shopPicList);
+		model.addAttribute("commentList", commentList);
 		
 		return ViewRef.TEMP_DEFAULT;
 	}
