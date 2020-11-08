@@ -4,7 +4,7 @@ public class CommentVO {
 
 	private int i_comment;
 	private int i_shop;
-	private String comment_cnt;
+	private String comment_ctnt;
 	private double score;
 	private int i_user;
 	private String r_dt;
@@ -22,11 +22,11 @@ public class CommentVO {
 	public void setI_shop(int i_shop) {
 		this.i_shop = i_shop;
 	}
-	public String getComment_cnt() {
-		return comment_cnt;
+	public String getComment_ctnt() {
+		return comment_ctnt;
 	}
-	public void setComment_cnt(String comment_cnt) {
-		this.comment_cnt = comment_cnt;
+	public void setComment_ctnt(String comment_ctnt) {
+		this.comment_ctnt = comment_ctnt;
 	}
 	public double getScore() {
 		return score;

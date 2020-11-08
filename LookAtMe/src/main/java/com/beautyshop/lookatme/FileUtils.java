@@ -41,8 +41,18 @@ public class FileUtils {
 	public static boolean delFile(String path) {
 		File file = new File(path);
 		if(file.exists()) {
-			System.out.println("파일 삭제 성공 >.<");
-			return file.delete();
+			File[] folder_list = file.listFiles();
+			
+			for(File f : folder_list) {
+				f.delete();
+				System.out.println("파일 삭제 성공 >.<");
+			}
+			
+			file.delete(); //대상폴더 삭제
+			System.out.println("폴더 삭제 성공 >.<");
+
+			
+			return true;
 		}
 		System.out.println("파일 삭제 실패 흑흑 ㅜㅜ");
 		return false;

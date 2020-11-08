@@ -13,5 +13,7 @@
 		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopDMI" alias="ShopDMI" />
 		
 		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopPicVO" alias="ShopPicVO" />
+
+		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentVO" alias="CommentVO" />
 	</typeAliases>
 </configuration>

@@ -19,7 +19,7 @@
          <div>
             카테고리 :
             <select name="cd">
-               <option value="1">--선택--</option>
+               <option value="0">--선택--</option>
                <c:forEach items="${categoryList}" var="item">
                   <option value="${item.cd}">${item.val}</option>
                </c:forEach>
@@ -33,21 +33,21 @@
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c60cbf0c3fcc8772b7e3e33c2b33422&libraries=services"></script>
    <script>
       function chkFrm() {
-         if(frm.nm.value.length == 0) {
-            alert('가게명을 입력해 주세요')
-            frm.nm.focus()
-            return false
+         if(frm.shop.value.length == 0) {
+            alert('가게명을 입력해 주세요');
+            frm.shop.focus();
+            return false;
          } else if(frm.addr.value.length < 9) {
-            alert('주소를 확인해 주세요')
-            frm.addr.focus()
-            return false
+            alert('주소를 확인해 주세요');
+            frm.addr.focus();
+            return false;
          } else if(frm.lat.value == '0' || frm.lng.value =='0') {
-            alert('좌표값을 가져와 주세요')
-            return false
-         } else if(frm.cd_category.value == '0') {
-            alert('카테고리를 선택해 주세요')
-            frm.cd_category.focus()
-            return false
+            alert('좌표값을 가져와 주세요');
+            return false;
+         } else if(frm.cd.value == '0') {
+            alert('카테고리를 선택해 주세요');
+            frm.cd.focus();
+            return false;
          }
       }
    

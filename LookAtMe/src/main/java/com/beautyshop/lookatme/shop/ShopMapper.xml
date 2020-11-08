@@ -48,6 +48,11 @@
 		SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
 	</select>
 	
+	<select id="selShopChkUser" parameterType="Integer" resultType="Integer">
+		SELECT i_user FROM t_beauty_shop
+		WHERE i_shop = #{i_shop}
+	</select>
+	
 	<insert id="insShop" parameterType="ShopPARAM">
 		INSERT INTO t_beauty_shop
 		(i_user, shop, phone, addr, cd, lat, lng, hits)
@@ -61,4 +66,33 @@
 		VALUES
 		(#{i_shop}, #{shop_pic})
 	</insert>
+	
+	
+	<delete id="delShop" parameterType="ShopPARAM">
+		DELETE FROM t_beauty_shop 
+		WHERE i_shop = #{i_shop}
+		AND i_user = #{i_user}
+	</delete>
+	
+	<delete id="delShopPic" parameterType="ShopPARAM">
+		DELETE A FROM t_beauty_shop_pic A
+		JOIN t_beauty_shop B
+		ON A.i_shop = B.i_shop
+		WHERE A.i_shop = #{i_shop}
+		AND B.i_user = #{i_user}
+		<if test="i_pic > 0">
+			AND A.i_pic = #{i_pic}
+		</if>
+	</delete>
+	
+	<delete id="delComment" parameterType="ShopPARAM">
+		DELETE A FROM t_comment A
+		JOIN t_beauty_shop B
+		ON A.i_shop = B.i_shop
+		WHERE A.i_shop = #{i_shop}
+		AND B.i_user = #{i_user}
+		<if test="i_comment > 0">
+			AND A.i_comment = #{i_comment}
+		</if>
+	</delete>
 </mapper>

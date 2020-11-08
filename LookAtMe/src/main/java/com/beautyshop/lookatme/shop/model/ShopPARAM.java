@@ -5,6 +5,9 @@ public class ShopPARAM extends ShopVO {
 	private double sw_lng;
 	private double ne_lat;
 	private double ne_lng;
+	int i_pic;
+	int i_comment;
+	
 	
 	public double getSw_lat() {
 		return sw_lat;
@@ -29,6 +32,18 @@ public class ShopPARAM extends ShopVO {
 	}
 	public void setNe_lng(double ne_lng) {
 		this.ne_lng = ne_lng;
+	}
+	public int getI_pic() {
+		return i_pic;
+	}
+	public void setI_pic(int i_pic) {
+		this.i_pic = i_pic;
+	}
+	public int getI_comment() {
+		return i_comment;
+	}
+	public void setI_comment(int i_comment) {
+		this.i_comment = i_comment;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.beautyshop.lookatme.comment.model.CommentVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
@@ -19,9 +20,11 @@ public interface ShopMapper {
 	int insShop(ShopPARAM param);
 	int insShopPic(ShopPicVO param);
 
-	
 	int selShopChkUser(int i_shop);
 
+	int delShop(ShopPARAM param);
+	int delShopPic(ShopPARAM param);
+	int delComment(ShopPARAM param);
 
 
 }

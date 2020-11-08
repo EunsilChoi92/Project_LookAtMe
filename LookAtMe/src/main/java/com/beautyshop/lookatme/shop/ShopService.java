@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.FileUtils;
+import com.beautyshop.lookatme.comment.model.CommentVO;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
@@ -89,6 +90,21 @@ public class ShopService {
 		}
 		
 		return i_shop;
+	}
+
+	public int delShop(ShopPARAM param) {
+		String path = Const.realPath + "/resources/img/shop/" + param.getI_shop();
+		FileUtils.delFile(path);
+		
+		shopMapper.delShopPic(param);
+		shopMapper.delComment(param);
+		shopMapper.delShop(param);
+
+		return 0;
+	}
+
+	public int ajaxDelShopPic(ShopPARAM param) {
+		return shopMapper.delShopPic(param);
 	}
 	
 	

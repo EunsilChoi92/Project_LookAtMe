@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,5 +69,26 @@ public class ShopController {
 		model.addAttribute("shopPicList", shopPicList);
 		
 		return ViewRef.TEMP_DEFAULT;
+	}
+	
+	@RequestMapping(value = "/delShop", method = RequestMethod.GET)
+	public String delShop(ShopPARAM param, HttpServletRequest req) {
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
+		shopService.delShop(param);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/ajaxDelShopPic", method = RequestMethod.GET)
+	@ResponseBody
+	public int ajaxDelShopPic(ShopPARAM param, HttpServletRequest req) {
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
+		return shopService.ajaxDelShopPic(param);
+	}
+	
+	@RequestMapping(value="/ajaxSelShopPic", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ShopPicVO> ajaxSelShopPic(ShopPARAM param, HttpServletRequest req) {
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
+		return shopService.selShopPicList(param);
 	}
 }

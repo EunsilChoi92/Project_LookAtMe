@@ -8,6 +8,7 @@ public class ShopDMI extends ShopVO {
 	private String profile_img;
 	private int cnt_favorite;
 	private int is_favorite;
+	
 	public double getNorth_east() {
 		return north_east;
 	}
