@@ -61,21 +61,19 @@
    
    <tx:annotation-driven transaction-manager="transactionManager"/>
    
-   <!-- 
    <interceptors>
    		<interceptor>
-   			<mapping path="/rest/*"/>
-   			<beans:bean class="com.koreait.matzip.RestInterceptor"/>
+   			<mapping path="/shop/*"/>
+   			<beans:bean class="com.beautyshop.lookatme.ShopInterceptor"/>
    		</interceptor>
    </interceptors>
    
       <interceptors>
    		<interceptor>
    			<mapping path="/**"/>
-   			<beans:bean class="com.koreait.matzip.LoginCheckInterceptor"/>
+   			<beans:bean class="com.beautyshop.lookatme.LoginCheckInterceptor"/>
    		</interceptor>
    </interceptors>
-    -->
    
    <!-- file upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

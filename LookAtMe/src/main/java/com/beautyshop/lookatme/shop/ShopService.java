@@ -55,7 +55,7 @@ public class ShopService {
 		int i_shop = shopMapper.selMaxI_shop(param);
 		
 		List<MultipartFile> fileList = mReq.getFiles("shop_pic");
-		String path = Const.realPath + "/resources/img/shop/" + i_shop;
+		String path = Const.realPath + "/resources/img/shop/" + i_shop + "/";
 		
 		List<ShopPicVO> list = new ArrayList<ShopPicVO>();
 		

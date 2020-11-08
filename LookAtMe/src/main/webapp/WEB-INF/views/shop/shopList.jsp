@@ -6,7 +6,7 @@
 <!-- 카테고리별로 선택할 수 있게 해야함 -->
 
 <c:forEach items="${shopList}" var="item">
-	<div onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
+	<div class="cursor" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 		${item.shop }
 	</div>
 </c:forEach>

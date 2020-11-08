@@ -49,7 +49,6 @@ public class ShopController {
 	@RequestMapping(value="/regMod", method = RequestMethod.POST)
 	public String shopRegMod(ShopPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
 		int i_shop = shopService.insShop(param, mReq);
-		System.out.println("이건..? : " + i_shop);
 		ra.addAttribute("i_shop", i_shop);
 		return "redirect:/shop/detail";
 	}
