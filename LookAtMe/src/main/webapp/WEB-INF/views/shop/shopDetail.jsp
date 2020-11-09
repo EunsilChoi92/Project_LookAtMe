@@ -56,6 +56,8 @@
 				}
 		};
 		
+		console.log(${shopDetail.i_shop});
+		console.log(i_comment);
 		axios.get('/comment/ajaxDelComment', param)
 			.then(function(res) {
 				const result = res.data;
@@ -64,6 +66,7 @@
 					const element = document.querySelector('#comment' + i_comment);
 					element.remove();
 				} else {
+					console.log(result);
 					alert('댓글 삭제 실패!');
 				}
 			})

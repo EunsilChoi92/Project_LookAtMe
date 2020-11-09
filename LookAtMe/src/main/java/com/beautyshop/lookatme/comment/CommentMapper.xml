@@ -42,7 +42,7 @@
 		JOIN t_beauty_shop B
 		ON A.i_shop = B.i_shop
 		WHERE A.i_shop = #{i_shop}
-		AND B.i_user = #{i_user}
+		AND A.i_user = #{i_user}
 		<if test="i_comment > 0">
 			AND A.i_comment = #{i_comment}
 		</if>

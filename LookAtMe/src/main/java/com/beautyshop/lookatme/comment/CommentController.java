@@ -39,6 +39,9 @@ public class CommentController {
 	@ResponseBody
 	public int ajaxDelComment(ShopPARAM param, HttpSession hs) {
 		param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		System.out.println(param.getI_shop());
+		System.out.println(param.getI_comment());
+		System.out.println(param.getI_user());
 		return commentService.ajaxDelComment(param);
 	}
 }
