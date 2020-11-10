@@ -6,8 +6,9 @@
 <!-- 맵 보여야 함, 리뷰(코멘트) 작성 가능해야 함 -->
 <!-- 코멘트에 별점 -->
 <c:if test="${loginUser.i_user == shopDetail.i_user }">
+	<h1>글  수정, 삭제~~~~~</h1>
 	<button onclick="location.href='/shop/regMod?i_shop=${shopDetail.i_shop}'">수정</button>
-	<button onclick="location.href='/shop/delShop?i_shop=${shopDetail.i_shop}'">삭제</button>
+	<button onclick="delShop()">삭제</button>
 </c:if>
 <h1>샵 사진~~</h1>
 <c:forEach items="${shopPicList}" var="item">
@@ -56,7 +57,7 @@
 	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()">
 		<div class="starRadio"> 
 			<c:forEach var="i" begin="5" end="50" step="5">
-				<label class="starRadio__box"> 
+				<label class="starRadio__box starRadio_box_label"> 
 			        <input type="radio" name="score" value="${i / 10}"> 
 			        <span class="starRadio__img">
 			            <span class="blind">별 ${i / 10}개</span>
@@ -74,28 +75,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	function delShop() {
+		if(confirm('삭제하시겠습니까?')) {
+			location.href='/shop/delShop?i_shop=${shopDetail.i_shop}';
+		}
+	}
+	
 	function ajaxDelComment(i_comment) {
-		const param = {
-				params: {
-					'i_shop' : ${shopDetail.i_shop},
-					'i_comment' : i_comment
-				}
-		};
-		
-		console.log(${shopDetail.i_shop});
-		console.log(i_comment);
-		axios.get('/comment/ajaxDelComment', param)
-			.then(function(res) {
-				const result = res.data;
-				if(result == 1) {
-					alert('댓글이 삭제되었습니다.');
-					const element = document.querySelector('#comment' + i_comment);
-					element.remove();
-				} else {
-					console.log(result);
-					alert('댓글 삭제 실패!');
-				}
-			})
+		if(confirm('삭제하시겠습니까?')){
+			const param = {
+					params: {
+						'i_shop' : ${shopDetail.i_shop},
+						'i_comment' : i_comment
+					}
+			};
+			
+			console.log(${shopDetail.i_shop});
+			console.log(i_comment);
+			axios.get('/comment/ajaxDelComment', param)
+				.then(function(res) {
+					const result = res.data;
+					if(result == 1) {
+						alert('댓글이 삭제되었습니다.');
+						const element = document.querySelector('#comment' + i_comment);
+						element.remove();
+					} else {
+						console.log(result);
+						alert('댓글 삭제 실패!');
+					}
+				})
+		}
 	}
 	
 	function modifyComment(i_comment) {
@@ -114,6 +123,16 @@
 				console.log(result);
 				console.log(result.comment_ctnt);
 				commentFrm.comment_ctnt.value = result.comment_ctnt;
+				
+				// 라디오 체크
+				let starLabels = document.getElementsByClassName("starRadio_box_label");
+				for(var i=0; i<starLabels.length; i++) {
+					let starValue = starLabels[i].firstElementChild.value;
+					if(result.score == starValue) {
+						starLabels[i].firstElementChild.checked = true;
+						break;
+					}
+				}
 			});		
 	}
 	

@@ -16,11 +16,12 @@ public interface ShopMapper {
 	int selMaxI_shop(ShopPARAM param);
 
 	List<ShopPicVO> selShopPicList(ShopPARAM param);
+	int selShopChkUser(int i_shop);
 	
 	int insShop(ShopPARAM param);
 	int insShopPic(ShopPicVO param);
 
-	int selShopChkUser(int i_shop);
+	int updShop(ShopPARAM param);
 
 	int delShop(ShopPARAM param);
 	int delShopPic(ShopPARAM param);

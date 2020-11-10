@@ -51,13 +51,20 @@ public class ShopService {
 		return shopMapper.selShop(param);
 	}
 
-	public int insShop(ShopPARAM param, MultipartHttpServletRequest mReq) {
-		shopMapper.insShop(param);
+	public int regModShop(ShopPARAM param, MultipartHttpServletRequest mReq) {
+		int i_shop = 0;
 		
-		int i_user = param.getI_user();
-		param.setI_user(i_user);
+		// 글 수정
+		if(param.getI_shop() != 0) {
+			shopMapper.updShop(param);
+			i_shop =  param.getI_shop();
+		}
 		
-		int i_shop = shopMapper.selMaxI_shop(param);
+		// 글 등록
+		else {
+			shopMapper.insShop(param);
+			i_shop = shopMapper.selMaxI_shop(param);
+		}
 		
 		List<MultipartFile> fileList = mReq.getFiles("shop_pic");
 		String path = Const.realPath + "/resources/img/shop/" + i_shop + "/";

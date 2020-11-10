@@ -16,7 +16,7 @@
 	
 	<select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
-			A.i_shop, A.i_user, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
+			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
 			, ifnull(B.val, '') as cd_category
 			, C.nm as nm
 			, ifnull(D.cnt, 0) as cnt_favorite
@@ -55,9 +55,9 @@
 	
 	<insert id="insShop" parameterType="ShopPARAM">
 		INSERT INTO t_beauty_shop
-		(i_user, shop, phone, addr, cd, lat, lng, hits)
+		(i_user, shop, phone, addr, cd, lat, lng)
 		VALUES
-		(#{i_user}, #{shop}, #{phone}, #{addr}, #{cd}, #{lat}, #{lng}, #{hits})
+		(#{i_user}, #{shop}, #{phone}, #{addr}, #{cd}, #{lat}, #{lng})
 	</insert>
 	
 	<insert id="insShopPic" parameterType="ShopPicVO">
@@ -66,6 +66,19 @@
 		VALUES
 		(#{i_shop}, #{shop_pic})
 	</insert>
+	
+	<update id="updShop" parameterType="ShopPARAM">
+		UPDATE t_beauty_shop
+		SET shop = #{shop},
+		    phone = #{phone},
+		    addr = #{addr},
+		    cd = #{cd},
+		    lat = #{lat},
+		    lng = ${lng},
+		    m_dt = now()
+		WHERE i_shop = #{i_shop}
+		AND i_user = #{i_user}
+	</update>
 	
 	
 	<delete id="delShop" parameterType="ShopPARAM">
