@@ -31,16 +31,42 @@
 		</c:if>
 		<div>코멘트 쓴 사람 : ${item.nm}</div>
 		<div>코멘트 내용 : ${item.comment_ctnt}</div>
+		<div>빛나라 지식의 별</div>
+		<div>꺄르르 : ${item.score }</div>
+		<div class="starRadio"> 
+			<c:forEach var="i" begin="5" end="50" step="5">
+				<label class="starRadio__box normal_cursor"> 
+					<c:if test="${i == item.score * 10}">
+				        <input type="radio" checked disabled> 
+					</c:if>
+					<c:if test="${i != item.score * 10}">
+				        <input type="radio" disabled> 
+					</c:if>
+			        <span class="starRadio__img">
+			            <span class="blind">별 ${i / 10}개</span>
+			        </span> 
+				</label>
+			</c:forEach>
+		</div>
 		<hr>
 	</div>
 </c:forEach>
 <hr>
 <c:if test="${loginUser != null }">
 	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()">
+		<div class="starRadio"> 
+			<c:forEach var="i" begin="5" end="50" step="5">
+				<label class="starRadio__box"> 
+			        <input type="radio" name="score" value="${i / 10}"> 
+			        <span class="starRadio__img">
+			            <span class="blind">별 ${i / 10}개</span>
+			        </span> 
+				</label>
+			</c:forEach>
+		</div>
 		<textarea name="comment_ctnt"></textarea>
 		<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
 		<input type="hidden" name="i_comment" value="0">
-		<input type="hidden" name="score" value="3">
 		<input type="submit" value="등록">
 		<input type="button" value="취소" onclick="cancleComment()">
 	</form>
