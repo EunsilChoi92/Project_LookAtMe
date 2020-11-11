@@ -68,9 +68,6 @@ public class ShopController {
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
 		
-//		int i_user = SecurityUtils.getLoginUserPk(req);
-//		param.setI_user(i_user);
-		
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
 		List<CommentDMI> commentList = commentService.selCommentList(param);
