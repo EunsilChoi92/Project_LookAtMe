@@ -8,6 +8,7 @@
 		FROM t_comment A
 		JOIN t_user B
 		ON A.i_user = B.i_user
+		WHERE A.i_shop = #{i_shop}
 		ORDER BY A.i_comment DESC
 	</select>
 	
@@ -31,7 +32,8 @@
 		UPDATE t_comment
 		SET 
 			comment_ctnt = #{comment_ctnt},
-			m_dt = now()
+			m_dt = now(),
+			score = #{score}
 		WHERE i_comment = #{i_comment}
 		AND i_shop = #{i_shop}
 		AND i_user = #{i_user}

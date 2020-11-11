@@ -3,14 +3,12 @@ package com.beautyshop.lookatme.shop;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,8 +22,11 @@ import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/shop")
+@Slf4j
 public class ShopController {
 
 	@Autowired
@@ -44,7 +45,12 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value = "/regMod", method = RequestMethod.GET)
-	public String shopRegMod(Model model) {
+	public String shopRegMod(Model model, ShopPARAM param) {
+		if(param.getI_shop() != 0) {
+			List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
+			model.addAttribute("shopInfo", shopService.selShop(param));
+			model.addAttribute("shopPicList", shopPicList);
+		}
 		model.addAttribute("categoryList", shopService.selCategoryList());
 		model.addAttribute(Const.TITLE, "등록");
 		model.addAttribute(Const.VIEW, "shop/shopRegMod");
@@ -54,7 +60,7 @@ public class ShopController {
 	
 	@RequestMapping(value="/regMod", method = RequestMethod.POST)
 	public String shopRegMod(ShopPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
-		int i_shop = shopService.insShop(param, mReq);
+		int i_shop = shopService.regModShop(param, mReq);
 		ra.addAttribute("i_shop", i_shop);
 		return "redirect:/shop/detail";
 	}
@@ -75,7 +81,6 @@ public class ShopController {
 		model.addAttribute("shopDetail", shopDetail);
 		model.addAttribute("shopPicList", shopPicList);
 		model.addAttribute("commentList", commentList);
-		
 		return ViewRef.TEMP_DEFAULT;
 	}
 	
