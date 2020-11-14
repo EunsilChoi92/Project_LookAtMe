@@ -101,4 +101,10 @@ public class ShopController {
 		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		return shopService.selShopPicList(param);
 	}
+	
+	@RequestMapping(value="/ajaxLikeShop", method = RequestMethod.GET)
+	public int ajaxLikeShop(ShopPARAM param) {
+		
+		return 0;
+	}
 }
