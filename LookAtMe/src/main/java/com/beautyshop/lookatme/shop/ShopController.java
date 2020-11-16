@@ -68,9 +68,6 @@ public class ShopController {
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
 		
-//		int i_user = SecurityUtils.getLoginUserPk(req);
-//		param.setI_user(i_user);
-		
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
 		List<CommentDMI> commentList = commentService.selCommentList(param);
@@ -103,5 +100,11 @@ public class ShopController {
 	public List<ShopPicVO> ajaxSelShopPic(ShopPARAM param, HttpServletRequest req) {
 		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		return shopService.selShopPicList(param);
+	}
+	
+	@RequestMapping(value="/ajaxLikeShop", method = RequestMethod.GET)
+	public int ajaxLikeShop(ShopPARAM param) {
+		
+		return 0;
 	}
 }

@@ -3,13 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!-- 맵 보여야 함, 리뷰(코멘트) 작성 가능해야 함 -->
-<!-- 코멘트에 별점 -->
+
+<!-- 글 수정, 삭제 버튼 -->
 <c:if test="${loginUser.i_user == shopDetail.i_user }">
 	<h1>글  수정, 삭제~~~~~</h1>
 	<button onclick="location.href='/shop/regMod?i_shop=${shopDetail.i_shop}'">수정</button>
 	<button onclick="delShop()">삭제</button>
 </c:if>
+
+<!-- 샵 사진 -->
 <h1>샵 사진~~</h1>
 <c:forEach items="${shopPicList}" var="item">
 	<div id="img${item.i_pic }">
@@ -20,9 +22,19 @@
 	</div>
 </c:forEach>
 <hr>
+
+<!-- 가게 정보 -->
 <h1>가게 정보</h1>
 <div>가게이름 : ${shopDetail.shop}</div>
 <hr>
+
+<!-- 좋아요 -->
+<h1>좋아요?!?!?!?!!?!?!?!?!?!</h1>
+<span class="material-icons">favorite_border</span>
+<span class="material-icons">favorite</span>
+<hr>
+
+<!-- 코멘트 출력 -->
 <h1>코멘트 출력</h1>
 <c:forEach items="${commentList}" var="item">
 	<div id="comment${item.i_comment }">
@@ -34,6 +46,8 @@
 		<div>코멘트 내용 : ${item.comment_ctnt}</div>
 		<div>빛나라 지식의 별</div>
 		<div>꺄르르 : ${item.score }</div>
+		
+		<!-- 별점 출력 -->
 		<div class="starRadio"> 
 			<c:forEach var="i" begin="5" end="50" step="5">
 				<label class="starRadio__box normal_cursor"> 
@@ -49,12 +63,16 @@
 				</label>
 			</c:forEach>
 		</div>
+		
 		<hr>
 	</div>
 </c:forEach>
 <hr>
+
+<!-- 코멘트 작성 -->
 <c:if test="${loginUser != null }">
 	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()">
+		<!-- 별점 입력 -->
 		<div class="starRadio"> 
 			<c:forEach var="i" begin="5" end="50" step="5">
 				<label class="starRadio__box starRadio_box_label"> 
@@ -65,6 +83,8 @@
 				</label>
 			</c:forEach>
 		</div>
+		
+		<!-- 코멘트 작성 -->
 		<textarea name="comment_ctnt"></textarea>
 		<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
 		<input type="hidden" name="i_comment" value="0">

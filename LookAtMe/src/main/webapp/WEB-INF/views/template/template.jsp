@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${title }</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/res/css/star.css?ver=2">
 <style>
 	.cursor {
