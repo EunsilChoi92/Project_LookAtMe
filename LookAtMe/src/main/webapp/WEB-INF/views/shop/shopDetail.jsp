@@ -71,7 +71,7 @@
 
 <!-- 코멘트 작성 -->
 <c:if test="${loginUser != null }">
-	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()">
+	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()" method="post">
 		<!-- 별점 입력 -->
 		<div class="starRadio"> 
 			<c:forEach var="i" begin="5" end="50" step="5">
@@ -170,6 +170,7 @@
 	}
 
 	function ajaxDelShopPic(i_pic) {
+		console.log('i_shop : ' + ${shopDetail.i_shop} + ' i_pic : ' + i_pic);
 		if(confirm('삭제하시겠습니까?')) {
 			const param = {
 					params: {

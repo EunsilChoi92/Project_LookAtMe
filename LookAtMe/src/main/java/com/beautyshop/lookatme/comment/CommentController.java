@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautyshop.lookatme.SecurityUtils;
@@ -26,11 +27,10 @@ public class CommentController {
 		return commentService.ajaxSelComment(param);
 	}
 	
-	@RequestMapping("/regModComment")
+	@RequestMapping(value = "/regModComment", method = RequestMethod.POST)
 	public String regModComment(Model model, CommentVO param, HttpSession hs) {
 		param.setI_user(SecurityUtils.getLoginUserPk(hs));
-		commentService.regModComment(param);
-		
+		int result = commentService.regModComment(param);
 		model.addAttribute("i_shop", param.getI_shop());
 		return "redirect:/shop/detail";
 	}
