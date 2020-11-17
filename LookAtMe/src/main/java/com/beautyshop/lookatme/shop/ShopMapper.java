@@ -20,11 +20,13 @@ public interface ShopMapper {
 	
 	int insShop(ShopPARAM param);
 	int insShopPic(ShopPicVO param);
+	int insShopLike(ShopPARAM param);
 
 	int updShop(ShopPARAM param);
 
 	int delShop(ShopPARAM param);
 	int delShopPic(ShopPARAM param);
+	int delShopLike(ShopPARAM param);
 	
 
 

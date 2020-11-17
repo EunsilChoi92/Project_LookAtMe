@@ -29,12 +29,12 @@
 			ON A.i_user = C.i_user
 		LEFT JOIN (
 			SELECT i_shop, COUNT(i_shop) as cnt
-			FROM t_user_favorite
+			FROM t_beauty_shop_like
 			WHERE i_shop = #{i_shop}
 			GROUP BY i_shop
 		) D	
 		ON A.i_shop = D.i_shop
-		LEFT JOIN t_user_favorite E
+		LEFT JOIN t_beauty_shop_like E
 		ON A.i_shop = E.i_shop
 		AND E.i_user = #{i_user}
 		WHERE A.i_shop = #{i_shop}
@@ -53,6 +53,10 @@
 		WHERE i_shop = #{i_shop}
 	</select>
 	
+	
+	
+	
+	
 	<insert id="insShop" parameterType="ShopPARAM">
 		INSERT INTO t_beauty_shop
 		(i_user, shop, phone, addr, cd, lat, lng)
@@ -67,6 +71,15 @@
 		(#{i_shop}, #{shop_pic})
 	</insert>
 	
+	<insert id="insShopLike" parameterType="ShopPARAM">
+		INSERT INTO t_beauty_shop_like
+		(i_shop, i_user)
+		VALUES
+		(#{i_shop}, #{i_user})
+	</insert>
+	
+	
+	
 	<update id="updShop" parameterType="ShopPARAM">
 		UPDATE t_beauty_shop
 		SET shop = #{shop},
@@ -79,6 +92,10 @@
 		WHERE i_shop = #{i_shop}
 		AND i_user = #{i_user}
 	</update>
+	
+	
+	
+	
 	
 	
 	<delete id="delShop" parameterType="ShopPARAM">
@@ -96,5 +113,11 @@
 		<if test="i_pic > 0">
 			AND A.i_pic = #{i_pic}
 		</if>
+	</delete>
+	
+	<delete id="delShopLike" parameterType="ShopPARAM">
+		DELETE FROM t_beauty_shop_like
+		WHERE i_shop = #{i_shop}
+		AND i_user = #{i_user}
 	</delete>
 </mapper>

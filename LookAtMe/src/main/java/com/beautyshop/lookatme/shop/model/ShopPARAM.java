@@ -5,8 +5,9 @@ public class ShopPARAM extends ShopVO {
 	private double sw_lng;
 	private double ne_lat;
 	private double ne_lng;
-	int i_pic;
-	int i_comment;
+	private int i_pic;
+	private int i_comment;
+	private String proc_type;
 	
 	
 	public double getSw_lat() {
@@ -45,6 +46,11 @@ public class ShopPARAM extends ShopVO {
 	public void setI_comment(int i_comment) {
 		this.i_comment = i_comment;
 	}
-	
+	public String getProc_type() {
+		return proc_type;
+	}
+	public void setProc_type(String proc_type) {
+		this.proc_type = proc_type;
+	}
 	
 }

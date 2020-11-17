@@ -52,4 +52,6 @@ public class ShopDMI extends ShopVO {
 		this.is_favorite = is_favorite;
 	}
 	
+	
+	
 }

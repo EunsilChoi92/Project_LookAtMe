@@ -29,10 +29,16 @@
 <hr>
 
 <!-- 좋아요 -->
-<h1>좋아요?!?!?!?!!?!?!?!?!?!</h1>
-<span class="material-icons">favorite_border</span>
-<span class="material-icons">favorite</span>
-<hr>
+<c:if test="${loginUser.i_user == shopDetail.i_user }">
+	<h1>좋아요?!?!?!?!!?!?!?!?!?!</h1>
+	<span id="favorite" class="material-icons cursor" onclick="toggleFavorite()">
+		${shopDetail.is_favorite == 1 ? "favorite" : "favorite_border"}
+	</span>
+	<hr>
+</c:if>
+
+<!-- 지도 -->
+
 
 <!-- 코멘트 출력 -->
 <h1>코멘트 출력</h1>
@@ -93,8 +99,60 @@
 	</form>
 </c:if>
 
+
+<hr>
+<h1>지도</h1>
+<div id="mapContainer" style="width:500px; height:400px;"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	faf4b3a5a0e4ed4c610c95db44ba090d"></script>
 <script>
+
+	// MAP API 관련 코드 시작
+	
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new kakao.maps.LatLng(${shopDetail.lat}, ${shopDetail.lng}), //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+	
+	var map = new kakao.maps.Map(mapContainer, options); //지도 생성 및 객체 리턴
+	
+	createMarker();
+	
+	
+	function createMarker() {
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new kakao.maps.LatLng(${shopDetail.lat}, ${shopDetail.lng}); 
+
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+	}
+
+	// Map API 관련 코드 끝
+	
+	
+	function toggleFavorite() {
+		const param = {
+				params : {
+					'i_shop' : ${shopDetail.i_shop},
+					'proc_type' : (favorite.innerText == 'favorite' ? 'del' : 'ins')
+				}
+		}
+		
+		axios.get('/shop/ajaxLikeShop', param)
+			.then(function(res) {
+				console.log(res.data);
+				if(res.data == 1) {
+					favorite.innerText = (favorite.innerText == 'favorite' ? 'favorite_border' : 'favorite');
+				}
+			})
+	}
+	
 	function delShop() {
 		if(confirm('삭제하시겠습니까?')) {
 			location.href='/shop/delShop?i_shop=${shopDetail.i_shop}';

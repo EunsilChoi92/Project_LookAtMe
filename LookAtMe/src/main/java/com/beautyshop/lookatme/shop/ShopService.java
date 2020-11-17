@@ -117,6 +117,16 @@ public class ShopService {
 	public int ajaxDelShopPic(ShopPARAM param) {
 		return shopMapper.delShopPic(param);
 	}
+
+	public int ajaxLikeShop(ShopPARAM param) {
+		switch(param.getProc_type()) {
+		case "del":
+			return shopMapper.delShopLike(param);
+		case "ins":
+			return shopMapper.insShopLike(param);
+		}
+		return 0;
+	}
 	
 	
 

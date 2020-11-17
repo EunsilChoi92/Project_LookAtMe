@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.beautyshop.lookatme.CommonUtils;
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.SecurityUtils;
 import com.beautyshop.lookatme.ViewRef;
@@ -66,6 +67,7 @@ public class ShopController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
@@ -102,8 +104,9 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/ajaxLikeShop", method = RequestMethod.GET)
-	public int ajaxLikeShop(ShopPARAM param) {
-		
-		return 0;
+	@ResponseBody
+	public int ajaxLikeShop(ShopPARAM param, HttpServletRequest req) {
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
+		return shopService.ajaxLikeShop(param);
 	}
 }
