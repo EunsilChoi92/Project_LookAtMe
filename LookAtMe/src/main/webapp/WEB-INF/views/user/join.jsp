@@ -4,11 +4,12 @@
 	<div>
 		<h1>회원가입</h1>
 		<div class="msg">${msg}</div>
-		<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();">
+		<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();" enctype="multipart/form-data">
 			<div id="idChkResult" class="msg"></div>
 			<div><input type="text" name="user_id" placeholder="아이디">
 				<button type="button" onclick="chkId()">아이디 중복 체크</button>
 			</div>
+			<div><input type="file" name="user_profile"></div>
 			<div><input type="password" name="user_pw" placeholder="비밀번호"></div>
 			<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>
 			<div><input type="text" name="nm" placeholder="이름"></div>

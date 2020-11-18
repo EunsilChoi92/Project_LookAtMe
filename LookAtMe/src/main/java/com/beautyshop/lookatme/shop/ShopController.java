@@ -38,7 +38,7 @@ public class ShopController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Model model) {
 		model.addAttribute("shopList", shopService.selShopList());
-		model.addAttribute(Const.TITLE, "예뻐지기 위한 놀이터 LookAtMe");
+		model.addAttribute(Const.TITLE, "");
 		model.addAttribute(Const.VIEW, "shop/shopList");
 		
 		return ViewRef.TEMP_DEFAULT;
@@ -52,7 +52,7 @@ public class ShopController {
 			model.addAttribute("shopPicList", shopPicList);
 		}
 		model.addAttribute("categoryList", shopService.selCategoryList());
-		model.addAttribute(Const.TITLE, "등록");
+		model.addAttribute(Const.TITLE, " 글등록");
 		model.addAttribute(Const.VIEW, "shop/shopRegMod");
 		
 		return ViewRef.TEMP_DEFAULT;
@@ -73,7 +73,7 @@ public class ShopController {
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
 		List<CommentDMI> commentList = commentService.selCommentList(param);
 		
-		model.addAttribute(Const.TITLE, "상세보기");
+		model.addAttribute(Const.TITLE, " 상세보기");
 		model.addAttribute(Const.VIEW, "shop/shopDetail");
 		
 		model.addAttribute("shopDetail", shopDetail);
@@ -112,7 +112,7 @@ public class ShopController {
 	
 	@RequestMapping(value="/favoriteList", method=RequestMethod.GET)
 	public String likeLikst(Model model, ShopPARAM param, HttpServletRequest req) {
-		model.addAttribute(Const.TITLE, "좋아요 목록");
+		model.addAttribute(Const.TITLE, " 관심 목록 리스트");
 		model.addAttribute(Const.VIEW, "shop/shopFavoriteList");
 		
 		param.setI_user(SecurityUtils.getLoginUserPk(req));

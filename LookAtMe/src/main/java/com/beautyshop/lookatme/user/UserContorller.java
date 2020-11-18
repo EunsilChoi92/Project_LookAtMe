@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyshop.lookatme.Const;
@@ -32,7 +33,7 @@ public class UserContorller {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		model.addAttribute(Const.TITLE, "로그인");
+		model.addAttribute(Const.TITLE, " 로그인");
 		model.addAttribute(Const.VIEW, "user/login");
 		return ViewRef.TEMP_DEFAULT;
 	}
@@ -62,14 +63,14 @@ public class UserContorller {
 		if(err == -1) {
 			model.addAttribute("msg", "에러가 발생했습니다.");
 		}
-		model.addAttribute(Const.TITLE, "회원가입");
+		model.addAttribute(Const.TITLE, " 회원가입");
 		model.addAttribute(Const.VIEW, "user/join");
 		return ViewRef.TEMP_DEFAULT;
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public String join(UserPARAM param, RedirectAttributes ra) {
-		int result = userService.join(param);
+	public String join(UserPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mr) {
+		int result = userService.join(param, mr);
 		
 		if(result == 1) {
 			return "redirect:/user/login";
@@ -85,5 +86,16 @@ public class UserContorller {
 		System.out.println("user_id : " + param.getUser_id());
 		int result = userService.login(param);
 		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String myPage(Model model) {
+		model.addAttribute(Const.TITLE, " 마이페이지");
+		model.addAttribute(Const.VIEW, "user/myPage");
+		
+		
+		model.addAttribute("UserInfo", null);
+		
+		return ViewRef.TEMP_DEFAULT;
 	}
 }

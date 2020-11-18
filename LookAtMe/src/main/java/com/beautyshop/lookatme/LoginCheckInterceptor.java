@@ -32,15 +32,24 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 				response.sendRedirect("/user/login");
 				return false;
 			}
+			break;
 			
 		case ViewRef.URI_USER: // user
 			switch (uriArr[2]) {
-			case "login": case "join":
+			case "myPage":
+				if(isLogout) { // 로그아웃 상태
+					response.sendRedirect("/user/login");
+					return false;
+				}
+				break;
+			case "login": case "join": 
 				if (!isLogout) { // 로그인 되어 있는 상태
 					response.sendRedirect("/shop/main");
 					return false;
 				}
+				break;
 			}
+			break;
 			
 		case ViewRef.URI_SHOP: // shop
 			switch (uriArr[2]) {
@@ -49,7 +58,9 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 					response.sendRedirect("/user/login");
 					return false;
 				}
+				break;
 			}
+			break;
 		}	
 		
 		return true;
