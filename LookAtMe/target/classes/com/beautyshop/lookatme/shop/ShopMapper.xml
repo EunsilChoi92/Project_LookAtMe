@@ -40,11 +40,11 @@
 		WHERE A.i_shop = #{i_shop}
 	</select>
 	
-	<select id="selMaxI_shop" parameterType="shopPARAM" resultType="Integer">
+	<select id="selMaxI_shop" parameterType="ShopPARAM" resultType="Integer">
 		SELECT MAX(i_shop) FROM t_beauty_shop WHERE i_user = #{i_user}
 	</select>
 	
-	<select id="selShopPicList" parameterType="shopPARAM" resultType="ShopPicVO">
+	<select id="selShopPicList" parameterType="ShopPARAM" resultType="ShopPicVO">
 		SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
 	</select>
 	
@@ -53,8 +53,29 @@
 		WHERE i_shop = #{i_shop}
 	</select>
 	
-	<select id="selShopFavoriteList" parameterType="">
+	<select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
+			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
+			, ifnull(B.val, '') as cd_category
+			, C.nm as nm
+			, ifnull(D.cnt, 0) as cnt_favorite
+			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
+		FROM t_beauty_shop A
+		INNER JOIN c_code_d B
+			ON A.cd = B.cd
+			AND B.i_m = 1
+		LEFT JOIN t_user C
+			ON A.i_user = C.i_user
+		LEFT JOIN (
+			SELECT i_shop, COUNT(i_shop) as cnt
+			FROM t_beauty_shop_like
+			GROUP BY i_shop
+		) D	
+		ON A.i_shop = D.i_shop
+		LEFT JOIN t_beauty_shop_like E
+		ON A.i_shop = E.i_shop
+		AND E.i_user = #{i_user}
+		WHERE E.i_shop IS NOT NULL;
 	</select>
 	
 	

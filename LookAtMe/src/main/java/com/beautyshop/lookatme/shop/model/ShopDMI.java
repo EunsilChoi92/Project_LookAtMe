@@ -1,5 +1,7 @@
 package com.beautyshop.lookatme.shop.model;
 
+import java.util.List;
+
 public class ShopDMI extends ShopVO {
 	private double north_east;
 	private double south_west;
@@ -8,6 +10,7 @@ public class ShopDMI extends ShopVO {
 	private String profile_img;
 	private int cnt_favorite;
 	private int is_favorite;
+	private List<ShopPicVO> shopPicList;
 	
 	public double getNorth_east() {
 		return north_east;
@@ -51,6 +54,13 @@ public class ShopDMI extends ShopVO {
 	public void setIs_favorite(int is_favorite) {
 		this.is_favorite = is_favorite;
 	}
+	public List<ShopPicVO> getShopPicList() {
+		return shopPicList;
+	}
+	public void setShopPicList(List<ShopPicVO> shopPicList) {
+		this.shopPicList = shopPicList;
+	}
+	
 	
 	
 	

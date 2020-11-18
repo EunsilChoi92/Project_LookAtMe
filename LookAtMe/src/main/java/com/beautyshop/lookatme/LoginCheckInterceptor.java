@@ -44,7 +44,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			
 		case ViewRef.URI_SHOP: // shop
 			switch (uriArr[2]) {
-			case "regMod":
+			case "regMod": case "favoriteList":
 				if (isLogout) { // 로그아웃 상태
 					response.sendRedirect("/user/login");
 					return false;

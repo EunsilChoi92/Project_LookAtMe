@@ -114,6 +114,10 @@ public class ShopController {
 	public String likeLikst(Model model, ShopPARAM param, HttpServletRequest req) {
 		model.addAttribute(Const.TITLE, "좋아요 목록");
 		model.addAttribute(Const.VIEW, "shop/shopFavoriteList");
+		
+		param.setI_user(SecurityUtils.getLoginUserPk(req));
+		List<ShopDMI> favoriteList = shopService.selShopFavoriteList(param);
+		model.addAttribute("favoriteList", favoriteList);
 		return ViewRef.TEMP_DEFAULT;
 	}
 }

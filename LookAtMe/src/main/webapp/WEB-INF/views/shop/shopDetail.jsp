@@ -29,7 +29,7 @@
 <hr>
 
 <!-- 좋아요 -->
-<c:if test="${loginUser.i_user == shopDetail.i_user }">
+<c:if test="${loginUser != null }">
 	<h1>좋아요?!?!?!?!!?!?!?!?!?!</h1>
 	<span id="favorite" class="material-icons cursor" onclick="toggleFavorite()">
 		${shopDetail.is_favorite == 1 ? "favorite" : "favorite_border"}
