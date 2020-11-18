@@ -21,6 +21,7 @@
 	</div>
 	<div class="cursor" onclick="location.href='/user/join'">횐가입</div>
 	<div class="cursor" onclick="location.href='/shop/regMod'">샵등록</div>
+	<div class="cursor" onclick="location.href='/shop/favoriteList'">좋아요목록</div>
 	<hr>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>	

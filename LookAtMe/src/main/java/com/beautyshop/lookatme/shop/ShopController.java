@@ -109,4 +109,11 @@ public class ShopController {
 		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		return shopService.ajaxLikeShop(param);
 	}
+	
+	@RequestMapping(value="/favoriteList", method=RequestMethod.GET)
+	public String likeLikst(Model model, ShopPARAM param, HttpServletRequest req) {
+		model.addAttribute(Const.TITLE, "좋아요 목록");
+		model.addAttribute(Const.VIEW, "shop/shopFavoriteList");
+		return ViewRef.TEMP_DEFAULT;
+	}
 }
