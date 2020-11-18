@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-	<div class="cursor" onclick="location.href='/'">메인</div>
+	<div class="cursor" onclick="location.href='/'">메인</div> 
 	<div class="cursor" onclick="location.href='/user/${loginUser==null?'login':'logout'}'">
 		${loginUser==null?"로그인":"로그아웃"}
 	</div>

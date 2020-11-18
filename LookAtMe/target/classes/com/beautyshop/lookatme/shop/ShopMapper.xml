@@ -53,6 +53,10 @@
 		WHERE i_shop = #{i_shop}
 	</select>
 	
+	<select id="selShopFavoriteList" parameterType="">
+		SELECT 
+	</select>
+	
 	
 	
 	
