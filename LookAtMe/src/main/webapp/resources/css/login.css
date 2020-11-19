@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+#sectionContainerCenter {
+	width: 100%;
+	height: 100%;
+	background-image: url("../../res/img/bg_login.jpg");
+	background-repeat : no-repeat;
+	background-size : cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#sectionContainerCenter > div {
+	width: 400px;
+	height: 300px;
+	/* background: #c0c0c0; */
+	border: 5px solid #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox {
+	margin-top: 16px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div .loginBtn {
+	border: none;
+	background: none;
+	font-family: 'Knewave', cursive;
+	font-size: 30px;
+	color: #fff;
+	text-align: center;
+	width: 100px;
+}
+
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div .loginBtn:hover {
+	cursor: pointer;
+	color: #000;
+	transition: 0.2s;
+}
+
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > #loginInput > div > input {
+	width: 200px;
+	height: 30px;
+	margin-bottom: 10px;
+	background: #fff;
+	font-family: 'Quicksand', sans-serif;
+	border: 2px solid #fff;
+	border-radius: 10px;
+	color: #25412b;
+	text-align: center;
+}
+
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > #loginInput > div > input::placeholder {
+	text-align: center;
+	color: #25412b;
+}  
