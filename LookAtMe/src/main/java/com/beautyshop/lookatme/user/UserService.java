@@ -2,6 +2,7 @@ package com.beautyshop.lookatme.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.SecurityUtils;
@@ -43,7 +44,7 @@ public class UserService {
 		
 		}
 		
-		public int join(UserPARAM param) {
+		public int join(UserPARAM param, MultipartHttpServletRequest mr) {
 			try {
 				String pw = param.getUser_pw();
 				String salt = SecurityUtils.generateSalt();

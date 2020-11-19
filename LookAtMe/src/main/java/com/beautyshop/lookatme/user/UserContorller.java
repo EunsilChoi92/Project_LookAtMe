@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyshop.lookatme.Const;
@@ -68,8 +69,8 @@ public class UserContorller {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public String join(UserPARAM param, RedirectAttributes ra) {
-		int result = userService.join(param);
+	public String join(UserPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mr) {
+		int result = userService.join(param, mr);
 		
 		if(result == 1) {
 			return "redirect:/user/login";
