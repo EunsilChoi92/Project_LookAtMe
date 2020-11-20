@@ -7,6 +7,7 @@
 
 <c:forEach items="${shopList}" var="item">
 	<div class="cursor" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
-		${item.shop }
+		<div>샵이름 : ${item.shop }</div>
+		<div>샵 제일 앞 사진 : ${item.shop_pic }</div>
 	</div>
 </c:forEach>

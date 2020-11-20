@@ -10,6 +10,7 @@ public class ShopDMI extends ShopVO {
 	private String profile_img;
 	private int cnt_favorite;
 	private int is_favorite;
+	private String shop_pic;
 	private List<ShopPicVO> shopPicList;
 	
 	public double getNorth_east() {
@@ -53,6 +54,12 @@ public class ShopDMI extends ShopVO {
 	}
 	public void setIs_favorite(int is_favorite) {
 		this.is_favorite = is_favorite;
+	}
+	public String getShop_pic() {
+		return shop_pic;
+	}
+	public void setShop_pic(String shop_pic) {
+		this.shop_pic = shop_pic;
 	}
 	public List<ShopPicVO> getShopPicList() {
 		return shopPicList;

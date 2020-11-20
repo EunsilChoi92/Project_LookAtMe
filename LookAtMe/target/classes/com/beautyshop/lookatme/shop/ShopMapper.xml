@@ -7,6 +7,7 @@
 			A.i_shop, A.shop, A.phone, A.addr, A.cd, 
 			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
 			, ifnull(C.val, '') as cd_category
+			, D.shop_pic
 		FROM t_beauty_shop A
 		JOIN 
 			t_user B
@@ -18,6 +19,11 @@
 			A.cd = C.cd
 		AND 
 			C.i_m = 1
+		LEFT JOIN
+			(SELECT * FROM t_beauty_shop_pic GROUP BY i_shop HAVING MIN(i_pic)) D
+		ON
+			A.i_shop = D.i_shop
+		
 		ORDER BY A.i_shop DESC;
 	</select>
 	
