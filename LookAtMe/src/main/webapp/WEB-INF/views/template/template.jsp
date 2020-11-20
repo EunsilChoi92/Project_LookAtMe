@@ -45,14 +45,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-	<div class="cursor" onclick="location.href='/user/join'">횐가입</div>
-	<div class="cursor" onclick="location.href='/shop/regMod'">샵등록</div>
-	<div class="cursor" onclick="location.href='/shop/favoriteList'">좋아요목록</div>
-	<div class="cursor" onclick="location.href='/user/myPage'">마이페이지</div>
-	<hr>
-=======
->>>>>>> branch 'main' of https://github.com/TeamLAMP/Project_LookAtMe.git
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>	
 	</div>

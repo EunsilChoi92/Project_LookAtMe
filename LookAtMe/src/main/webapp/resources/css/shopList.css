@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.msgSection {
+	height: 300px;
+	border-bottom: 10px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
