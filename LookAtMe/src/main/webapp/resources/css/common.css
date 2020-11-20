@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Quicksand:wght@500&display=swap');
+
+.nav {
+	display: flex;
+	justify-content: space-around;
+	min-width: 800px;
+    height: 15vh;
+	font-family: 'Knewave', cursive;
+	background-color: #000;
+	color: #fff;
+	border-bottom: 10px solid #fff;
+}
+
+.nav > .logo {
+	margin-top: 20px;
+	font-size: 70px;
+	
+}
+
+.nav > .navItems {
+	display: flex;
+    margin-top: 30px;
+}
+
+.nav > .navItems > div > div {
+    width: 150px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.nav > .navItems > .navUser {
+	margin-left: 100px;
+	/* display: flex; */
+}
+
+.nav .cursor:hover {
+	color: #4d6d64;
+	transition: 0.5s;
+}
