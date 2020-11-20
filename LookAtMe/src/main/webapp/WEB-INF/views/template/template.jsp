@@ -24,29 +24,35 @@
 </style>
 </head>
 <body>
-	<div class="nav">
-		<div class="logo cursor"  onclick="location.href='/'">
-			loOKatme
-		</div>
-		<div class="navItems">
-			<div>
-				<div class="cursor" onclick="location.href='/'">MAIN</div>		
-				<div class="cursor" onclick="location.href='/shop/regMod'">ADDSHOP</div>
+	<header>
+		<div class="nav">
+			<div class="logo cursor"  onclick="location.href='/'">
+				loOKatme
 			</div>
-			<div class="navPages">
-				<div class="cursor" onclick="location.href='/shop/favoriteList'">MYLIST</div>		
-				<div class="cursor" onclick="location.href='/shop/favoriteList'">MYPAGE</div>		
-			</div>
-			<div class="navUser">
-				<div class="cursor" onclick="location.href='/user/${loginUser==null?'login':'logout'}'">
-					${loginUser==null?"LOGIN":"LOGOUT"}
+			<div class="navItems">
+				<div>
+					<div class="cursor" onclick="location.href='/'">MAIN</div>		
+					<div class="cursor" onclick="location.href='/shop/regMod'">ADDSHOP</div>
 				</div>
-				<div class="cursor" onclick="location.href='/user/join'">JOIN</div>
+				<div class="navPages">
+					<div class="cursor" onclick="location.href='/shop/favoriteList'">MYLIST</div>		
+					<div class="cursor" onclick="location.href='/shop/favoriteList'">MYPAGE</div>		
+				</div>
+				<div class="navUser">
+					<div class="cursor" onclick="location.href='/user/${loginUser==null?'login':'logout'}'">
+						${loginUser==null?"LOGIN":"LOGOUT"}
+					</div>
+					<div class="cursor" onclick="location.href='/user/join'">JOIN</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="container">
-		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>	
-	</div>
+	</header>
+	<section>
+		<div id="container">
+			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>	
+		</div>
+	</section>
+	<footer>
+	</footer>
 </body>
 </html>

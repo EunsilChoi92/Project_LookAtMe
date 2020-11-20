@@ -12,7 +12,7 @@
 				</div>
 				<div class="btnBox">
 					<div><input class="loginBtn" type="submit" value="LOGIN"></div>
-					<div><a href="/user/join"><button class="loginBtn">JOIN</button></a></div>
+					<div><a href="/user/join"><button type="button" class="loginBtn">JOIN</button></a></div>
 				</div>
 			</form>
 		</div>
