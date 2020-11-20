@@ -127,8 +127,24 @@ public class ShopService {
 		}
 		return 0;
 	}
+
+	public List<ShopDMI> selShopFavoriteList(ShopPARAM param) {
+		List<ShopDMI> favoriteList = shopMapper.selShopFavoriteList(param);
+		
+		for(ShopDMI vo : favoriteList) {
+			List<ShopPicVO> shopPicList = new ArrayList<ShopPicVO>();
+			ShopPARAM param2 = new ShopPARAM();
+			
+			param2.setI_shop(vo.getI_shop());
+			
+			shopPicList = selShopPicList(param2);
+			vo.setShopPicList(shopPicList);
+		}
+		
+		return favoriteList;
+	}
 	
-	
+	 
 
 
 	

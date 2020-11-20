@@ -14,6 +14,7 @@ public interface ShopMapper {
 	List<ShopDMI> selShopList();
 	ShopDMI selShop(ShopPARAM param);
 	int selMaxI_shop(ShopPARAM param);
+	List<ShopDMI> selShopFavoriteList(ShopPARAM param);
 
 	List<ShopPicVO> selShopPicList(ShopPARAM param);
 	int selShopChkUser(int i_shop);
