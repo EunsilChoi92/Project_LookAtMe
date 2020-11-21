@@ -45,6 +45,8 @@ public class UserService {
 		}
 		
 		public int join(UserPARAM param, MultipartHttpServletRequest mr) {
+			String path = Const.realPath;
+			System.out.println("path : " + path);
 			try {
 				String pw = param.getUser_pw();
 				String salt = SecurityUtils.generateSalt();

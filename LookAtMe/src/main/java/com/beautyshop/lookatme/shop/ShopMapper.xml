@@ -6,11 +6,24 @@
 		SELECT 
 			A.i_shop, A.shop, A.phone, A.addr, A.cd, 
 			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
+			, ifnull(C.val, '') as cd_category
+			, D.shop_pic
 		FROM t_beauty_shop A
 		JOIN 
 			t_user B
 		ON 
 			A.i_user = B.i_user
+		JOIN 
+			c_code_d C
+		ON 
+			A.cd = C.cd
+		AND 
+			C.i_m = 1
+		LEFT JOIN
+			(SELECT * FROM t_beauty_shop_pic GROUP BY i_shop HAVING MIN(i_pic)) D
+		ON
+			A.i_shop = D.i_shop
+		
 		ORDER BY A.i_shop DESC;
 	</select>
 	
@@ -77,6 +90,19 @@
 		AND E.i_user = #{i_user}
 		WHERE E.i_shop IS NOT NULL;
 	</select>
+	
+		<!-- 
+	<select id="selFavoriteList" parameterType="UserPARAM" resultType="UserDMI">
+		SELECT
+			A.i_rest, A.i_user, A.r_dt
+			, B.nm AS rest_nm
+			, B.addr AS rest_addr
+		FROM t_user_favorite A
+		INNER JOIN t_restaurant B
+		ON A.i_rest = B.i_rest
+		WHERE A.i_user = #{i_user}	
+	</select>
+	 -->
 	
 	
 	
