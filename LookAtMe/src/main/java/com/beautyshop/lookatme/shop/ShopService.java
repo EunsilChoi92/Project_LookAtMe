@@ -16,6 +16,7 @@ import com.beautyshop.lookatme.comment.CommentMapper;
 import com.beautyshop.lookatme.comment.model.CommentVO;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
+import com.beautyshop.lookatme.model.LocationVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
@@ -144,6 +145,10 @@ public class ShopService {
 		return favoriteList;
 	}
 	
+	public List<LocationVO> selLocationList(ShopPARAM param) {
+		
+		return null;
+	}
 	 
 
 
