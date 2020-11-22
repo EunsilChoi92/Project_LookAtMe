@@ -4,9 +4,14 @@ public class ShopVO {
 	private int i_shop;
 	private int i_user;
 	private String shop;
-	private String phone;
-	private String addr;
-	private int cd;
+	private int postcode;
+	private int cd_sido;
+	private int cd_sigungu;
+	private String rest_addr;
+	private String detail_addr;
+	private String extra_addr;
+	private String tel;
+	private int cd_category;
 	private double lat;
 	private double lng;
 	private int hits;
@@ -31,23 +36,53 @@ public class ShopVO {
 	public void setShop(String shop) {
 		this.shop = shop;
 	}
-	public String getPhone() {
-		return phone;
+	public int getPostcode() {
+		return postcode;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPostcode(int postcode) {
+		this.postcode = postcode;
 	}
-	public String getAddr() {
-		return addr;
+	public int getCd_sido() {
+		return cd_sido;
 	}
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setCd_sido(int cd_sido) {
+		this.cd_sido = cd_sido;
 	}
-	public int getCd() {
-		return cd;
+	public int getCd_sigungu() {
+		return cd_sigungu;
 	}
-	public void setCd(int cd) {
-		this.cd = cd;
+	public void setCd_sigungu(int cd_sigungu) {
+		this.cd_sigungu = cd_sigungu;
+	}
+	public String getRest_addr() {
+		return rest_addr;
+	}
+	public void setRest_addr(String rest_addr) {
+		this.rest_addr = rest_addr;
+	}
+	public String getDetail_addr() {
+		return detail_addr;
+	}
+	public void setDetail_addr(String detail_addr) {
+		this.detail_addr = detail_addr;
+	}
+	public String getExtra_addr() {
+		return extra_addr;
+	}
+	public void setExtra_addr(String extra_addr) {
+		this.extra_addr = extra_addr;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public int getCd_category() {
+		return cd_category;
+	}
+	public void setCd_category(int cd_category) {
+		this.cd_category = cd_category;
 	}
 	public double getLat() {
 		return lat;
@@ -79,5 +114,5 @@ public class ShopVO {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
-	
+
 }

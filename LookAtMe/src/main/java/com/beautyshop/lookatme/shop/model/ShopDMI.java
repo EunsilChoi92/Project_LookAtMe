@@ -5,7 +5,7 @@ import java.util.List;
 public class ShopDMI extends ShopVO {
 	private double north_east;
 	private double south_west;
-	private String cd_category;
+	private String cd_category_name;
 	private String nm;
 	private String profile_img;
 	private int cnt_favorite;
@@ -25,11 +25,11 @@ public class ShopDMI extends ShopVO {
 	public void setSouth_west(double south_west) {
 		this.south_west = south_west;
 	}
-	public String getCd_category() {
-		return cd_category;
+	public String getCd_category_name() {
+		return cd_category_name;
 	}
-	public void setCd_category(String cd_category) {
-		this.cd_category = cd_category;
+	public void setCd_category_name(String cd_category_name) {
+		this.cd_category_name = cd_category_name;
 	}
 	public String getNm() {
 		return nm;

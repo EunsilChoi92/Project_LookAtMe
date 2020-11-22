@@ -6,7 +6,7 @@
 		SELECT 
 			A.i_shop, A.shop, A.phone, A.addr, A.cd, 
 			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
-			, ifnull(C.val, '') as cd_category
+			, ifnull(C.val, '') as cd_category_name
 			, D.shop_pic
 		FROM t_beauty_shop A
 		JOIN 
@@ -30,7 +30,7 @@
 	<select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
 			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
-			, ifnull(B.val, '') as cd_category
+			, ifnull(B.val, '') as cd_category_name
 			, C.nm as nm
 			, ifnull(D.cnt, 0) as cnt_favorite
 			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
@@ -69,7 +69,7 @@
 	<select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
 			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
-			, ifnull(B.val, '') as cd_category
+			, ifnull(B.val, '') as cd_category_name
 			, C.nm as nm
 			, ifnull(D.cnt, 0) as cnt_favorite
 			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
