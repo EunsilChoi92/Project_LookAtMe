@@ -4,7 +4,8 @@
 
 <c:forEach items="${favoriteList}" var="item">
 	<div style="border:1px solid black">
-		<h2>가게이름 : ${item.shop }</h2>		
+		<h2>가게이름 : ${item.shop }</h2>
+		<div>가게주소 : ${item.addr }</div>		
 		<h2>가게 사진 목록 이얍</h2>
 		<c:forEach items="${item.shopPicList }" var="pic">
 			<div>사진 : ${pic.shop_pic }</div>

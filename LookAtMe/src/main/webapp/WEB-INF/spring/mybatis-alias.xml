@@ -17,6 +17,7 @@
 		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentVO" alias="CommentVO" />
 		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentDMI" alias="CommentDMI" />
 	
+		<typeAlias type="com.beautyshop.lookatme.location.model.LocationVO" alias="LocationVO" />
 		<typeAlias type="com.beautyshop.lookatme.location.model.LocationDMI" alias="LocationDMI" />
 	</typeAliases>
 </configuration>

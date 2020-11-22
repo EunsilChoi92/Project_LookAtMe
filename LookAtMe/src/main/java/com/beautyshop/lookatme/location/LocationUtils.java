@@ -18,8 +18,14 @@ public class LocationUtils {
 		String sido = addrArr[0];
 		int cd_sido = changeAddrToInt(sido, 0);
 		
-		String sigungu = addrArr[1];
-		int cd_sigungu = changeAddrToInt(sigungu, 1);
+		String sigungu;
+		int cd_sigungu;
+		if(cd_sido != 8) {
+			sigungu = addrArr[1];
+			cd_sigungu = changeAddrToInt(sigungu, 1);
+		} else {
+			cd_sigungu = 1;
+		}
 		
 		String rest_addr = "";
 		

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.beautyshop.lookatme.location.model.LocationDMI;
+import com.beautyshop.lookatme.location.model.LocationVO;
 
 @Service
 public class LocationService {
@@ -15,5 +16,9 @@ public class LocationService {
 	
 	public List<LocationDMI> selLocation() {
 		return locationMapper.selLocation();
+	}
+
+	public List<LocationDMI> selLocationCategory(LocationVO param) {
+		return locationMapper.selLocationCategory(param);
 	}
 }

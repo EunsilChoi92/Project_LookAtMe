@@ -34,8 +34,8 @@ public class ShopService {
 	private CommentMapper commentMapper;
 	
 	
-	public List<ShopDMI> selShopList() {
-		List<ShopDMI> shopList = shopMapper.selShopList();
+	public List<ShopDMI> selShopList(ShopPARAM param) {
+		List<ShopDMI> shopList = shopMapper.selShopList(param);
 		for(ShopDMI vo : shopList) {
 			String addr = String.format("%s %s %s %s %s"
 					, vo.getSido(), vo.getSigungu()
@@ -156,6 +156,12 @@ public class ShopService {
 			
 			shopPicList = selShopPicList(param2);
 			vo.setShopPicList(shopPicList);
+			
+			String addr = String.format("%s %s %s %s %s"
+					, vo.getSido(), vo.getSigungu()
+					, vo.getRest_addr(), vo.getExtra_addr()
+					, vo.getDetail_addr());
+			vo.setAddr(addr);
 		}
 		
 		return favoriteList;

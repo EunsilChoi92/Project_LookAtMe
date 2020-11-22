@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.beautyshop.lookatme.shop.ShopMapper">
-	<select id="selShopList" resultType="ShopDMI">
+	<select id="selShopList" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
 			A.i_shop, A.shop, A.postcode, A.cd_sido, E.val as sido, A.cd_sigungu, F.sigungu, A.rest_addr,
 			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, 
@@ -35,6 +35,12 @@
 			A.cd_sigungu = F.cd_sigungu
 		AND 
 			A.cd_sido = F.cd_sido
+		<if test="cd_sido != 0">
+			WHERE A.cd_sido = #{cd_sido}
+			<if test="cd_sigungu != 0">
+				AND A.cd_sigungu = #{cd_sigungu}
+			</if>
+		</if>
 		ORDER BY A.i_shop DESC;
 	</select>
 	
@@ -90,7 +96,7 @@
 	
 	<select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
-			A.i_shop, A.i_user, A.shop, A.cd_sido, A.cd_sigungu, A.rest_addr,
+			A.i_shop, A.i_user, A.shop, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
 			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits
 			, ifnull(B.val, '') as cd_category_name
 			, C.nm as nm
@@ -108,9 +114,18 @@
 			GROUP BY i_shop
 		) D	
 		ON A.i_shop = D.i_shop
+		
 		LEFT JOIN t_beauty_shop_like E
 		ON A.i_shop = E.i_shop
 		AND E.i_user = #{i_user}
+		
+		JOIN c_code_d F
+			ON A.cd_sido = F.cd
+			AND F.i_m = 2
+		
+		JOIN t_location G
+			ON A.cd_sigungu = G.cd_sigungu
+			AND A.cd_sido = G.cd_sido
 		WHERE E.i_shop IS NOT NULL;
 	</select>
 	

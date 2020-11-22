@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.beautyshop.lookatme.CommonUtils;
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.SecurityUtils;
 import com.beautyshop.lookatme.ViewRef;
 import com.beautyshop.lookatme.comment.CommentService;
 import com.beautyshop.lookatme.comment.model.CommentDMI;
+import com.beautyshop.lookatme.location.LocationService;
+import com.beautyshop.lookatme.location.model.LocationVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/shop")
@@ -35,13 +34,24 @@ public class ShopController {
 	@Autowired
 	CommentService commentService;
 	
+	@Autowired
+	LocationService locationService;
+	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Model model) {
-		model.addAttribute("shopList", shopService.selShopList());
+	public String main(Model model, ShopPARAM param) {
+		model.addAttribute("shopList", shopService.selShopList(param));
+		model.addAttribute("locationCategory", locationService.selLocationCategory(new LocationVO()));
 		model.addAttribute(Const.TITLE, "");
 		model.addAttribute(Const.VIEW, "shop/shopList");
 		
 		return ViewRef.TEMP_DEFAULT;
+	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	public String main(ShopPARAM param, RedirectAttributes ra) {
+		ra.addAttribute("cd_sido", param.getCd_sido());
+		ra.addAttribute("cd_sigungu", param.getCd_sigungu());
+		return "redirect:/shop/main";
 	}
 	
 	@RequestMapping(value = "/regMod", method = RequestMethod.GET)
@@ -74,7 +84,6 @@ public class ShopController {
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
 		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		
-		System.out.println("찍어보자구.. : " + param.getI_shop());
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
 		List<CommentDMI> commentList = commentService.selCommentList(param);

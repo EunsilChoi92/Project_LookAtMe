@@ -9,4 +9,21 @@
 		ON A.i_m = B.i_m
 		AND A.cd_sido = B.cd;
 	</select>
+	
+	<select id="selLocationCategory" resultType="LocationDMI">
+		SELECT B.cd_sido, A.val
+		<if test="cd_sido > 0">
+			, B.cd_sigungu, B.sigungu 
+		</if>
+		FROM c_code_d A
+		JOIN t_location B
+		ON A.cd = B.cd_sido
+		AND A.i_m = 2
+		<if test="cd_sido > 0">
+			AND B.cd_sido = ${cd_sido}
+		</if>
+		<if test="cd_sido == 0">
+			GROUP BY A.cd
+		</if>
+	</select>
 </mapper>
