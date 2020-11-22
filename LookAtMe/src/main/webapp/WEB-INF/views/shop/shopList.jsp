@@ -14,7 +14,9 @@
 	<div class="cursor" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 		<div>샵이름 : ${item.shop }</div>
 		<div>샵 제일 앞 사진 : ${item.shop_pic }</div>
-		<div></div>
+		<div>샵 주소 : ${item.addr }</div>
+		<div>우편번호 : ${item.postcode }</div>
+		<div>카테고리 : ${item.cd_category_name }</div>
 	
 		${item.shop }
 	</div>

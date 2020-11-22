@@ -26,6 +26,9 @@
 <!-- 가게 정보 -->
 <h1>가게 정보</h1>
 <div>가게이름 : ${shopDetail.shop}</div>
+<div>가게주소 : ${shopDetail.addr }</div>
+<div>우편번호 : ${shopDetail.postcode }</div>
+<div>카테고리 : ${shopDetail.cd_category_name }</div>
 <hr>
 
 <!-- 좋아요 -->

@@ -4,7 +4,8 @@
 <mapper namespace="com.beautyshop.lookatme.shop.ShopMapper">
 	<select id="selShopList" resultType="ShopDMI">
 		SELECT 
-			A.i_shop, A.shop, A.phone, A.addr, A.cd, 
+			A.i_shop, A.shop, A.postcode, A.cd_sido, E.val as sido, A.cd_sigungu, F.sigungu, A.rest_addr,
+			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, 
 			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
 			, ifnull(C.val, '') as cd_category_name
 			, D.shop_pic
@@ -16,27 +17,39 @@
 		JOIN 
 			c_code_d C
 		ON 
-			A.cd = C.cd
+			A.cd_category = C.cd
 		AND 
 			C.i_m = 1
 		LEFT JOIN
 			(SELECT * FROM t_beauty_shop_pic GROUP BY i_shop HAVING MIN(i_pic)) D
 		ON
 			A.i_shop = D.i_shop
-		
+		JOIN 
+			c_code_d E
+		ON A.cd_sido = E.cd
+		AND 
+			E.i_m = 2
+		JOIN
+			t_location F
+		ON 
+			A.cd_sigungu = F.cd_sigungu
+		AND 
+			A.cd_sido = F.cd_sido
 		ORDER BY A.i_shop DESC;
 	</select>
 	
 	<select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
-			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
+			A.i_shop, A.i_user, A.shop, A.postcode, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
+			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits, 
+			A.r_dt, A.m_dt, C.profile_img, C.nm
 			, ifnull(B.val, '') as cd_category_name
 			, C.nm as nm
 			, ifnull(D.cnt, 0) as cnt_favorite
 			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
 		FROM t_beauty_shop A
 		INNER JOIN c_code_d B
-			ON A.cd = B.cd
+			ON A.cd_category = B.cd
 			AND B.i_m = 1
 		LEFT JOIN t_user C
 			ON A.i_user = C.i_user
@@ -46,10 +59,19 @@
 			WHERE i_shop = #{i_shop}
 			GROUP BY i_shop
 		) D	
-		ON A.i_shop = D.i_shop
+			ON A.i_shop = D.i_shop
 		LEFT JOIN t_beauty_shop_like E
-		ON A.i_shop = E.i_shop
-		AND E.i_user = #{i_user}
+			ON A.i_shop = E.i_shop
+			AND E.i_user = #{i_user}
+			
+		JOIN c_code_d F
+			ON A.cd_sido = F.cd
+			AND F.i_m = 2
+		
+		JOIN t_location G
+			ON A.cd_sigungu = G.cd_sigungu
+			AND A.cd_sido = G.cd_sido
+		
 		WHERE A.i_shop = #{i_shop}
 	</select>
 	
@@ -68,14 +90,15 @@
 	
 	<select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
 		SELECT 
-			A.i_shop, A.i_user, A.cd, A.shop, A.phone, A.addr, A.lat, A.lng, A.hits
+			A.i_shop, A.i_user, A.shop, A.cd_sido, A.cd_sigungu, A.rest_addr,
+			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits
 			, ifnull(B.val, '') as cd_category_name
 			, C.nm as nm
 			, ifnull(D.cnt, 0) as cnt_favorite
 			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
 		FROM t_beauty_shop A
 		INNER JOIN c_code_d B
-			ON A.cd = B.cd
+			ON cd_category = B.cd
 			AND B.i_m = 1
 		LEFT JOIN t_user C
 			ON A.i_user = C.i_user
@@ -91,28 +114,13 @@
 		WHERE E.i_shop IS NOT NULL;
 	</select>
 	
-		<!-- 
-	<select id="selFavoriteList" parameterType="UserPARAM" resultType="UserDMI">
-		SELECT
-			A.i_rest, A.i_user, A.r_dt
-			, B.nm AS rest_nm
-			, B.addr AS rest_addr
-		FROM t_user_favorite A
-		INNER JOIN t_restaurant B
-		ON A.i_rest = B.i_rest
-		WHERE A.i_user = #{i_user}	
-	</select>
-	 -->
-	
-	
-	
-	
-	
 	<insert id="insShop" parameterType="ShopPARAM">
 		INSERT INTO t_beauty_shop
-		(i_user, shop, phone, addr, cd, lat, lng)
+		(i_user, shop, postcode, cd_sido, cd_sigungu, rest_addr
+		, detail_addr, extra_addr, tel, cd_category, lat, lng)
 		VALUES
-		(#{i_user}, #{shop}, #{phone}, #{addr}, #{cd}, #{lat}, #{lng})
+		(#{i_user}, #{shop}, #{postcode}, #{cd_sido}, #{cd_sigungu}, #{rest_addr}
+		, #{detail_addr}, #{extra_addr}, #{tel}, #{cd_category}, #{lat}, #{lng})
 	</insert>
 	
 	<insert id="insShopPic" parameterType="ShopPicVO">
@@ -131,12 +139,18 @@
 	
 	
 	
+	
 	<update id="updShop" parameterType="ShopPARAM">
 		UPDATE t_beauty_shop
 		SET shop = #{shop},
-		    phone = #{phone},
-		    addr = #{addr},
-		    cd = #{cd},
+			postcode = #{postcode},
+			cd_sido = #{cd_sido},
+			cd_sigungu = #{cd_sigungu},
+			rest_addr = #{rest_addr},
+			detail_addr = #{detail_addr},
+			extra_addr = #{extra_addr},
+		    tel = #{tel},
+			cd_category = #{cd_category},
 		    lat = #{lat},
 		    lng = ${lng},
 		    m_dt = now()

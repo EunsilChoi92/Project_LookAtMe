@@ -4,7 +4,7 @@ public class ShopVO {
 	private int i_shop;
 	private int i_user;
 	private String shop;
-	private int postcode;
+	private String postcode;
 	private int cd_sido;
 	private int cd_sigungu;
 	private String rest_addr;
@@ -36,10 +36,10 @@ public class ShopVO {
 	public void setShop(String shop) {
 		this.shop = shop;
 	}
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 	public int getCd_sido() {

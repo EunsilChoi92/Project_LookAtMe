@@ -8,6 +8,7 @@ public class ShopPARAM extends ShopVO {
 	private int i_pic;
 	private int i_comment;
 	private String proc_type;
+	private String addr;
 	
 	
 	public double getSw_lat() {
@@ -52,5 +53,12 @@ public class ShopPARAM extends ShopVO {
 	public void setProc_type(String proc_type) {
 		this.proc_type = proc_type;
 	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	
 	
 }

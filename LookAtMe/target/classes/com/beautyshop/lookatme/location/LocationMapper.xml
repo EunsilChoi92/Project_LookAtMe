@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beautyshop.lookatme.location.LocationMapper">
+	<select id="selLocation" resultType="LocationDMI">
+		SELECT A.i_m, A.cd_sido, B.val, A.cd_sigungu, A.sigungu 
+		FROM t_location A
+		JOIN c_code_d B
+		ON A.i_m = B.i_m
+		AND A.cd_sido = B.cd;
+	</select>
+</mapper>

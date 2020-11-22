@@ -4,7 +4,6 @@ public class CodeVO {
 	private int i_m;
 	private int cd;
 	private String val;
-	//test
 	
 	public int getI_m() {
 		return i_m;

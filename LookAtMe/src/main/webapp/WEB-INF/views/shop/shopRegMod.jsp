@@ -9,18 +9,14 @@
 				<input type="text" name="shop" placeholder="가게명"
 					value="${shopInfo.shop}">
 			</div>
-				<!-- 
-            <div><input type="text" name="addr" placeholder="주소" value='${shopInfo.addr}' onkeyup="changeAddr()"></div>
-            <button name="btn" type="button" onclick="getLatLng()">좌표가져오기</button>
-            <span id="resultGetLatLng"></span>
-             -->
+
 			<div>
-				<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+				<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${shopInfo == null? '' : shopInfo.postcode }" readonly>
 				<input type="button" onclick="openSearchAddr()" value="우편번호 찾기">
 			</div>
-			<div><input type="text" id="address" name="addr" placeholder="주소" value="" readonly readonly></div>
-			<div><input type="text" id="detailAddress" name="detail_addr" placeholder="상세주소"></div>
-			<div><input type="text" id="extraAddress" name="extra_addr" placeholder="참고항목" readonly></div>
+			<div><input type="text" id="address" name="addr" placeholder="주소" value="${shopInfo == null? '' : shopInfo.addr }" readonly></div>
+			<div><input type="text" id="detailAddress" name="detail_addr" placeholder="상세주소" value="${shopInfo == null? '' : shopInfo.detail_addr }"></div>
+			<div><input type="text" id="extraAddress" name="extra_addr" placeholder="참고항목" readonly value="${shopInfo == null? '' : shopInfo.extra_addr }"></div>
 			<div><input type="tel" name="tel" placeholder="전화번호" value="${shopInfo == null? '' : shopInfo.tel }"></div>
 			
 			<input type="hidden" name="i_shop" value="${shopInfo == null? 0 : shopInfo.i_shop }"> 
@@ -32,11 +28,11 @@
 				카테고리 : <select name="cd_category">
 					<option value="0">--선택--</option>
 					<c:forEach items="${categoryList}" var="item">
-						<c:if test="${shopInfo.cd_category == item.cd_category}">
-							<option value="${item.cd_category}" selected>${item.val}</option>
+						<c:if test="${shopInfo.cd_category == item.cd}">
+							<option value="${item.cd}" selected>${item.val}</option>
 						</c:if>
-						<c:if test="${shopInfo.cd_category != item.cd_category}">
-							<option value="${item.cd_category}">${item.val}</option>
+						<c:if test="${shopInfo.cd_category != item.cd}">
+							<option value="${item.cd}">${item.val}</option>
 						</c:if>
 					</c:forEach>
 				</select>

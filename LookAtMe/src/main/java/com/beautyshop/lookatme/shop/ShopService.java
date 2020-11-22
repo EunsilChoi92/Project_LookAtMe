@@ -15,6 +15,7 @@ import com.beautyshop.lookatme.FileUtils;
 import com.beautyshop.lookatme.comment.CommentMapper;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
+import com.beautyshop.lookatme.location.LocationUtils;
 import com.beautyshop.lookatme.location.model.LocationVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
@@ -34,7 +35,15 @@ public class ShopService {
 	
 	
 	public List<ShopDMI> selShopList() {
-		return shopMapper.selShopList();
+		List<ShopDMI> shopList = shopMapper.selShopList();
+		for(ShopDMI vo : shopList) {
+			String addr = String.format("%s %s %s %s %s"
+					, vo.getSido(), vo.getSigungu()
+					, vo.getRest_addr(), vo.getExtra_addr()
+					, vo.getDetail_addr());
+			vo.setAddr(addr);
+		}
+		return shopList;
 	}
 	
 	public List<CodeVO> selCategoryList() {
@@ -48,22 +57,30 @@ public class ShopService {
 	}
 	
 	public ShopDMI selShop(ShopPARAM param) {
-		return shopMapper.selShop(param);
+		ShopDMI shopDMI = shopMapper.selShop(param);
+		String addr = String.format("%s %s %s %s %s"
+				, shopDMI.getSido(), shopDMI.getSigungu()
+				, shopDMI.getRest_addr(), shopDMI.getExtra_addr()
+				, shopDMI.getDetail_addr());
+		shopDMI.setAddr(addr);
+		return shopDMI;
 	}
 
 	public int regModShop(ShopPARAM param, MultipartHttpServletRequest mReq) {
 		int i_shop = 0;
 		
+		ShopPARAM realParam = LocationUtils.splitAddr(param);
+		
 		// 글 수정
-		if(param.getI_shop() != 0) {
-			shopMapper.updShop(param);
-			i_shop =  param.getI_shop();
+		if(realParam.getI_shop() != 0) {
+			shopMapper.updShop(realParam);
+			i_shop = realParam.getI_shop();
 		}
 		
 		// 글 등록
 		else {
-			shopMapper.insShop(param);
-			i_shop = shopMapper.selMaxI_shop(param);
+			shopMapper.insShop(realParam);
+			i_shop = shopMapper.selMaxI_shop(realParam);
 		}
 		
 		List<MultipartFile> fileList = mReq.getFiles("shop_pic");
@@ -144,12 +161,6 @@ public class ShopService {
 		return favoriteList;
 	}
 	
-	public List<LocationVO> selLocationList(ShopPARAM param) {
-		
-		return null;
-	}
-	 
-
 
 	
 }

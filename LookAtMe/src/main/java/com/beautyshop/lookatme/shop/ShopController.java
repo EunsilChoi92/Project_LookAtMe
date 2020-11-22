@@ -48,7 +48,12 @@ public class ShopController {
 	public String shopRegMod(Model model, ShopPARAM param) {
 		if(param.getI_shop() != 0) {
 			List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
-			model.addAttribute("shopInfo", shopService.selShop(param));
+			ShopDMI shopInfo = shopService.selShop(param);
+			String addr = String.format("%s %s %s"
+					, shopInfo.getSido(), shopInfo.getSigungu()
+					, shopInfo.getRest_addr());
+			shopInfo.setAddr(addr);
+			model.addAttribute("shopInfo", shopInfo);
 			model.addAttribute("shopPicList", shopPicList);
 		}
 		model.addAttribute("categoryList", shopService.selCategoryList());
@@ -69,6 +74,7 @@ public class ShopController {
 	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
 		param.setI_user(SecurityUtils.getLoginUserPk(req));
 		
+		System.out.println("찍어보자구.. : " + param.getI_shop());
 		ShopDMI shopDetail = shopService.selShop(param);
 		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
 		List<CommentDMI> commentList = commentService.selCommentList(param);

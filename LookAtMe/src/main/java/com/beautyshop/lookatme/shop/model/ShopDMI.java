@@ -12,6 +12,9 @@ public class ShopDMI extends ShopVO {
 	private int is_favorite;
 	private String shop_pic;
 	private List<ShopPicVO> shopPicList;
+	private String sido;
+	private String sigungu;
+	private String addr;
 	
 	public double getNorth_east() {
 		return north_east;
@@ -67,8 +70,24 @@ public class ShopDMI extends ShopVO {
 	public void setShopPicList(List<ShopPicVO> shopPicList) {
 		this.shopPicList = shopPicList;
 	}
-	
-	
+	public String getSido() {
+		return sido;
+	}
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getSigungu() {
+		return sigungu;
+	}
+	public void setSigungu(String sigungu) {
+		this.sigungu = sigungu;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
 	
 	
 }
