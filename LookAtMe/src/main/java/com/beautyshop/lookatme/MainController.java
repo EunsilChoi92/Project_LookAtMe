@@ -26,9 +26,6 @@ public class MainController {
 		if(LocationUtils.locationList == null) {
 			LocationUtils.locationList = locationService.selLocation();
 		}
-		for(LocationDMI vo : LocationUtils.locationList) {
-			//System.out.println(vo.getSigungu());
-		}
 		System.out.println("root");
 		return "redirect:/shop/main";
 	}

@@ -12,7 +12,7 @@
 	<div>
 		<form id="searchFrm" action="/shop/main" method="post" onsubmit="return chkSearchFrm()">
 			<span>지역검색 : </span>
-			<select name="cd_sido" onchange="ajaxSelSigungu()">
+			<select name="cd_sido" onchange="onChangeCategory()">
 				<option value="0">--시도--</option>
 				<c:forEach items="${locationCategory }" var="sido">
 					<option value="${sido.cd_sido}">${sido.val }</option>
@@ -47,6 +47,14 @@
 		return true;
 	}
 
+	function onChangeCategory() {
+		if(searchFrm.cd_sido.value == 0) {
+			searchFrm.cd_sigungu.innerHTML = `<option value="0">--시군구--</option>`;
+			return;
+		} 
+		ajaxSelSigungu();	
+	}
+	
 	function ajaxSelSigungu() {
 		const value = searchFrm.cd_sido.value;
 		if(value != 0) {
@@ -60,7 +68,7 @@
 				.then(function(res) {
 					const result = res.data;
 					searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
-					if(cd_sido != 8) {
+					if(searchFrm.cd_sido != 8) {
 						for(var i=0; i<result.length; i++) {
 							searchFrm.cd_sigungu.innerHTML += 
 									`<option value="\${result[i].cd_sigungu}">\${result[i].sigungu}</option>`;
