@@ -62,7 +62,6 @@
 	<script
 		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-   
 	   function ajaxDelShopPic(i_pic) {
 			if(confirm('삭제하시겠습니까?')) {
 				const param = {
@@ -107,42 +106,7 @@
          }
       }
    
-      function changeAddr() {
-         resultGetLatLng.innerText = '';
-         frm.lat.value = '0';
-         frm.lng.value = '0';
-      }
-   
-      /*
-      const geocoder = new kakao.maps.services.Geocoder();
-         
-      function getLatLng() {
-         const addrStr = frm.addr.value;
-         
-         if(addrStr.length < 9) {
-            alert('주소를 확인해 주세요');
-            frm.addr.focus();
-            return;
-         }
-         
-         geocoder.addressSearch(addrStr, function(result, status) {
-             if (status === kakao.maps.services.Status.OK) {
-            console.log(result[0]);
-            
-            if(result.length > 0) {
-               resultGetLatLng.innerText = 'V';
-                frm.lat.value = result[0].y;
-                frm.lng.value = result[0].x;
-               
-            }
- 
-             }
-         });
-      }
-      */
-      
       var geocoder = new daum.maps.services.Geocoder();
-      
       
       function openSearchAddr() {
           new daum.Postcode({

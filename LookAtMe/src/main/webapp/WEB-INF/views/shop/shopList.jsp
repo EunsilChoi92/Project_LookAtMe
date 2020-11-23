@@ -27,7 +27,7 @@
 	<div id="listFlex">
 	<c:forEach items="${shopList}" var="item">
 		<div class="shopContainer cursor" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
-			<img src="../../res/img/shop/${item.i_shop}/${item.shop_pic}">
+			<img src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div class="shopInfo">
 				<div class="shopNm">${item.shop }</div>
 				<div>${item.addr }</div>

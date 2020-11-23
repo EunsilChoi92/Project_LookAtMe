@@ -39,12 +39,13 @@ public class UserContorller {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(UserPARAM param, HttpSession hs, RedirectAttributes ra) {	
+	public String login(UserPARAM param, String referrer, HttpSession hs, RedirectAttributes ra) {	
 		int result = userService.login(param);
 		System.out.println("result : " + result);
 		if(result == Const.SUCCESS) {
 			hs.setAttribute(Const.LOGIN_USER, param);
-			return "redirect:/shop/main";
+			//return "redirect:/shop/main";
+			return "redirect:" + referrer;
 		}
 		
 		String msg = null;

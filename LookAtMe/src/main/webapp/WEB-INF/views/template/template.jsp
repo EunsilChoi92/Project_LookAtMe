@@ -39,7 +39,7 @@
 					<div class="cursor" onclick="location.href='/shop/favoriteList'">MYPAGE</div>		
 				</div>
 				<div class="navUser">
-					<div class="cursor" onclick="location.href='/user/${loginUser==null?'login':'logout'}'">
+					<div class="cursor" onclick="chkLoginOrLogout()">
 						${loginUser==null?"LOGIN":"LOGOUT"}
 					</div>
 					<div class="cursor" onclick="location.href='/user/join'">JOIN</div>
@@ -54,5 +54,20 @@
 	</section>
 	<footer>
 	</footer>
+	<script>
+		function chkLoginOrLogout() {
+			let status = 'login';
+			
+			if(${loginUser != null}) {
+				if(confirm('로그아웃 하시겠습니까?')) {
+					status = 'logout';
+				} else {
+					return;
+				}
+			}
+			
+			location.href=`/user/\${status}`;
+		}
+	</script>
 </body>
 </html>
