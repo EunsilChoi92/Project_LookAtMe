@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.FileUtils;
 import com.beautyshop.lookatme.comment.CommentMapper;
+import com.beautyshop.lookatme.comment.model.CommentDMI;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
 import com.beautyshop.lookatme.location.LocationUtils;
@@ -37,15 +38,21 @@ public class ShopService {
 	public List<ShopDMI> selShopList(ShopPARAM param) {
 		List<ShopDMI> shopList = shopMapper.selShopList(param);
 		for(ShopDMI vo : shopList) {
+			// 전체 주소 가져오기
 			String addr = String.format("%s %s %s %s %s"
 					, vo.getSido(), vo.getSigungu()
 					, vo.getRest_addr(), vo.getExtra_addr()
 					, vo.getDetail_addr());
 			vo.setAddr(addr);
+			
+			// 평균 별점 가져오기
+			double scoreAvg = getScoreAvg(vo);
+			vo.setScoreAvg(scoreAvg);
+			
 		}
 		return shopList;
 	}
-	
+
 	public List<CodeVO> selCategoryList() {
 		CodeVO param = new CodeVO();
 		param.setI_m(1);
@@ -168,5 +175,25 @@ public class ShopService {
 	}
 	
 
+	
+	
+	private double getScoreAvg(ShopDMI param) {
+		ShopPARAM shopParam = new ShopPARAM();
+		shopParam.setI_shop(param.getI_shop());
+		
+		List<CommentDMI> commentList = commentMapper.selCommentList(shopParam);
+		double scoreAvg = 0;
+		double sum = 0;
+		
+		if(commentList.size() != 0) {
+			for(CommentDMI vo : commentList) {
+				sum += vo.getScore();
+			}
+			
+			scoreAvg = sum / commentList.size();
+		}
+		
+		return Math.round(scoreAvg * 100) / 100.0;
+	}
 	
 }

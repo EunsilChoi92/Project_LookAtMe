@@ -29,6 +29,7 @@
 <div>가게주소 : ${shopDetail.addr }</div>
 <div>우편번호 : ${shopDetail.postcode }</div>
 <div>카테고리 : ${shopDetail.cd_category_name }</div>
+<div>좋아요 수 : ${shopDetail.cnt_favorite }</div>
 <hr>
 
 <!-- 좋아요 -->
@@ -152,6 +153,9 @@
 				console.log(res.data);
 				if(res.data == 1) {
 					favorite.innerText = (favorite.innerText == 'favorite' ? 'favorite_border' : 'favorite');
+					// 좋아요 누른 후 좋아요 개수도 +1로 바꿔야 함~~
+					// 아작스로 가져와야 할듯 ㅜㅜ
+				
 				}
 			})
 	}
@@ -255,6 +259,7 @@
 				});
 		}
 	}
+	
 	
 	// 아직 안 씀
 	function ajaxSelShopPic() {

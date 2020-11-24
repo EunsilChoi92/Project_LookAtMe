@@ -12,22 +12,14 @@
 	<div id="searchDiv">
 		<form id="searchFrm" action="/shop/main" method="post" onsubmit="return chkSearchFrm()">
 			<select name="cd_sido" onchange="onChangeCategory()">
-<<<<<<< HEAD
-				<option value="-1">--시도--</option>
+				<option value="-1">지역을 선택해주세요</option>
 				<option value="0">전체</option>
-=======
-				<option value="0">지역을 선택해주세요</option>
->>>>>>> branch 'kyondoku' of https://github.com/TeamLAMP/Project_LookAtMe.git
 				<c:forEach items="${locationCategory }" var="sido">
 					<option value="${sido.cd_sido}">${sido.val }</option>
 				</c:forEach>
 			</select>
 			<select name="cd_sigungu">
-<<<<<<< HEAD
-				<option value="-1">--시군구--</option>
-=======
 				<option value="0">시군구를 선택해주세요</option>
->>>>>>> branch 'kyondoku' of https://github.com/TeamLAMP/Project_LookAtMe.git
 			</select>
 			<button>검색</button>
 		</form>
@@ -35,13 +27,18 @@
 	<div id="listFlex">
 	<c:forEach items="${shopList}" var="item">
 		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
-			<c:if test="${item.shop_pic != null}">
-				<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
-			</c:if>
+			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div id="shopInfo${item.i_shop}" class="shopInfo">
 				<div class="shopNm">${item.shop }</div>
 				<div>${item.addr }</div>
 				<div>${item.tel }</div>
+				<div>평균별점이얌 : ★${item.scoreAvg }</div>
+				<div>좋아요 수 : ${item.cnt_favorite }</div>
+				<!-- 나의 생각에는 main에서는 평균 별점을 ☆4.7 이렇게만 보여주고
+				샵 디테일 안에서 별 다섯개 안에 94프로만큼 색칠되어 나오도록 하는 게 어떨까 싶어 
+				4.3이면 꽉찬 별 4개 + 30% 찬 별 1개 
+				암튼 별 다섯개 다 나오는건 샵 디테일에서만 그렇게 하자는 게 내 의견이야
+				니가 메인에서도 별 다섯개 다 하고 싶으면 그래도 되규 ㅎ.ㅎ -->
 			</div>		
 		</div>
 	</c:forEach>

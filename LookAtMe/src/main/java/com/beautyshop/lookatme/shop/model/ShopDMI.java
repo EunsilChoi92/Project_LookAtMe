@@ -15,6 +15,7 @@ public class ShopDMI extends ShopVO {
 	private String sido;
 	private String sigungu;
 	private String addr;
+	private double scoreAvg;
 	
 	public double getNorth_east() {
 		return north_east;
@@ -87,6 +88,12 @@ public class ShopDMI extends ShopVO {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
+	}
+	public double getScoreAvg() {
+		return scoreAvg;
+	}
+	public void setScoreAvg(double scoreAvg) {
+		this.scoreAvg = scoreAvg;
 	}
 	
 	
