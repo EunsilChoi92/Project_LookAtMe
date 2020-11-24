@@ -22,12 +22,12 @@
 			C.i_m = 1
 		LEFT JOIN
          (SELECT i_shop, MIN(i_pic) AS i_pic2 FROM t_beauty_shop_pic GROUP BY i_shop) D
-	    ON
-	       A.i_shop = D.i_shop
-	    LEFT JOIN
-	       t_beauty_shop_pic G
-	    ON D.i_shop = G.i_shop
-	    AND D.i_pic2 = G.i_pic
+	      ON
+	         A.i_shop = D.i_shop
+	      LEFT JOIN
+	         t_beauty_shop_pic G
+	      ON D.i_shop = G.i_shop
+	      AND D.i_pic2 = G.i_pic
 		JOIN 
 			c_code_d E
 		ON A.cd_sido = E.cd
