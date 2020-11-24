@@ -22,7 +22,7 @@
 <script>
 	// 로그인에 성공하면 로그인 버튼 누르기 전 페이지로 이동
 	function getReferrer() {
-		let referrer =  document.referrer;
+		let referrer = document.referrer;
 		let arr = referrer.split('/');
 		
 		let uri = '';

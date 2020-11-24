@@ -13,13 +13,14 @@
 		<form id="searchFrm" action="/shop/main" method="post" onsubmit="return chkSearchFrm()">
 			<span>지역검색 : </span>
 			<select name="cd_sido" onchange="onChangeCategory()">
-				<option value="0">--시도--</option>
+				<option value="-1">--시도--</option>
+				<option value="0">전체</option>
 				<c:forEach items="${locationCategory }" var="sido">
 					<option value="${sido.cd_sido}">${sido.val }</option>
 				</c:forEach>
 			</select>
 			<select name="cd_sigungu">
-				<option value="0">--시군구--</option>
+				<option value="-1">--시군구--</option>
 			</select>
 			<button>검색</button>
 		</form>
@@ -27,7 +28,9 @@
 	<div id="listFlex">
 	<c:forEach items="${shopList}" var="item">
 		<div class="shopContainer cursor" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
-			<img src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
+			<c:if test="${item.shop_pic != null}">
+				<img src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
+			</c:if>
 			<div class="shopInfo">
 				<div class="shopNm">${item.shop }</div>
 				<div>${item.addr }</div>
@@ -39,7 +42,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	function chkSearchFrm() {
-		if(searchFrm.cd_sido.value == 0) {
+		if(searchFrm.cd_sido.value == -1) {
 			alert('시/도를 선택해주세요!');
 			return false;
 		}
@@ -48,10 +51,15 @@
 	}
 
 	function onChangeCategory() {
-		if(searchFrm.cd_sido.value == 0) {
-			searchFrm.cd_sigungu.innerHTML = `<option value="0">--시군구--</option>`;
+		const value = searchFrm.cd_sido.value;
+		if(value == -1) {
+			searchFrm.cd_sigungu.innerHTML = `<option value="-1">--시군구--</option>`;
 			return;
-		} 
+		} else if(value == 0) {
+			searchFrm.cd_sigungu.innerHTML = `<option value="0">--전체--</option>`;
+			return;
+		}
+		
 		ajaxSelSigungu();	
 	}
 	
@@ -68,7 +76,7 @@
 				.then(function(res) {
 					const result = res.data;
 					searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
-					if(searchFrm.cd_sido != 8) {
+					if(value != 8) {
 						for(var i=0; i<result.length; i++) {
 							searchFrm.cd_sigungu.innerHTML += 
 									`<option value="\${result[i].cd_sigungu}">\${result[i].sigungu}</option>`;
