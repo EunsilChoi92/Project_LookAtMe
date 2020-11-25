@@ -39,18 +39,18 @@
 			A.cd_sigungu = F.cd_sigungu
 		AND 
 			A.cd_sido = F.cd_sido
-		<if test="cd_sido != 0">
-			WHERE A.cd_sido = #{cd_sido}
-			<if test="cd_sigungu != 0">
-				AND A.cd_sigungu = #{cd_sigungu}
-			</if>
-		</if>
 		LEFT JOIN (
 			SELECT i_shop, COUNT(i_shop) as cnt
 			FROM t_beauty_shop_like
 			GROUP BY i_shop
 		) H	
 			ON A.i_shop = H.i_shop
+		<if test="cd_sido != 0">
+			WHERE A.cd_sido = #{cd_sido}
+			<if test="cd_sigungu != 0">
+				AND A.cd_sigungu = #{cd_sigungu}
+			</if>
+		</if>
 		ORDER BY A.i_shop DESC;
 	</select>
 	
