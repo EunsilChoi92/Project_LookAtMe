@@ -29,16 +29,10 @@
 		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div id="shopInfo${item.i_shop}" class="shopInfo">
-				<div class="shopNm">${item.shop }</div>
-				<div>${item.addr }</div>
+				<div class="shopNm">${item.shop } <br>${item.scoreAvg }</div>
+				<div class="shopAddr">${item.addr }</div>	
 				<div>${item.tel }</div>
-				<div>평균별점이얌 : ★${item.scoreAvg }</div>
-				<div>좋아요 수 : ${item.cnt_favorite }</div>
-				<!-- 나의 생각에는 main에서는 평균 별점을 ☆4.7 이렇게만 보여주고
-				샵 디테일 안에서 별 다섯개 안에 94프로만큼 색칠되어 나오도록 하는 게 어떨까 싶어 
-				4.3이면 꽉찬 별 4개 + 30% 찬 별 1개 
-				암튼 별 다섯개 다 나오는건 샵 디테일에서만 그렇게 하자는 게 내 의견이야
-				니가 메인에서도 별 다섯개 다 하고 싶으면 그래도 되규 ㅎ.ㅎ -->
+				<div>${item.cnt_favorite }명이 LOOKING 합니다</div>
 			</div>		
 		</div>
 	</c:forEach>

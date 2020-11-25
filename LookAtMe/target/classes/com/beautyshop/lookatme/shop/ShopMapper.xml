@@ -2,212 +2,212 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.beautyshop.lookatme.shop.ShopMapper">
-	<select id="selShopList" parameterType="ShopPARAM" resultType="ShopDMI">
-		SELECT 
-			A.i_shop, A.shop, A.postcode, A.cd_sido, E.val as sido, A.cd_sigungu, F.sigungu, A.rest_addr,
-			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, 
-			A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
-			, ifnull(C.val, '') as cd_category_name
-			, G.shop_pic , ifnull(H.cnt, 0) as cnt_favorite
-		FROM t_beauty_shop A
-		JOIN 
-			t_user B
-		ON 
-			A.i_user = B.i_user
-		JOIN 
-			c_code_d C
-		ON 
-			A.cd_category = C.cd
-		AND 
-			C.i_m = 1
-		LEFT JOIN
+   <select id="selShopList" parameterType="ShopPARAM" resultType="ShopDMI">
+      SELECT 
+         A.i_shop, A.shop, A.postcode, A.cd_sido, E.val as sido, A.cd_sigungu, F.sigungu, A.rest_addr,
+         A.detail_addr, A.extra_Addr, A.tel, A.cd_category, 
+         A.lat, A.lng, A.hits, A.r_dt, A.m_dt, B.profile_img, B.nm
+         , ifnull(C.val, '') as cd_category_name
+         , G.shop_pic , ifnull(H.cnt, 0) as cnt_favorite
+      FROM t_beauty_shop A
+      JOIN 
+         t_user B
+      ON 
+         A.i_user = B.i_user
+      JOIN 
+         c_code_d C
+      ON 
+         A.cd_category = C.cd
+      AND 
+         C.i_m = 1
+      LEFT JOIN
          (SELECT i_shop, MIN(i_pic) AS i_pic2 FROM t_beauty_shop_pic GROUP BY i_shop) D
-	      ON
-	         A.i_shop = D.i_shop
-	      LEFT JOIN
-	         t_beauty_shop_pic G
-	      ON D.i_shop = G.i_shop
-	      AND D.i_pic2 = G.i_pic
-		JOIN 
-			c_code_d E
-		ON A.cd_sido = E.cd
-		AND 
-			E.i_m = 2
-		JOIN
-			t_location F
-		ON 
-			A.cd_sigungu = F.cd_sigungu
-		AND 
-			A.cd_sido = F.cd_sido
-		<if test="cd_sido != 0">
-			WHERE A.cd_sido = #{cd_sido}
-			<if test="cd_sigungu != 0">
-				AND A.cd_sigungu = #{cd_sigungu}
-			</if>
-		</if>
-		LEFT JOIN (
-			SELECT i_shop, COUNT(i_shop) as cnt
-			FROM t_beauty_shop_like
-			GROUP BY i_shop
-		) H	
-			ON A.i_shop = H.i_shop
-		ORDER BY A.i_shop DESC;
-	</select>
-	
-	<select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
-		SELECT 
-			A.i_shop, A.i_user, A.shop, A.postcode, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
-			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits, 
-			A.r_dt, A.m_dt, C.profile_img, C.nm
-			, ifnull(B.val, '') as cd_category_name
-			, C.nm as nm
-			, ifnull(D.cnt, 0) as cnt_favorite
-			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
-		FROM t_beauty_shop A
-		INNER JOIN c_code_d B
-			ON A.cd_category = B.cd
-			AND B.i_m = 1
-		LEFT JOIN t_user C
-			ON A.i_user = C.i_user
-		LEFT JOIN (
-			SELECT i_shop, COUNT(i_shop) as cnt
-			FROM t_beauty_shop_like
-			WHERE i_shop = #{i_shop}
-			GROUP BY i_shop
-		) D	
-			ON A.i_shop = D.i_shop
-		LEFT JOIN t_beauty_shop_like E
-			ON A.i_shop = E.i_shop
-			AND E.i_user = #{i_user}
-			
-		JOIN c_code_d F
-			ON A.cd_sido = F.cd
-			AND F.i_m = 2
-		
-		JOIN t_location G
-			ON A.cd_sigungu = G.cd_sigungu
-			AND A.cd_sido = G.cd_sido
-		
-		WHERE A.i_shop = #{i_shop}
-	</select>
-	
-	<select id="selMaxI_shop" parameterType="ShopPARAM" resultType="Integer">
-		SELECT MAX(i_shop) FROM t_beauty_shop WHERE i_user = #{i_user}
-	</select>
-	
-	<select id="selShopPicList" parameterType="ShopPARAM" resultType="ShopPicVO">
-		SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
-	</select>
-	
-	<select id="selShopChkUser" parameterType="Integer" resultType="Integer">
-		SELECT i_user FROM t_beauty_shop
-		WHERE i_shop = #{i_shop}
-	</select>
-	
-	<select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
-		SELECT 
-			A.i_shop, A.i_user, A.shop, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
-			A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits
-			, ifnull(B.val, '') as cd_category_name
-			, C.nm as nm
-			, ifnull(D.cnt, 0) as cnt_favorite
-			, CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
-		FROM t_beauty_shop A
-		INNER JOIN c_code_d B
-			ON cd_category = B.cd
-			AND B.i_m = 1
-		LEFT JOIN t_user C
-			ON A.i_user = C.i_user
-		LEFT JOIN (
-			SELECT i_shop, COUNT(i_shop) as cnt
-			FROM t_beauty_shop_like
-			GROUP BY i_shop
-		) D	
-		ON A.i_shop = D.i_shop
-		
-		LEFT JOIN t_beauty_shop_like E
-		ON A.i_shop = E.i_shop
-		AND E.i_user = #{i_user}
-		
-		JOIN c_code_d F
-			ON A.cd_sido = F.cd
-			AND F.i_m = 2
-		
-		JOIN t_location G
-			ON A.cd_sigungu = G.cd_sigungu
-			AND A.cd_sido = G.cd_sido
-		WHERE E.i_shop IS NOT NULL;
-	</select>
-	
-	<insert id="insShop" parameterType="ShopPARAM">
-		INSERT INTO t_beauty_shop
-		(i_user, shop, postcode, cd_sido, cd_sigungu, rest_addr
-		, detail_addr, extra_addr, tel, cd_category, lat, lng)
-		VALUES
-		(#{i_user}, #{shop}, #{postcode}, #{cd_sido}, #{cd_sigungu}, #{rest_addr}
-		, #{detail_addr}, #{extra_addr}, #{tel}, #{cd_category}, #{lat}, #{lng})
-	</insert>
-	
-	<insert id="insShopPic" parameterType="ShopPicVO">
-		INSERT INTO t_beauty_shop_pic
-		(i_shop, shop_pic)
-		VALUES
-		(#{i_shop}, #{shop_pic})
-	</insert>
-	
-	<insert id="insShopLike" parameterType="ShopPARAM">
-		INSERT INTO t_beauty_shop_like
-		(i_shop, i_user)
-		VALUES
-		(#{i_shop}, #{i_user})
-	</insert>
-	
-	
-	
-	
-	<update id="updShop" parameterType="ShopPARAM">
-		UPDATE t_beauty_shop
-		SET shop = #{shop},
-			postcode = #{postcode},
-			cd_sido = #{cd_sido},
-			cd_sigungu = #{cd_sigungu},
-			rest_addr = #{rest_addr},
-			detail_addr = #{detail_addr},
-			extra_addr = #{extra_addr},
-		    tel = #{tel},
-			cd_category = #{cd_category},
-		    lat = #{lat},
-		    lng = ${lng},
-		    m_dt = now()
-		WHERE i_shop = #{i_shop}
-		AND i_user = #{i_user}
-	</update>
-	
-	
-	
-	
-	
-	
-	<delete id="delShop" parameterType="ShopPARAM">
-		DELETE FROM t_beauty_shop 
-		WHERE i_shop = #{i_shop}
-		AND i_user = #{i_user}
-	</delete>
-	
-	<delete id="delShopPic" parameterType="ShopPARAM">
-		DELETE A FROM t_beauty_shop_pic A
-		JOIN t_beauty_shop B
-		ON A.i_shop = B.i_shop
-		WHERE A.i_shop = #{i_shop}
-		AND B.i_user = #{i_user}
-		<if test="i_pic > 0">
-			AND A.i_pic = #{i_pic}
-		</if>
-	</delete>
-	
-	<delete id="delShopLike" parameterType="ShopPARAM">
-		DELETE FROM t_beauty_shop_like
-		WHERE i_shop = #{i_shop}
-		AND i_user = #{i_user}
-	</delete>
+         ON
+            A.i_shop = D.i_shop
+         LEFT JOIN
+            t_beauty_shop_pic G
+         ON D.i_shop = G.i_shop
+         AND D.i_pic2 = G.i_pic
+      JOIN 
+         c_code_d E
+      ON A.cd_sido = E.cd
+      AND 
+         E.i_m = 2
+      JOIN
+         t_location F
+      ON 
+         A.cd_sigungu = F.cd_sigungu
+      AND 
+         A.cd_sido = F.cd_sido
+      LEFT JOIN (
+         SELECT i_shop, COUNT(i_shop) as cnt
+         FROM t_beauty_shop_like
+         GROUP BY i_shop
+      ) H   
+         ON A.i_shop = H.i_shop
+      <if test="cd_sido != 0">
+         WHERE A.cd_sido = #{cd_sido}
+         <if test="cd_sigungu != 0">
+            AND A.cd_sigungu = #{cd_sigungu}
+         </if>
+      </if>
+      ORDER BY A.i_shop DESC;
+   </select>
+   
+   <select id="selShop" parameterType="ShopPARAM" resultType="ShopDMI">
+      SELECT 
+         A.i_shop, A.i_user, A.shop, A.postcode, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
+         A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits, 
+         A.r_dt, A.m_dt, C.profile_img, C.nm
+         , ifnull(B.val, '') as cd_category_name
+         , C.nm as nm
+         , ifnull(D.cnt, 0) as cnt_favorite
+         , CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
+      FROM t_beauty_shop A
+      INNER JOIN c_code_d B
+         ON A.cd_category = B.cd
+         AND B.i_m = 1
+      LEFT JOIN t_user C
+         ON A.i_user = C.i_user
+      LEFT JOIN (
+         SELECT i_shop, COUNT(i_shop) as cnt
+         FROM t_beauty_shop_like
+         WHERE i_shop = #{i_shop}
+         GROUP BY i_shop
+      ) D   
+         ON A.i_shop = D.i_shop
+      LEFT JOIN t_beauty_shop_like E
+         ON A.i_shop = E.i_shop
+         AND E.i_user = #{i_user}
+         
+      JOIN c_code_d F
+         ON A.cd_sido = F.cd
+         AND F.i_m = 2
+      
+      JOIN t_location G
+         ON A.cd_sigungu = G.cd_sigungu
+         AND A.cd_sido = G.cd_sido
+      
+      WHERE A.i_shop = #{i_shop}
+   </select>
+   
+   <select id="selMaxI_shop" parameterType="ShopPARAM" resultType="Integer">
+      SELECT MAX(i_shop) FROM t_beauty_shop WHERE i_user = #{i_user}
+   </select>
+   
+   <select id="selShopPicList" parameterType="ShopPARAM" resultType="ShopPicVO">
+      SELECT i_pic, shop_pic FROM t_beauty_shop_pic WHERE i_shop = #{i_shop} ORDER BY i_pic
+   </select>
+   
+   <select id="selShopChkUser" parameterType="Integer" resultType="Integer">
+      SELECT i_user FROM t_beauty_shop
+      WHERE i_shop = #{i_shop}
+   </select>
+   
+   <select id="selShopFavoriteList" parameterType="ShopPARAM" resultType="ShopDMI">
+      SELECT 
+         A.i_shop, A.i_user, A.shop, A.cd_sido, F.val as sido, A.cd_sigungu, G.sigungu, A.rest_addr,
+         A.detail_addr, A.extra_Addr, A.tel, A.cd_category, A.lat, A.lng, A.hits
+         , ifnull(B.val, '') as cd_category_name
+         , C.nm as nm
+         , ifnull(D.cnt, 0) as cnt_favorite
+         , CASE WHEN E.i_shop IS NULL THEN 0 ELSE 1 END AS is_favorite
+      FROM t_beauty_shop A
+      INNER JOIN c_code_d B
+         ON cd_category = B.cd
+         AND B.i_m = 1
+      LEFT JOIN t_user C
+         ON A.i_user = C.i_user
+      LEFT JOIN (
+         SELECT i_shop, COUNT(i_shop) as cnt
+         FROM t_beauty_shop_like
+         GROUP BY i_shop
+      ) D   
+      ON A.i_shop = D.i_shop
+      
+      LEFT JOIN t_beauty_shop_like E
+      ON A.i_shop = E.i_shop
+      AND E.i_user = #{i_user}
+      
+      JOIN c_code_d F
+         ON A.cd_sido = F.cd
+         AND F.i_m = 2
+      
+      JOIN t_location G
+         ON A.cd_sigungu = G.cd_sigungu
+         AND A.cd_sido = G.cd_sido
+      WHERE E.i_shop IS NOT NULL;
+   </select>
+   
+   <insert id="insShop" parameterType="ShopPARAM">
+      INSERT INTO t_beauty_shop
+      (i_user, shop, postcode, cd_sido, cd_sigungu, rest_addr
+      , detail_addr, extra_addr, tel, cd_category, lat, lng)
+      VALUES
+      (#{i_user}, #{shop}, #{postcode}, #{cd_sido}, #{cd_sigungu}, #{rest_addr}
+      , #{detail_addr}, #{extra_addr}, #{tel}, #{cd_category}, #{lat}, #{lng})
+   </insert>
+   
+   <insert id="insShopPic" parameterType="ShopPicVO">
+      INSERT INTO t_beauty_shop_pic
+      (i_shop, shop_pic)
+      VALUES
+      (#{i_shop}, #{shop_pic})
+   </insert>
+   
+   <insert id="insShopLike" parameterType="ShopPARAM">
+      INSERT INTO t_beauty_shop_like
+      (i_shop, i_user)
+      VALUES
+      (#{i_shop}, #{i_user})
+   </insert>
+   
+   
+   
+   
+   <update id="updShop" parameterType="ShopPARAM">
+      UPDATE t_beauty_shop
+      SET shop = #{shop},
+         postcode = #{postcode},
+         cd_sido = #{cd_sido},
+         cd_sigungu = #{cd_sigungu},
+         rest_addr = #{rest_addr},
+         detail_addr = #{detail_addr},
+         extra_addr = #{extra_addr},
+          tel = #{tel},
+         cd_category = #{cd_category},
+          lat = #{lat},
+          lng = ${lng},
+          m_dt = now()
+      WHERE i_shop = #{i_shop}
+      AND i_user = #{i_user}
+   </update>
+   
+   
+   
+   
+   
+   
+   <delete id="delShop" parameterType="ShopPARAM">
+      DELETE FROM t_beauty_shop 
+      WHERE i_shop = #{i_shop}
+      AND i_user = #{i_user}
+   </delete>
+   
+   <delete id="delShopPic" parameterType="ShopPARAM">
+      DELETE A FROM t_beauty_shop_pic A
+      JOIN t_beauty_shop B
+      ON A.i_shop = B.i_shop
+      WHERE A.i_shop = #{i_shop}
+      AND B.i_user = #{i_user}
+      <if test="i_pic > 0">
+         AND A.i_pic = #{i_pic}
+      </if>
+   </delete>
+   
+   <delete id="delShopLike" parameterType="ShopPARAM">
+      DELETE FROM t_beauty_shop_like
+      WHERE i_shop = #{i_shop}
+      AND i_user = #{i_user}
+   </delete>
 </mapper>
