@@ -21,7 +21,7 @@
 			<select name="cd_sigungu">
 				<option value="0">시군구를 선택해주세요</option>
 			</select>
-			<select name="cd_category" onchange="a()">
+			<select name="cd_category">
 				<option value="-1">카테고리를 선택해주세요</option>
 				<option value="0">전체</option>
 				<c:forEach items="${categoryList }" var="category">
@@ -36,11 +36,11 @@
 		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div id="shopInfo${item.i_shop}" class="shopInfo">
-				<div class="shopNm">${item.shop }</div>
-				<div>${item.addr }</div>
+				<div class="shopNm">${item.shop } <br>${item.scoreAvg }</div>
+				<div class="shopAddr">${item.addr }</div>	
 				<div>${item.tel }</div>
-				<div>평균별점이얌 : ★${item.scoreAvg }</div>
-				<div>좋아요 수 : ${item.cnt_favorite }</div>
+				<div>${item.cnt_favorite }명이 LOOKING 합니다</div>
+				<!-- 카테고리 추가했읍니다 ㅎㅎㅎㅎ -->
 				<div>카테고리 : ${item.cd_category_name }</div>
 			</div>		
 		</div>
@@ -48,9 +48,6 @@
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-	function a() {
-		console.log(searchFrm.cd_category.value);
-	}
 	function hoverShopConatainer(i_shop) {
 		var div = document.getElementById('shopInfo'+i_shop);
 		var img = document.getElementById('shopContainerImg'+i_shop);
