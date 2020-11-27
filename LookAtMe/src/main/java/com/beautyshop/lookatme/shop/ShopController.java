@@ -41,6 +41,7 @@ public class ShopController {
 	public String main(Model model, ShopPARAM param) {
 		model.addAttribute("shopList", shopService.selShopList(param));
 		model.addAttribute("locationCategory", locationService.selLocationCategory(new LocationVO()));
+		model.addAttribute("categoryList", shopService.selCategoryList());
 		model.addAttribute(Const.TITLE, "");
 		model.addAttribute(Const.VIEW, "shop/shopList");
 		
@@ -51,6 +52,7 @@ public class ShopController {
 	public String main(ShopPARAM param, RedirectAttributes ra) {
 		ra.addAttribute("cd_sido", param.getCd_sido());
 		ra.addAttribute("cd_sigungu", param.getCd_sigungu());
+		ra.addAttribute("cd_category", param.getCd_category());
 		return "redirect:/shop/main";
 	}
 	

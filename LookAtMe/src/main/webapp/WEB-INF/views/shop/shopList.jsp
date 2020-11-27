@@ -21,6 +21,13 @@
 			<select name="cd_sigungu">
 				<option value="0">시군구를 선택해주세요</option>
 			</select>
+			<select name="cd_category" onchange="a()">
+				<option value="-1">카테고리를 선택해주세요</option>
+				<option value="0">전체</option>
+				<c:forEach items="${categoryList }" var="category">
+					<option value="${category.cd }">${category.val }</option>
+				</c:forEach>
+			</select>
 			<button>검색</button>
 		</form>
 	</div>
@@ -34,17 +41,16 @@
 				<div>${item.tel }</div>
 				<div>평균별점이얌 : ★${item.scoreAvg }</div>
 				<div>좋아요 수 : ${item.cnt_favorite }</div>
-				<!-- 나의 생각에는 main에서는 평균 별점을 ☆4.7 이렇게만 보여주고
-				샵 디테일 안에서 별 다섯개 안에 94프로만큼 색칠되어 나오도록 하는 게 어떨까 싶어 
-				4.3이면 꽉찬 별 4개 + 30% 찬 별 1개 
-				암튼 별 다섯개 다 나오는건 샵 디테일에서만 그렇게 하자는 게 내 의견이야
-				니가 메인에서도 별 다섯개 다 하고 싶으면 그래도 되규 ㅎ.ㅎ -->
+				<div>카테고리 : ${item.cd_category_name }</div>
 			</div>		
 		</div>
 	</c:forEach>
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	function a() {
+		console.log(searchFrm.cd_category.value);
+	}
 	function hoverShopConatainer(i_shop) {
 		var div = document.getElementById('shopInfo'+i_shop);
 		var img = document.getElementById('shopContainerImg'+i_shop);
@@ -63,6 +69,10 @@
 			alert('시/도를 선택해주세요!');
 			return false;
 		}
+		if(searchFrm.cd_category.value == -1) {
+			alert('카테고리를 선택해주세요!');
+			return false;
+		}
 		
 		return true;
 	}
@@ -70,10 +80,10 @@
 	function onChangeCategory() {
 		const value = searchFrm.cd_sido.value;
 		if(value == -1) {
-			searchFrm.cd_sigungu.innerHTML = `<option value="-1">--시군구--</option>`;
+			searchFrm.cd_sigungu.innerHTML = `<option value="-1">시군구를 선택해주세요</option>`;
 			return;
 		} else if(value == 0) {
-			searchFrm.cd_sigungu.innerHTML = `<option value="0">--전체--</option>`;
+			searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
 			return;
 		}
 		
@@ -91,6 +101,7 @@
 			
 			axios.get('/location/ajaxSelSigungu', param)
 				.then(function(res) {
+					console.log(res);
 					const result = res.data;
 					searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
 					if(value != 8) {

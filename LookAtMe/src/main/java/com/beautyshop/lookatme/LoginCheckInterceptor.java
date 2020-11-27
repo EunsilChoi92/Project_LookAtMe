@@ -12,10 +12,8 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		String uri = request.getRequestURI();
-		System.out.println("uri : " + uri);
 		String[] uriArr = uri.split("/");
 
-		System.out.println("uriArr.length : " + uriArr.length);
 		if (uri.equals("/")) {
 			return super.preHandle(request, response, handler);
 		} else if (uriArr[1].equals("res")) { // 리소스 (js, css, img)

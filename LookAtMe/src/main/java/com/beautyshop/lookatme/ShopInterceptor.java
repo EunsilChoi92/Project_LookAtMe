@@ -17,10 +17,7 @@ public class ShopInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("shop - interceptor");
-		
 		String uri = request.getRequestURI();
-		System.out.println("uri : " + uri);
 		String[] uriArr = uri.split("/");
 		
 		String[] checkKeywords = {"del", "Del", "upd", "Upd"};

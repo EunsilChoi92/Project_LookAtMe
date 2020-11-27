@@ -51,6 +51,18 @@
 				AND A.cd_sigungu = #{cd_sigungu}
 			</if>
 		</if>
+		<if test="cd_category != 0">
+			<choose>
+				<when test="cd_sido == 0">
+					WHERE
+				</when>
+				<otherwise>
+					AND 
+				</otherwise>
+			</choose>
+			A.cd_category = #{cd_category}
+			AND C.i_m = 1
+		</if>
 		ORDER BY A.i_shop DESC;
 	</select>
 	

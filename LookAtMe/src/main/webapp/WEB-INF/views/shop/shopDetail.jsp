@@ -31,7 +31,7 @@
 <div>카테고리 : ${shopDetail.cd_category_name }</div>
 <div>좋아요 수 : ${shopDetail.cnt_favorite }</div>
 <hr>
-
+4
 <!-- 좋아요 -->
 <c:if test="${loginUser != null }">
 	<h1>좋아요?!?!?!?!!?!?!?!?!?!</h1>
