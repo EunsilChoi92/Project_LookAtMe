@@ -63,7 +63,7 @@
 
 	function chkSearchFrm() {
 		if(searchFrm.cd_sido.value == -1) {
-			alert('시/도를 선택해주세요!');
+			alert('지역을 선택해주세요!');
 			return false;
 		}
 		if(searchFrm.cd_category.value == -1) {

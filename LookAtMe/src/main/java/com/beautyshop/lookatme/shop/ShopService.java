@@ -70,6 +70,7 @@ public class ShopService {
 				, shopDMI.getRest_addr(), shopDMI.getExtra_addr()
 				, shopDMI.getDetail_addr());
 		shopDMI.setAddr(addr);
+		shopDMI.setScoreAvg(getScoreAvg(shopDMI));
 		return shopDMI;
 	}
 

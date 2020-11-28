@@ -30,6 +30,7 @@
 <div>우편번호 : ${shopDetail.postcode }</div>
 <div>카테고리 : ${shopDetail.cd_category_name }</div>
 <div>좋아요 수 : ${shopDetail.cnt_favorite }</div>
+<div>평균 별점: ${shopDetail.scoreAvg }</div>
 <hr>
 4
 <!-- 좋아요 -->
