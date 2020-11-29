@@ -28,113 +28,113 @@ import com.beautyshop.lookatme.shop.model.ShopPicVO;
 @RequestMapping("/shop")
 public class ShopController {
 
-	@Autowired
-	ShopService shopService;
-	
-	@Autowired
-	CommentService commentService;
-	
-	@Autowired
-	LocationService locationService;
-	
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Model model, ShopPARAM param) {
-		model.addAttribute("shopList", shopService.selShopList(param));
-		model.addAttribute("locationCategory", locationService.selLocationCategory(new LocationVO()));
-		model.addAttribute("categoryList", shopService.selCategoryList());
-		model.addAttribute(Const.TITLE, "");
-		model.addAttribute(Const.VIEW, "shop/shopList");
-		
-		return ViewRef.TEMP_DEFAULT;
-	}
-	
-	@RequestMapping(value = "/main", method = RequestMethod.POST)
-	public String main(ShopPARAM param, RedirectAttributes ra) {
-		ra.addAttribute("cd_sido", param.getCd_sido());
-		ra.addAttribute("cd_sigungu", param.getCd_sigungu());
-		ra.addAttribute("cd_category", param.getCd_category());
-		return "redirect:/shop/main";
-	}
-	
-	@RequestMapping(value = "/regMod", method = RequestMethod.GET)
-	public String shopRegMod(Model model, ShopPARAM param) {
-		if(param.getI_shop() != 0) {
-			List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
-			ShopDMI shopInfo = shopService.selShop(param);
-			String addr = String.format("%s %s %s"
-					, shopInfo.getSido(), shopInfo.getSigungu()
-					, shopInfo.getRest_addr());
-			shopInfo.setAddr(addr);
-			model.addAttribute("shopInfo", shopInfo);
-			model.addAttribute("shopPicList", shopPicList);
-		}
-		model.addAttribute("categoryList", shopService.selCategoryList());
-		model.addAttribute(Const.TITLE, " 글등록");
-		model.addAttribute(Const.VIEW, "shop/shopRegMod");
-		
-		return ViewRef.TEMP_DEFAULT;
-	}
-	
-	@RequestMapping(value="/regMod", method = RequestMethod.POST)
-	public String shopRegMod(ShopPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
-		int i_shop = shopService.regModShop(param, mReq);
-		ra.addAttribute("i_shop", i_shop);
-		return "redirect:/shop/detail";
-	}
-	
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-	
-		ShopDMI shopDetail = shopService.selShop(param);
-		List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
-		List<CommentDMI> commentList = commentService.selCommentList(param);
-		
-		model.addAttribute(Const.TITLE, " 상세보기");
-		model.addAttribute(Const.VIEW, "shop/shopDetail");
-		
-		model.addAttribute("shopDetail", shopDetail);
-		model.addAttribute("shopPicList", shopPicList);
-		model.addAttribute("commentList", commentList);
-		return ViewRef.TEMP_DEFAULT;
-	}
-	
-	@RequestMapping(value = "/delShop", method = RequestMethod.GET)
-	public String delShop(ShopPARAM param, HttpServletRequest req) {
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-		shopService.delShop(param);
-		return "redirect:/";
-	}
-	
-	@RequestMapping(value="/ajaxDelShopPic", method = RequestMethod.GET)
-	@ResponseBody
-	public int ajaxDelShopPic(ShopPARAM param, HttpServletRequest req) {
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-		return shopService.ajaxDelShopPic(param);
-	}
-	
-	@RequestMapping(value="/ajaxSelShopPic", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ShopPicVO> ajaxSelShopPic(ShopPARAM param, HttpServletRequest req) {
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-		return shopService.selShopPicList(param);
-	}
-	
-	@RequestMapping(value="/ajaxLikeShop", method = RequestMethod.GET)
-	@ResponseBody
-	public int ajaxLikeShop(ShopPARAM param, HttpServletRequest req) {
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-		return shopService.ajaxLikeShop(param);
-	}
-	
-	@RequestMapping(value="/favoriteList", method=RequestMethod.GET)
-	public String likeLikst(Model model, ShopPARAM param, HttpServletRequest req) {
-		model.addAttribute(Const.TITLE, " 관심 목록 리스트");
-		model.addAttribute(Const.VIEW, "shop/shopFavoriteList");
-		
-		param.setI_user(SecurityUtils.getLoginUserPk(req));
-		List<ShopDMI> favoriteList = shopService.selShopFavoriteList(param);
-		model.addAttribute("favoriteList", favoriteList);
-		return ViewRef.TEMP_DEFAULT;
-	}
+   @Autowired
+   ShopService shopService;
+   
+   @Autowired
+   CommentService commentService;
+   
+   @Autowired
+   LocationService locationService;
+   
+   @RequestMapping(value = "/main", method = RequestMethod.GET)
+   public String main(Model model, ShopPARAM param) {
+      model.addAttribute("shopList", shopService.selShopList(param));
+      model.addAttribute("locationCategory", locationService.selLocationCategory(new LocationVO()));
+      model.addAttribute("categoryList", shopService.selCategoryList());
+      model.addAttribute(Const.TITLE, "");
+      model.addAttribute(Const.VIEW, "shop/shopList");
+      
+      return ViewRef.TEMP_DEFAULT;
+   }
+   
+   @RequestMapping(value = "/main", method = RequestMethod.POST)
+   public String main(ShopPARAM param, RedirectAttributes ra) {
+      ra.addAttribute("cd_sido", param.getCd_sido());
+      ra.addAttribute("cd_sigungu", param.getCd_sigungu());
+      ra.addAttribute("cd_category", param.getCd_category());
+      return "redirect:/shop/main";
+   }
+   
+   @RequestMapping(value = "/regMod", method = RequestMethod.GET)
+   public String shopRegMod(Model model, ShopPARAM param) {
+      if(param.getI_shop() != 0) {
+         List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
+         ShopDMI shopInfo = shopService.selShop(param);
+         String addr = String.format("%s %s %s"
+               , shopInfo.getSido(), shopInfo.getSigungu()
+               , shopInfo.getRest_addr());
+         shopInfo.setAddr(addr);
+         model.addAttribute("shopInfo", shopInfo);
+         model.addAttribute("shopPicList", shopPicList);
+      }
+      model.addAttribute("categoryList", shopService.selCategoryList());
+      model.addAttribute(Const.TITLE, " 글등록");
+      model.addAttribute(Const.VIEW, "shop/shopRegMod");
+      
+      return ViewRef.TEMP_DEFAULT;
+   }
+   
+   @RequestMapping(value="/regMod", method = RequestMethod.POST)
+   public String shopRegMod(ShopPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+      int i_shop = shopService.regModShop(param, mReq);
+      ra.addAttribute("i_shop", i_shop);
+      return "redirect:/shop/detail";
+   }
+   
+   @RequestMapping(value = "/detail", method = RequestMethod.GET)
+   public String shopDetail(Model model, ShopPARAM param, HttpServletRequest req) {
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      
+      ShopDMI shopDetail = shopService.selShop(param);
+      List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
+      List<CommentDMI> commentList = commentService.selCommentList(param);
+      
+      model.addAttribute(Const.TITLE, " 상세보기");
+      model.addAttribute(Const.VIEW, "shop/shopDetail");
+      
+      model.addAttribute("shopDetail", shopDetail);
+      model.addAttribute("shopPicList", shopPicList);
+      model.addAttribute("commentList", commentList);
+      return ViewRef.TEMP_DEFAULT;
+   }
+   
+   @RequestMapping(value = "/delShop", method = RequestMethod.GET)
+   public String delShop(ShopPARAM param, HttpServletRequest req) {
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      shopService.delShop(param);
+      return "redirect:/";
+   }
+   
+   @RequestMapping(value="/ajaxDelShopPic", method = RequestMethod.GET)
+   @ResponseBody
+   public int ajaxDelShopPic(ShopPARAM param, HttpServletRequest req) {
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      return shopService.ajaxDelShopPic(param);
+   }
+   
+   @RequestMapping(value="/ajaxSelShopPic", method = RequestMethod.GET)
+   @ResponseBody
+   public List<ShopPicVO> ajaxSelShopPic(ShopPARAM param, HttpServletRequest req) {
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      return shopService.selShopPicList(param);
+   }
+   
+   @RequestMapping(value="/ajaxLikeShop", method = RequestMethod.GET)
+   @ResponseBody
+   public int ajaxLikeShop(ShopPARAM param, HttpServletRequest req) {
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      return shopService.ajaxLikeShop(param);
+   }
+   
+   @RequestMapping(value="/favoriteList", method=RequestMethod.GET)
+   public String likeLikst(Model model, ShopPARAM param, HttpServletRequest req) {
+      model.addAttribute(Const.TITLE, " 관심 목록 리스트");
+      model.addAttribute(Const.VIEW, "shop/shopFavoriteList");
+      
+      param.setI_user(SecurityUtils.getLoginUserPk(req));
+      List<ShopDMI> favoriteList = shopService.selShopFavoriteList(param);
+      model.addAttribute("favoriteList", favoriteList);
+      return ViewRef.TEMP_DEFAULT;
+   }
 }
