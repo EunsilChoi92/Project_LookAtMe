@@ -16,13 +16,13 @@ public class LocationUtils {
 			System.out.println(a);
 		}
 		String sido = addrArr[0];
-		int cd_sido = changeAddrToInt(sido, 0);
+		int cd_sido = changeAddrToInt(addrArr, 0);
 		
 		String sigungu;
 		int cd_sigungu;
 		if(cd_sido != 8) {
 			sigungu = addrArr[1];
-			cd_sigungu = changeAddrToInt(sigungu, 1);
+			cd_sigungu = changeAddrToInt(addrArr, 1);
 		} else {
 			cd_sigungu = 1;
 		}
@@ -41,23 +41,22 @@ public class LocationUtils {
 	}
 	
 	// locationList를 활용해서 sido(0)나 sigungu(1)를 숫자로 바꿈
-	public static int changeAddrToInt(String splittedAddr, int i) {
-		System.out.println("changeAddrToInt 시작------");
-		System.out.println("잘린 단어 : " + splittedAddr);
-		
+	public static int changeAddrToInt(String[] addrArr, int i) {
 		int result = 0;
 		for(LocationDMI vo : locationList) {
+			
 			if(i == 0) {
-				if(splittedAddr.equals(vo.getVal())) {
+				if(addrArr[0].equals(vo.getVal())) {
 					result = vo.getCd_sido();
 					break;
 				}
 			} else {
-				if(splittedAddr.equals(vo.getSigungu())) {
+				if(addrArr[0].equals(vo.getVal()) && addrArr[1].equals(vo.getSigungu())) {
 					result = vo.getCd_sigungu();
 					break;
 				}
 			}
+			
 		}
 		return result;
 	}
