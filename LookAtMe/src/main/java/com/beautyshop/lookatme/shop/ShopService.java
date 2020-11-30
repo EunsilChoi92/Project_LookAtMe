@@ -36,6 +36,10 @@ public class ShopService {
    
    
    public List<ShopDMI> selShopList(ShopPARAM param) {
+	  if(param.getSearchTxt() == null) {
+		  param.setSearchTxt("");
+	  }
+	   
       List<ShopDMI> shopList = shopMapper.selShopList(param);
       for(ShopDMI vo : shopList) {
          // 전체 주소 가져오기

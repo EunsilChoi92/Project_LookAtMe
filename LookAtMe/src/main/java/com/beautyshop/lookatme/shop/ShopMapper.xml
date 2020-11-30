@@ -45,24 +45,18 @@
       GROUP BY i_shop
      ) H   
       ON A.i_shop = H.i_shop
+     WHERE A.shop LIKE CONCAT('%', #{searchTxt}, '%')
      <if test="cd_sido != 0">
-      WHERE A.cd_sido = #{cd_sido}
+      AND A.cd_sido = #{cd_sido}
       <if test="cd_sigungu != 0">
          AND A.cd_sigungu = #{cd_sigungu}
       </if>
      </if>
      <if test="cd_category != 0">
-      <choose>
-         <when test="cd_sido == 0">
-            WHERE
-         </when>
-         <otherwise>
-            AND 
-         </otherwise>
-      </choose>
-      A.cd_category = #{cd_category}
+      AND A.cd_category = #{cd_category}
       AND C.i_m = 1
      </if>
+
      ORDER BY A.i_shop DESC;
    </select>
    

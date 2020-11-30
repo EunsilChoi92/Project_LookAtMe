@@ -39,6 +39,7 @@ public class ShopController {
    
    @RequestMapping(value = "/main", method = RequestMethod.GET)
    public String main(Model model, ShopPARAM param) {
+	  System.out.println("흑흑 : " + param.getSearchTxt());
       model.addAttribute("shopList", shopService.selShopList(param));
       model.addAttribute("locationCategory", locationService.selLocationCategory(new LocationVO()));
       model.addAttribute("categoryList", shopService.selCategoryList());
@@ -50,6 +51,7 @@ public class ShopController {
    
    @RequestMapping(value = "/main", method = RequestMethod.POST)
    public String main(ShopPARAM param, RedirectAttributes ra) {
+	  ra.addAttribute("searchTxt", param.getSearchTxt());
       ra.addAttribute("cd_sido", param.getCd_sido());
       ra.addAttribute("cd_sigungu", param.getCd_sigungu());
       ra.addAttribute("cd_category", param.getCd_category());

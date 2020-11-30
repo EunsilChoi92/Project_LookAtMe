@@ -11,14 +11,22 @@
 <div id="listContainer">
 	<div id="searchDiv">
 		<form id="searchFrm" action="/shop/main" method="post" onsubmit="return chkSearchFrm()">
+			<input type="text" name="searchTxt" placeholder="가게명" value="${param.searchTxt }">
 			<select name="cd_sido" onchange="onChangeCategory()">
 				<option value="-1">지역을 선택해주세요</option>
 				<option value="0">전체</option>
 				<c:forEach items="${locationCategory }" var="sido">
-					<option value="${sido.cd_sido}">${sido.val }</option>
+					<c:choose>
+						<c:when test="${sido.cd_sido == param.cd_sido }">
+							<option value="${sido.cd_sido}" selected>${sido.val }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${sido.cd_sido}">${sido.val }</option>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</select>
-			<select name="cd_sigungu">
+			<select name="cd_sigungu" onchange="setCategoryAll()">
 				<option value="0">시군구를 선택해주세요</option>
 			</select>
 			<select name="cd_category">
@@ -85,6 +93,7 @@
 	}
 
 	function onChangeCategory() {
+		setCategoryAll();
 		const value = searchFrm.cd_sido.value;
 		if(value == -1) {
 			searchFrm.cd_sigungu.innerHTML = `<option value="-1">시군구를 선택해주세요</option>`;
@@ -112,13 +121,19 @@
 					const result = res.data;
 					searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
 					if(value != 8) {
-						for(var i=0; i<result.length; i++) {
+						for(let i=0; i<result.length; i++) {
 							searchFrm.cd_sigungu.innerHTML += 
 									`<option value="\${result[i].cd_sigungu}">\${result[i].sigungu}</option>`;
 						}
 					}
-				})
+				});
 		}
 	}
+	
+	function setCategoryAll() {
+		let list = searchFrm.cd_category.children;
+		list[1].selected = true;
+	}
+	
 </script>
 </div>
