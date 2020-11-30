@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>예뻐지기 위한 놀이터 LookAtMe${title }</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/res/css/star.css?ver=2">
 <link rel="stylesheet" type="text/css" href="/res/css/common.css">
 <style>

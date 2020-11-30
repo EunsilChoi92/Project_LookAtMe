@@ -44,22 +44,17 @@
 		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div id="shopInfo${item.i_shop}" class="shopInfo">
+				<div class="shopLooking">${item.cnt_favorite }명이 LOOKING 합니다</div>
 				<div class="shopMain">
 					<div class="shopNm">${item.shop }</div>
-					<div>
-						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-					</div>
+					<div>${item.cd_category_name}</div>
 				</div>
-				<div class="shopNm">${item.scoreAvg }</div>
+				<div class="shopRate">
+					<span class="material-icons">grade</span>
+					<div>${item.scoreAvg }</div>
+				</div>
 				<div class="shopAddr">${item.addr }</div>	
 				<div>${item.tel }</div>
-				<div>${item.cnt_favorite }명이 LOOKING 합니다</div>
-				<!-- 카테고리 추가했읍니다 ㅎㅎㅎㅎ -->
-				<div>카테고리 : ${item.cd_category_name }</div>
 			</div>		
 		</div>
 	</c:forEach>
@@ -71,7 +66,7 @@
 		var img = document.getElementById('shopContainerImg'+i_shop);
 		if(div.style.display == 'none') {
 			div.style.display = 'block';
-			img.style.opacity = 0.2;
+			img.style.opacity = 0.13;
 		} else {
 			div.style.display = 'none';
 			img.style.opacity = 1;
@@ -122,7 +117,7 @@
 					'cd_sido' : value
 				}
 			}
-			
+		
 			axios.get('/location/ajaxSelSigungu', param)
 				.then(function(res) {
 					const result = res.data;

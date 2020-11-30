@@ -21,7 +21,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background-color: #9ad6da;
+	background-color: #565656;
 	
 }
 
@@ -69,13 +69,16 @@
     width: 360px;
     padding: 40px;
     height: 360px;
-    border: 1px solid black;
+    border: 8px solid black;
+    background-color: #ffffff;
     border-radius: 10%;
     margin: 30px;
     position: relative;
     overflow: hidden;
     min-width: 360px;
     min-height: 360px;
+    display: flex;
+    align-items: center;
 }
 
 #listContainer > #listFlex > .shopContainer > img {
@@ -84,7 +87,7 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	opacity: 0.2;	
+	opacity: 0.13;	
     background-repeat: no-repeat;
     border-radius: 10%;  
 }
@@ -93,16 +96,44 @@
     display: block;
     font-size: 20px;
     font-weight: 500;
-    margin-top: 25%;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopNm {
+#listContainer > #listFlex > .shopContainer > .shopInfo > .shopLooking {
+	margin-bottom: 24px;
+}
+
+#listContainer > #listFlex > .shopContainer > .shopInfo > .shopMain {
+    font-size: 20px;
+    display: flex;
+    width: 360px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#listContainer > #listFlex > .shopContainer > .shopInfo > .shopMain > .shopNm {
 	font-size: 32px;
-    font-family: 'Black Han Sans', sans-serif;	
+    font-family: 'Black Han Sans', sans-serif;
+    width: 270px;
+    overflow: hidden;
+   	text-overflow: clip;
+    white-space: nowrap;
+    
+}
+
+#listContainer > #listFlex > .shopContainer > .shopInfo > .shopRate {
+	display: flex;
+	align-items: center;
+	font-size: 24px;
+	margin-bottom: 18px;
+}
+
+#listContainer > #listFlex > .shopContainer > .shopInfo > .shopRate > .material-icons {
+	margin-right: 4px;
 }
 
 #listContainer > #listFlex > .shopContainer > .shopInfo > .shopAddr {
+    width: 360px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
 }
