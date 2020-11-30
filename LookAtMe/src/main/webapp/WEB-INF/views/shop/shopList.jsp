@@ -27,7 +27,7 @@
 				</c:forEach>
 			</select>
 			<select name="cd_sigungu" onchange="setCategoryAll()">
-				<option value="0">시군구를 선택해주세요</option>
+				<option value="-1">시군구를 선택해주세요</option>
 			</select>
 			<select name="cd_category">
 				<option value="-1">카테고리를 선택해주세요</option>
@@ -117,7 +117,6 @@
 			
 			axios.get('/location/ajaxSelSigungu', param)
 				.then(function(res) {
-					console.log(res);
 					const result = res.data;
 					searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
 					if(value != 8) {
@@ -134,6 +133,51 @@
 		let list = searchFrm.cd_category.children;
 		list[1].selected = true;
 	}
+	
+	function startFirst() {
+		if('${param.cd_sido}' != '' && '${param.cd_category}' != '') {
+			const sidoList = searchFrm.cd_sido.children;
+			const value = parseInt('${param.cd_sido}');
+			
+			const categoryList = searchFrm.cd_category.children;
+			const category = parseInt('${param.cd_category}');
+			
+			if(value == 0) {
+				sidoList[value + 1].selected = true;
+				searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
+				categoryList[category + 1].selected = true;
+			} else {
+				const param = {
+						params: {
+							'cd_sido': value
+						}
+				}
+				
+				axios.get('/location/ajaxSelSigungu', param)
+					.then(function(res) {
+						const result = res.data;
+						searchFrm.cd_sigungu.innerHTML = `<option value="0">전체</option>`;
+						
+						if(value != 8) {
+							for(let i=0; i<result.length; i++) {
+								if(result[i].cd_sigungu == '${param.cd_sigungu}') {
+									searchFrm.cd_sigungu.innerHTML += 
+										`<option value="\${result[i].cd_sigungu}" selected>\${result[i].sigungu}</option>`;
+								} else {
+									searchFrm.cd_sigungu.innerHTML += 
+										`<option value="\${result[i].cd_sigungu}">\${result[i].sigungu}</option>`;
+								}
+							}
+						}
+						
+						categoryList[category + 1].selected = true;
+					});
+			}
+		}
+	}
+	
+	startFirst();
+	
 	
 </script>
 </div>
