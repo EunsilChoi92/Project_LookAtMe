@@ -40,10 +40,10 @@
 					<div class="shopNm">${item.shop }</div>
 					<div>
 						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name='네일아트'}">💅🏻</c:if>
-						<c:if test="${item.cd_category_name='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
 					</div>
 				</div>
 				<div class="shopNm">${item.scoreAvg }</div>
