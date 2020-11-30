@@ -1,23 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/res/css/join.css">
 <div id="sectionContainerCenter">
-	<div>
-		<h1>회원가입</h1>
-		<div class="msg">${msg}</div>
-		<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();" enctype="multipart/form-data">
-			<div id="idChkResult" class="msg"></div>
-			<div><input type="text" name="user_id" placeholder="아이디">
-				<button type="button" onclick="chkId()">아이디 중복 체크</button>
+	<div id="joinContainer">
+		<div id="joinBox">
+			<div>
+				<h1>회원가입</h1>
+			</div>	
+			<div class="msg">${msg}</div>
+			<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();" enctype="multipart/form-data">
+			<div id="user_id">
+				<div id="idChk">	
+					<div>아이디<span>ID</span></div>
+					<div id="idChkResult" class="msg"></div>
+					<button type="button" onclick="chkId()">중복확인</button>
+				</div>
+				<div><input type="text" name="user_id" placeholder="아이디"></div>
 			</div>
-			<div><input type="file" name="user_profile"></div>
-			<div><input type="password" name="user_pw" placeholder="비밀번호"></div>
-			<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>
-			<div><input type="text" name="nm" placeholder="이름"></div>
-			<div><input type="submit" value="회원가입"></div>
-		</form>
-		<div><a href="/user/login"><button>로그인</button></a></div>
+			<div>
+				<div>비밀번호<span>Password</span></div>
+				<div><input type="password" name="user_pw" placeholder="비밀번호"></div>			
+			</div>
+			<div>
+				<div>비밀번호 확인<span>Password Check</span></div>
+				<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>
+			</div>
+			<div>
+				<div>이름<span>Name</span></div>
+				<div><input type="text" name="nm" placeholder="이름"></div>			
+			</div>
+			<div id="profileImgContainer">
+				<div>프로필 이미지<span>Profile Image</span></div>
+				<div id="uploadProfileImg">
+					<div id="profileImg"></div>
+				</div>
+				<div class="btn" id="btn">
+					<label for="profile_image">사진선택</label>
+					<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
+				</div>
+			</div>
+				<div><input type="submit" value="회원가입"></div>
+			</form>
+			<div><a href="/user/login"><button>로그인</button></a></div>
+		</div>
 	</div>
-	
+</div>	
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
 		function chkId() {
@@ -39,4 +66,3 @@
 			})
 		}
 	</script>
-</div>
