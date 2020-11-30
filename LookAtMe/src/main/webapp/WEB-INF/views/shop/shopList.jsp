@@ -36,7 +36,17 @@
 		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
 			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
 			<div id="shopInfo${item.i_shop}" class="shopInfo">
-				<div class="shopNm">${item.shop } <br>${item.scoreAvg }</div>
+				<div class="shopMain">
+					<div class="shopNm">${item.shop }</div>
+					<div>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+						<c:if test="${item.cd_category_name=='네일아트'}">💅🏻</c:if>
+					</div>
+				</div>
+				<div class="shopNm">${item.scoreAvg }</div>
 				<div class="shopAddr">${item.addr }</div>	
 				<div>${item.tel }</div>
 				<div>${item.cnt_favorite }명이 LOOKING 합니다</div>
