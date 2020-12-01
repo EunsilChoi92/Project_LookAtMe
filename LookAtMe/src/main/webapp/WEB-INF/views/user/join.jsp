@@ -41,7 +41,7 @@
 			</div>
 				<div><input type="submit" value="회원가입"></div>
 			</form>
-			<div><a href="/user/login"><button>로그인</button></a></div>
+			<div><a href="javascript:history.back();"><button>취소</button></a></div>
 		</div>
 	</div>
 </div>	
