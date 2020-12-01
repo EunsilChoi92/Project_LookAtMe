@@ -4,9 +4,7 @@
 <div id="sectionContainerCenter">
 	<div id="joinContainer">
 		<div id="joinBox">
-			<div>
-				<h1>회원가입</h1>
-			</div>	
+			<div id="joinTitle" class="fontTitle">JOIN US!</div>	
 			<div class="msg">${msg}</div>
 			<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();" enctype="multipart/form-data">
 			<div id="user_id">
@@ -39,9 +37,11 @@
 					<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
 				</div>
 			</div>
-				<div><input type="submit" value="회원가입"></div>
+			<div>
+				<a class="fontTitle" id="btnBack" href="/user/login">BACK</a>
+				<input class="fontTitle" type="submit" value="JOIN">
+			</div>
 			</form>
-			<div><a href="/user/login"><button>로그인</button></a></div>
 		</div>
 	</div>
 </div>	
