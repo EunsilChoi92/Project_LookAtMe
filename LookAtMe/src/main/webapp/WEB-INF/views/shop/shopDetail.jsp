@@ -47,6 +47,8 @@
 
 <!-- 코멘트 출력 -->
 <h1>코멘트 출력</h1>
+<div class="bold" onclick="orderBy(true)">최신순</div>>
+<div onclick="orderBy(false)">별점순</div>>
 <c:forEach items="${commentList}" var="item">
 	<div id="comment${item.i_comment }">
 		<c:if test="${loginUser.i_user == item.i_user }">
