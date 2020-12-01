@@ -35,7 +35,7 @@
 					<div id="profileImg"></div>
 				</div>
 				<div class="btn" id="btn">
-					<label for="profile_image">사진선택</label>
+					<!-- <label for="profile_image"></label> -->
 					<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
 				</div>
 			</div>
@@ -65,4 +65,26 @@
 				}
 			})
 		}
+		
+		//이미지 미리보기
+	    function previewImage(f){
+	    	var file = f.files;
+	    	// 확장자 체크
+	    	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
+	    		alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+	    		// 선택한 파일 초기화
+	    		f.outerHTML = f.outerHTML;
+	    		document.getElementById('profileImg').innerHTML = '';
+	    	}
+	    	else {
+	    		// FileReader 객체 사용
+	    		var reader = new FileReader();
+	    		// 파일 읽기가 완료되었을때 실행
+	    		reader.onload = function(rst){
+	    			document.getElementById('profileImg').innerHTML = '<img src="' + rst.target.result + '">';
+	    		}
+	    		// 파일을 읽는다
+	    		reader.readAsDataURL(file[0]);
+	    	}
+	    }
 	</script>
