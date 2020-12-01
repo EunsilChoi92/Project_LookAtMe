@@ -187,7 +187,7 @@
 					});
 			}
 			
-			// 뷰티 카테고리는 항상 쿼리스트링에 있는 값이 selected 되어야 함
+			// 뷰티 카테고리는 항상 쿼리스트링에 있는 값이 select 되어야 함
 			categoryList[category + 1].selected = true;
 		}
 	}
