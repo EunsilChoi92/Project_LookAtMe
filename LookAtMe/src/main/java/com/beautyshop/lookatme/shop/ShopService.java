@@ -14,10 +14,10 @@ import com.beautyshop.lookatme.Const;
 import com.beautyshop.lookatme.FileUtils;
 import com.beautyshop.lookatme.comment.CommentMapper;
 import com.beautyshop.lookatme.comment.model.CommentDMI;
+import com.beautyshop.lookatme.comment.model.CommentPARAM;
+import com.beautyshop.lookatme.location.LocationUtils;
 import com.beautyshop.lookatme.model.CodeVO;
 import com.beautyshop.lookatme.model.CommonMapper;
-import com.beautyshop.lookatme.location.LocationUtils;
-import com.beautyshop.lookatme.location.model.LocationVO;
 import com.beautyshop.lookatme.shop.model.ShopDMI;
 import com.beautyshop.lookatme.shop.model.ShopPARAM;
 import com.beautyshop.lookatme.shop.model.ShopPicVO;
@@ -136,8 +136,13 @@ public class ShopService {
       String path = Const.realPath + "/resources/img/shop/" + param.getI_shop();
       FileUtils.delFile(path);
       
+      CommentPARAM commentParam = new CommentPARAM();
+	  commentParam.setI_shop(param.getI_shop());
+	  commentParam.setI_user(param.getI_user());
+      
       shopMapper.delShopPic(param);
-      commentMapper.delComment(param);
+      commentMapper.delComment(commentParam);
+      shopMapper.delShopLike(param);
       shopMapper.delShop(param);
 
       return 0;
@@ -183,10 +188,10 @@ public class ShopService {
    
    
    private double getScoreAvg(ShopDMI param) {
-      ShopPARAM shopParam = new ShopPARAM();
-      shopParam.setI_shop(param.getI_shop());
+	  CommentPARAM commentParam = new CommentPARAM();
+	  commentParam.setI_shop(param.getI_shop());
       
-      List<CommentDMI> commentList = commentMapper.selCommentList(shopParam);
+      List<CommentDMI> commentList = commentMapper.selCommentList(commentParam);
       double scoreAvg = 0;
       double sum = 0;
       

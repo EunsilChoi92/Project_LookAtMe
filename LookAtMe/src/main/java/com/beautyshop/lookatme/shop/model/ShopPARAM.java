@@ -39,6 +39,4 @@ public class ShopPARAM extends ShopVO {
 		this.searchTxt = searchTxt;
 	}
 	
-	
-	
 }

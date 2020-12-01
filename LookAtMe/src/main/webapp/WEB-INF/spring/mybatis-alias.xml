@@ -15,6 +15,7 @@
 		<typeAlias type="com.beautyshop.lookatme.shop.model.ShopPicVO" alias="ShopPicVO" />
 
 		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentVO" alias="CommentVO" />
+		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentPARAM" alias="CommentPARAM" />
 		<typeAlias type="com.beautyshop.lookatme.comment.model.CommentDMI" alias="CommentDMI" />
 	
 		<typeAlias type="com.beautyshop.lookatme.location.model.LocationVO" alias="LocationVO" />

@@ -47,8 +47,9 @@
 
 <!-- 코멘트 출력 -->
 <h1>코멘트 출력</h1>
-<div class="bold" onclick="orderBy(true)">최신순</div>>
-<div onclick="orderBy(false)">별점순</div>>
+<div class="cursor" onclick="orderBy(1)">최신순</div>
+<div class="cursor" onclick="orderBy(2)">별점 높은 순</div>
+<div class="cursor" onclick="orderBy(3)">별점 낮은 순</div>
 <c:forEach items="${commentList}" var="item">
 	<div id="comment${item.i_comment }">
 		<c:if test="${loginUser.i_user == item.i_user }">
@@ -57,6 +58,7 @@
 		</c:if>
 		<div>코멘트 쓴 사람 : ${item.nm}</div>
 		<div>코멘트 내용 : ${item.comment_ctnt}</div>
+		<!-- 날짜 표시도 해야되는데 년, 월, 일, 시, 분, 초 중에서 뭐뭐 보여줄지, 어떤 형태로 고민중 -->
 		<div>빛나라 지식의 별</div>
 		<div>꺄르르 : ${item.score }</div>
 		
@@ -115,8 +117,29 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	faf4b3a5a0e4ed4c610c95db44ba090d"></script>
 <script>
 
+	// 최신순: 1, 별점 높은 순: 2, 별점 낮은 순: 3 정렬
+	// 수정 해야됨!!! ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+	// css 작업 후에 order By된 commentList 데이터 뿌리기 필요!!!!!
+	function orderBy(status) {
+		const param = {
+			params: {
+				'i_shop': ${shopDetail.i_shop},
+				'orderBy': status
+			}
+		}
+		
+		axios.get('/comment/ajaxSelCommentList', param)
+			.then(function(res) {
+				const result = res.data;
+				for(let i=0; result.length; i++) {
+					console.log((i + 1) + '번 별점 : ' + result[i].score);
+					console.log((i + 1) + '번 순서 : ' + result[i].i_comment);
+					console.log('------------');
+				}
+			});
+	}
+
 	// MAP API 관련 코드 시작
-	
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center: new kakao.maps.LatLng(${shopDetail.lat}, ${shopDetail.lng}), //지도의 중심좌표.
 		level: 3 //지도의 레벨(확대, 축소 정도)
@@ -139,7 +162,6 @@
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 	}
-
 	// Map API 관련 코드 끝
 	
 	

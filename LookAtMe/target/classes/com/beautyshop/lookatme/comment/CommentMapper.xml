@@ -2,17 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.beautyshop.lookatme.comment.CommentMapper">
-	<select id="selCommentList" parameterType="shopPARAM" resultType="CommentDMI" >
+	<select id="selCommentList" parameterType="CommentPARAM" resultType="CommentDMI" >
 		SELECT A.i_comment, A.i_shop, A.comment_ctnt,
 			A.score, A.i_user, A.r_dt, A.m_dt, B.nm, B.profile_img
 		FROM t_comment A
 		JOIN t_user B
 		ON A.i_user = B.i_user
 		WHERE A.i_shop = #{i_shop}
-		ORDER BY A.i_comment DESC
+		ORDER BY 
+		<if test="orderBy == 2">
+			A.score DESC, 
+		</if>
+		<if test="orderBy == 3">
+			A.score, 
+		</if>
+		A.i_comment DESC
 	</select>
 	
-	<select id="selComment" parameterType="CommentVO" resultType="CommentDMI" >
+	<select id="selComment" parameterType="CommentPARAM" resultType="CommentDMI" >
 		SELECT A.i_comment, A.i_shop, A.comment_ctnt,
 			A.score, A.i_user, A.r_dt, A.m_dt, B.nm, B.profile_img
 		FROM t_comment A
@@ -21,14 +28,14 @@
 		WHERE A.i_comment = #{i_comment}
 	</select>
 	
-	<insert id="insComment" parameterType="CommentVO">
+	<insert id="insComment" parameterType="CommentPARAM">
 		INSERT INTO t_comment
 			(i_shop, comment_ctnt, score, i_user)
 		VALUES
 			(#{i_shop}, #{comment_ctnt}, #{score}, #{i_user})
 	</insert>
 	
-	<update id="updComment" parameterType="CommentVO">
+	<update id="updComment" parameterType="CommentPARAM">
 		UPDATE t_comment
 		SET 
 			comment_ctnt = #{comment_ctnt},
@@ -39,7 +46,7 @@
 		AND i_user = #{i_user}
 	</update>
 	
-	<delete id="delComment" parameterType="ShopPARAM">
+	<delete id="delComment" parameterType="CommentPARAM">
 		DELETE A FROM t_comment A
 		JOIN t_beauty_shop B
 		ON A.i_shop = B.i_shop
