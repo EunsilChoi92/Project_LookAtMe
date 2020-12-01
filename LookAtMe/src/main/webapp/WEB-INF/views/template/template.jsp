@@ -61,6 +61,7 @@
 			if(${loginUser != null}) {
 				if(confirm('로그아웃 하시겠습니까?')) {
 					status = 'logout';
+					alert('로그아웃되었습니다.');
 				} else {
 					return;
 				}
