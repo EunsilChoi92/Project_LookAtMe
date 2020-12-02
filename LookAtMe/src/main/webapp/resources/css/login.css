@@ -27,18 +27,21 @@
 	justify-content: space-between;
 }
 
-#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div #loginBtn {
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div .loginBtn,
+input[type="submit"] {
 	border: none;
 	background: none;
+	font-family: 'Knewave', cursive;
 	font-size: 30px;
 	color: #fff;
 	text-align: center;
 	width: 100px;
 }
 
-#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div .loginBtn:hover {
+#sectionContainerCenter > #loginContainer > #loginBox > #frm > .btnBox > div .loginBtn:hover,
+input[type="submit"]:hover {
 	cursor: pointer;
-	color: #000;
+	color: #5c5b65;
 	transition: 0.2s;
 }
 
