@@ -12,7 +12,7 @@
 					<div><input type="hidden" name="referrer" value=""></div>
 				</div>
 				<div class="btnBox">
-					<div><input id="loginBtn" class="fontTitle" type="submit" value="LOGIN"></div>
+					<div><input class="loginBtn" class="fontTitle" type="submit" value="LOGIN"></div>
 					<div><a href="/user/join"><button type="button" class="loginBtn">JOIN</button></a></div>
 				</div>
 			</form>
