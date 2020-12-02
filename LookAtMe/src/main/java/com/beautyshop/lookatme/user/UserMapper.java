@@ -15,14 +15,4 @@ public interface UserMapper {
 	public UserDMI selUser(UserPARAM param);
 	public int updUser(UserPARAM param);
 	
-	
-	//public int insFavorite(UserPARAM param);
-
-	
-	//public UserDMI selUser(UserPARAM param);
-	//public List<UserDMI> selFavoriteList(UserPARAM param);
-	
-	//public int delFavorite(UserPARAM param);
-	
-	
 }

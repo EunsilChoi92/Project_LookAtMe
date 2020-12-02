@@ -18,6 +18,7 @@
 	</insert>
 	
 	<!-- 나중에 myPage 작업할 때 수정 요소 더 추가해야 함 -->
+	<!-- if문으로.. -->
 	<insert id="updUser" parameterType="UserPARAM">
 		UPDATE t_user
 		SET 
