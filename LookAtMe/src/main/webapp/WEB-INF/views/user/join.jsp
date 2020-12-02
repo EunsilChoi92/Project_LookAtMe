@@ -32,12 +32,12 @@
 				<div id="uploadProfileImg">
 					<div id="profileImg"></div>
 				</div>
-				<div class="btn" id="btn">
+				<div id="btnImage">
 					<!-- <label for="profile_image"></label> -->
 					<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
 				</div>
 			</div>
-			<div>
+			<div id="btnBox">
 				<a class="fontTitle" id="btnBack" href="javascript:history.back();">BACK</a>
 				<input class="fontTitle" type="submit" value="JOIN">
 			</div>
@@ -49,7 +49,7 @@
 	<script>
 		function chkId() {
 			if(frm.user_id.value == '') {
-				alert('아이디를 입력해주세요!');
+				alert('아이디를 입력해주세요');
 				frm.user_id.focus();
 				return;
 			}
@@ -59,9 +59,9 @@
 			}).then(function(res) {
 				console.log(res);
 				if(res.data == '2') {
-					idChkResult.innerText = '사용할 수 있는 아이디입니다.';
+					idChkResult.innerText = '사용할 수 있는 아이디입니다';
 				} else if(res.data == '3') {
-					idChkResult.innerText = '이미 사용중인 아이디입니다.';
+					idChkResult.innerText = '이미 사용중인 아이디입니다';
 				}
 			})
 		}

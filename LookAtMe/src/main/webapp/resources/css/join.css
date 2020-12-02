@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+#idChkResult {
+	font-size: 12px;
+	text-align: right;
+	color: #bdbdbd;
+	margin-left: 6px;
+}
+
 span {
    margin-left: 5px;
    font-size: 0.8em;
@@ -8,7 +15,7 @@ span {
 #btnBack {
 	text-decoration: none;
 	color: #fff;
-	font-size: 24px;
+	font-size: 32px;
 }
 
 input[type="text"], input[type="password"] {
@@ -19,9 +26,11 @@ input[type="text"], input[type="password"] {
 }
 
 input[type="submit"] {
-	border: none;
+    border: none;
     background: none;
     color: #fff;
+    font-size: 32px;
+    cursor: pointer
 }
 
 #sectionContainerCenter {
@@ -69,6 +78,17 @@ input[type="submit"] {
 	margin-bottom: 10px;
 }
 
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #btnBox {
+	display: flex;
+	justify-content: space-around;
+}
+
+#btnBack:hover, input[type="submit"]:hover {
+	color: #5c5b65;
+	transition: 0.3s;
+}
+
+
 #profileImgContainer > #uploadProfileImg {
    display: flex;
    align-items: center;
@@ -89,5 +109,10 @@ input[type="submit"] {
    width: 100%;
    height: 100%;
    object-fit: cover;
+}
+
+#profileImgContainer > #btnImage {
+	display: flex;
+	justify-content: center;
 }
    
