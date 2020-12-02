@@ -56,6 +56,9 @@
 			<button onclick="modifyComment(${item.i_comment})">수정</button>
 			<button onclick="ajaxDelComment(${item.i_comment})">삭제</button>
 		</c:if>
+		<div>프사 : 
+			<img style="width:30px;" alt="profile" src="/res/img/user/${item.i_user}/${item.profile_img}">
+		</div>
 		<div>코멘트 쓴 사람 : ${item.nm}</div>
 		<div>코멘트 내용 : ${item.comment_ctnt}</div>
 		<!-- 날짜 표시도 해야되는데 년, 월, 일, 시, 분, 초 중에서 뭐뭐 보여줄지, 어떤 형태로 고민중 -->

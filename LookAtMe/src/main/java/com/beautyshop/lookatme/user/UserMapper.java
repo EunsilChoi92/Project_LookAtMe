@@ -13,6 +13,7 @@ import com.beautyshop.lookatme.user.model.UserPARAM;
 public interface UserMapper {
 	public int insUser(UserPARAM param);
 	public UserDMI selUser(UserPARAM param);
+	public int updUser(UserPARAM param);
 	
 	
 	//public int insFavorite(UserPARAM param);

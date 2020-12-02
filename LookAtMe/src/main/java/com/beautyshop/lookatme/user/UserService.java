@@ -1,10 +1,15 @@
 package com.beautyshop.lookatme.user;
 
+import java.io.File;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.beautyshop.lookatme.Const;
+import com.beautyshop.lookatme.FileUtils;
 import com.beautyshop.lookatme.SecurityUtils;
 import com.beautyshop.lookatme.user.model.UserDMI;
 import com.beautyshop.lookatme.user.model.UserPARAM;
@@ -45,8 +50,6 @@ public class UserService {
 		}
 		
 		public int join(UserPARAM param, MultipartHttpServletRequest mr) {
-			String path = Const.realPath;
-			System.out.println("path : " + path);
 			try {
 				String pw = param.getUser_pw();
 				String salt = SecurityUtils.generateSalt();
@@ -55,7 +58,28 @@ public class UserService {
 				param.setSalt(salt);
 				param.setUser_pw(cryptPw);
 				
-				return userMapper.insUser(param);				
+				int result = userMapper.insUser(param);
+				
+				if(result == 1) {
+					MultipartFile mf = mr.getFile("user_profile");
+					
+					if(!mf.isEmpty()) {
+						int i_user = userMapper.selUser(param).getI_user();
+						param.setI_user(i_user);
+						
+						String path = Const.realPath + "/resources/img/user/" + i_user + "/";
+						String originFileNm = mf.getOriginalFilename();
+						String ext = FileUtils.getExt(originFileNm);
+						String saveFileNm = UUID.randomUUID() + ext;
+						
+						mf.transferTo(new File(path + saveFileNm));
+						param.setProfile_img(saveFileNm);
+						
+						userMapper.updUser(param);
+					}
+				}
+				
+				return result;				
 			}catch (Exception e) {
 				e.printStackTrace();
 				return -1;
