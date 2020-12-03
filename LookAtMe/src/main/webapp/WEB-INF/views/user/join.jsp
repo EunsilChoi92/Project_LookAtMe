@@ -4,42 +4,50 @@
 <div id="sectionContainerCenter">
 	<div id="joinContainer">
 		<div id="joinBox">
-			<div id="joinTitle" class="fontTitle">JOIN US!</div>	
 			<div class="msg">${msg}</div>
 			<form id="frm" class="frm" action="/user/join" method="post" onsubmit="return chkLength();" enctype="multipart/form-data">
-			<div id="user_id">
-				<div id="idChk">	
-					<div>아이디<span>ID</span></div>
-					<div id="idChkResult" class="msg"></div>
-					<button type="button" onclick="chkId()">중복확인</button>
+			<div id="joinTitle" class="fontTitle">JOIN US!</div>	
+			<div id="joinContent">
+				<div id="joinLeft">
+					<div id="user_id">
+						<div id="idChk">	
+							<div>아이디<span>ID</span></div>
+							<div id="idChkResult" class="msg"></div>
+							<button type="button" onclick="chkId()">중복확인</button>
+						</div>
+						<div><input type="text" name="user_id" placeholder="아이디"></div>
+					</div>
+					<div>
+						<div>비밀번호<span>Password</span></div>
+						<div><input type="password" name="user_pw" placeholder="비밀번호"></div>			
+					</div>
+					<div>
+						<div>비밀번호 확인<span>Password Check</span></div>
+						<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>
+					</div>
+					<div>
+						<div>이름<span>Name</span></div>
+						<div><input type="text" name="nm" placeholder="이름"></div>			
+					</div>
 				</div>
-				<div><input type="text" name="user_id" placeholder="아이디"></div>
-			</div>
-			<div>
-				<div>비밀번호<span>Password</span></div>
-				<div><input type="password" name="user_pw" placeholder="비밀번호"></div>			
-			</div>
-			<div>
-				<div>비밀번호 확인<span>Password Check</span></div>
-				<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>
-			</div>
-			<div>
-				<div>이름<span>Name</span></div>
-				<div><input type="text" name="nm" placeholder="이름"></div>			
-			</div>
-			<div id="profileImgContainer">
-				<div>프로필 이미지<span>Profile Image</span></div>
-				<div id="uploadProfileImg">
-					<div id="profileImg"></div>
-				</div>
-				<div id="btnImage">
-					<!-- <label for="profile_image"></label> -->
-					<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
+				<div id="joinRight">
+					<div id="profileImgContainer">
+						<div>프로필 이미지<span>Profile Image</span></div>
+						<div id="uploadProfileImg">
+							<div id="profileImg"></div>
+						</div>
+						<div id="btnImage">
+							<!-- <label for="profile_image"></label> -->
+							<input type="file" id="profile_image" name="user_profile" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div id="btnBox">
-				<a class="fontTitle" id="btnBack" href="javascript:history.back();">BACK</a>
-				<input class="fontTitle" type="submit" value="JOIN">
+			<div id="joinBottom">
+				<div id="btnBox">
+					<a class="fontTitle" id="btnBack" href="javascript:history.back();">BACK</a>
+					<input class="fontTitle" type="submit" value="JOIN">
+				</div>				
 			</div>
 			</form>
 		</div>

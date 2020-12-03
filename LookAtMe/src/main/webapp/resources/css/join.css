@@ -30,7 +30,8 @@ input[type="submit"] {
     background: none;
     color: #fff;
     font-size: 32px;
-    cursor: pointer
+    cursor: pointer;
+    margin-left: 30px;
 }
 
 #sectionContainerCenter {
@@ -46,8 +47,8 @@ input[type="submit"] {
 
 
 #sectionContainerCenter > #joinContainer {
-	width: 500px;
-	height: 800px;
+	width: 800px;
+	height: 600px;
 	background: #000;
 	border: 5px solid #fff;
  	display: flex;
@@ -56,31 +57,43 @@ input[type="submit"] {
 	color: #fff;
 }
 
-#sectionContainerCenter > #joinContainer > #joinBox {
-	width: 275px;
-}
-
-#sectionContainerCenter > #joinContainer > #joinBox > #joinTitle {
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #joinTitle {
 	font-size: 3em;
 	margin-bottom: 20px;
 	text-align: center;
 	
 }
 
-#sectionContainerCenter > #joinContainer > #joinBox > #frm > #user_id > #idChk {
+#sectionContainerCenter > #joinContainer > #joinBox > #frm {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #joinContent {
+	display: flex;
+	flex-direction: row;
+	margin: 30px 0;
+}
+
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #joinContent > #joinLeft {
+	margin-right: 80px;
+}
+
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #joinContent > #joinLeft > #user_id > #idChk {
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
 }
 
-#sectionContainerCenter > #joinContainer > #joinBox > #frm > div {
+#sectionContainerCenter > #joinContainer > #joinBox > #frm > #joinContent > div > div {
 	margin-bottom: 10px;
 }
 
-#sectionContainerCenter > #joinContainer > #joinBox > #frm > #btnBox {
+#sectionContainerCenter > #joinContainer > #joinBox > #frm  > #joinBottom > #btnBox {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 }
 
 #btnBack:hover, input[type="submit"]:hover {
@@ -96,8 +109,8 @@ input[type="submit"] {
 }
 
 #profileImgContainer > #uploadProfileImg > #profileImg {
-   width: 150px;
-   height: 150px;
+   width: 175px;
+   height: 175px;
    margin: 30px 0;
    border: 5px solid #fff;
    background: #d6d6d6;
