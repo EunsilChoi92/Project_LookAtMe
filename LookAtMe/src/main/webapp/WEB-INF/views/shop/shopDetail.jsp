@@ -83,6 +83,10 @@
 <hr>
 <h1>코멘트 인피니트 스크롤 구현(위 코멘트와 내용 같음)</h1>
 <div id="commentContainer">
+	<c:if test="${fn:length(commentList) == 0 }">
+		<div>리뷰가 없습니다.</div>
+		<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=0"></a>
+	</c:if>
 	<c:forEach items="${commentList}" var="item">
 		<div id="comment${item.i_comment }" class="comment_item">
 			<c:if test="${loginUser.i_user == item.i_user }">
@@ -114,15 +118,10 @@
 					</label>
 				</c:forEach>
 			</div>
-			<a class="paging_next" href="/shop/detail?i_shop=25&commentPage=1"></a>
+			<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=1"></a>
 			<hr>
 		</div>
 	</c:forEach>
-</div>
-<div class="scroller-status">
-	<p class="infinite-scroll-request">Loading...</p>
-	<p class="infinite-scroll-last">End of content</p>
-	<p class="infinite-scroll-error">No more pages to load</p>
 </div>
 
 
@@ -140,7 +139,6 @@
 	  history: false,
 	  checkLastPage: true,
 	  status: '.scroller-status'
-	  
 	});
 	// 인피니트 스크롤 코드 끝
 	
