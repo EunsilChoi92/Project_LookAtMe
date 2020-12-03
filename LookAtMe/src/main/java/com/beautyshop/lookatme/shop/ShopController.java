@@ -90,6 +90,7 @@ public class ShopController {
       ShopDMI shopDetail = shopService.selShop(param);
       List<ShopPicVO> shopPicList = shopService.selShopPicList(param);
       List<CommentDMI> commentList = commentService.selCommentList(param);
+     
       
       model.addAttribute(Const.TITLE, " 상세보기");
       model.addAttribute(Const.VIEW, "shop/shopDetail");

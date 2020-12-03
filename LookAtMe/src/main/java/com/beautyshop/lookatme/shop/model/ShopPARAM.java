@@ -6,6 +6,7 @@ public class ShopPARAM extends ShopVO {
 	private String proc_type;
 	private String addr;
 	private String searchTxt;
+	private int commentPage;
 	
 	
 	public int getI_pic() {
@@ -37,6 +38,12 @@ public class ShopPARAM extends ShopVO {
 	}
 	public void setSearchTxt(String searchTxt) {
 		this.searchTxt = searchTxt;
+	}
+	public int getCommentPage() {
+		return commentPage;
+	}
+	public void setCommentPage(int commentPage) {
+		this.commentPage = commentPage;
 	}
 	
 }

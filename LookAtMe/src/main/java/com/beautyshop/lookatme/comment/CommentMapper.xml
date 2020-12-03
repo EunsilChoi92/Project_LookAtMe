@@ -17,6 +17,7 @@
 			A.score, 
 		</if>
 		A.i_comment DESC
+		LIMIT #{startComment}, 10
 	</select>
 	
 	<select id="selComment" parameterType="CommentPARAM" resultType="CommentDMI" >
