@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+input[type="text"], input[type="tel"] {
+   padding-left: 20px;
+   width: 200px;
+   height: 20px;
+   margin: 8px 0 12px;
+}
+
+select {
+	width: 226px;
+    height: 25px;
+}
+
+#btnBack {
+	text-decoration: none;
+	color: #000;
+	font-size: 32px;
+}
+
+input[type="submit"] {
+    border: none;
+    background: none;
+    font-size: 32px;
+    cursor: pointer;
+    margin-left: 30px;
+    text-align: center;
+}
+
+#sectionContainerCenter {
+	width: 100%;
+	height: 73vh;
+	background-image: url("../../res/img/bg_login.jpg");
+	background-repeat : no-repeat;
+	background-size : cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#sectionContainerCenter > #addContainer {
+	width: 1000px;
+	height: 600px;
+	background: #fff;
+	border: 5px solid #000;
+ 	display: flex;
+ 	flex-direction: column;	
+	align-items: center;
+	justify-content: center;
+}
+
+#sectionContainerCenter > #addContainer > #title {
+	font-size: 3em;
+	margin-bottom: 20px;
+	text-align: center;	
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopInfoContainer {
+	display: flex;
+	justify-content: space-around;
+	width: 800px;
+	margin-left: 50px;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopInfoContainer > #infoCenter > div > #addr {
+	display: flex;
+	justify-content: space-between;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer {
+    margin: 10px 0 0 30px;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic {
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	padding-left: 16px;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div {
+	display: flex;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div > .img {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 5px 5px 0;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div > .img > img {
+	width: 80px;
+	height: 80px;
+	border: 3px solid #5c5b65;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div > .img > button {
+	width: 50px;
+	margin-top: 5px;
+}
+
+#sectionContainerCenter > #addContainer > #frm > #submitContainer > div {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+#uploadShopImg {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+#uploadShopImg > #shopImg {
+   width: 100px;
+   height: 100px;
+   margin: 18px 0;
+   border: 5px solid #fff;
+   background: #d6d6d6;
+   border-radius: 100px;
+   overflow: hidden;
+}
+
+#uploadShopImg > #shopImg > img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}

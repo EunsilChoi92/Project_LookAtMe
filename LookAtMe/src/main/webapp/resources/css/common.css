@@ -3,6 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Quicksand:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap');
 
+html {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .fontTitle {
 	font-family: 'Knewave', cursive;
 }
@@ -44,4 +48,10 @@
 .nav .cursor:hover {
 	color: #5c5b65;
 	transition: 0.5s;
+}
+
+footer {
+    height: 10vh;
+    background: #000;
+    border-top: 10px solid #fff;
 }

@@ -19,7 +19,7 @@
 		cursor: pointer;
 	}
 	#container {
-		height: 82vh;
+		height: 100%;
 	}
 </style>
 </head>

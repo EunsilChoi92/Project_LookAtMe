@@ -1,60 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" type="text/css" href="/res/css/addShop.css">
 <div id="sectionContainerCenter">
-	<div>
+	<div id="addContainer">
+		<div class="fontTitle" id="title">ADDSHOP</div>
 		<form id="frm" action="/shop/regMod" method="post"
 			onsubmit="return chkFrm()" enctype="multipart/form-data">
-			<div>
-				<input type="text" name="shop" placeholder="가게명"
-					value="${shopInfo.shop}">
-			</div>
-
-			<div>
-				<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${shopInfo == null? '' : shopInfo.postcode }" readonly>
-				<input type="button" onclick="openSearchAddr()" value="우편번호 찾기">
-			</div>
-			<div><input type="text" id="address" name="addr" placeholder="주소" value="${shopInfo == null? '' : shopInfo.addr }" readonly></div>
-			<div><input type="text" id="detailAddress" name="detail_addr" placeholder="상세주소" value="${shopInfo == null? '' : shopInfo.detail_addr }"></div>
-			<div><input type="text" id="extraAddress" name="extra_addr" placeholder="참고항목" readonly value="${shopInfo == null? '' : shopInfo.extra_addr }"></div>
-			<div><input type="tel" name="tel" placeholder="전화번호" value="${shopInfo == null? '' : shopInfo.tel }"></div>
-			
-			<input type="hidden" name="i_shop" value="${shopInfo == null? 0 : shopInfo.i_shop }"> 
-			<input type="hidden" name="i_user" value="${loginUser.i_user }">
-			<input type="hidden" name="lat" value="${shopInfo == null? 0 : shopInfo.lat }"> 
-			<input type="hidden" name="lng" value="${shopInfo == null? 0 : shopInfo.lng }"> 
-			
-			<div>
-				카테고리 : <select name="cd_category">
-					<option value="0">--선택--</option>
-					<c:forEach items="${categoryList}" var="item">
-						<c:if test="${shopInfo.cd_category == item.cd}">
-							<option value="${item.cd}" selected>${item.val}</option>
-						</c:if>
-						<c:if test="${shopInfo.cd_category != item.cd}">
-							<option value="${item.cd}">${item.val}</option>
-						</c:if>
-					</c:forEach>
-				</select>
-			</div>
-			<div>샵 사진 등록</div>
-			<div>
-				<input type="file" name="shop_pic" multiple>
-			</div>
-			<div>
-				<input type="submit" value="등록">
-			</div>
-		</form>
-		<c:if test="${shopPicList != null }">
-			<h1>샵 사진~~</h1>
-			<c:forEach items="${shopPicList}" var="item">
-				<div id="img${item.i_pic }">
-					<button style="background: pink"
-						onclick="ajaxDelShopPic(${item.i_pic})">왼쪾사진삭제슝슝</button>
-					<span>${item.shop_pic }</span>
+		<div id="shopInfoContainer">
+			<div id="infoLeft">
+				<div>
+					<div>가게명</div>
+					<input type="text" name="shop" placeholder="가게명"
+						value="${shopInfo.shop}">
 				</div>
-			</c:forEach>
-		</c:if>
+				<div>
+					<div>전화번호</div>
+					<input type="tel" name="tel" placeholder="전화번호" value="${shopInfo == null? '' : shopInfo.tel }">
+				</div>
+				<input type="hidden" name="i_shop" value="${shopInfo == null? 0 : shopInfo.i_shop }"> 
+				<input type="hidden" name="i_user" value="${loginUser.i_user }">
+				<input type="hidden" name="lat" value="${shopInfo == null? 0 : shopInfo.lat }"> 
+				<input type="hidden" name="lng" value="${shopInfo == null? 0 : shopInfo.lng }"> 
+				<div>
+					<div>업종</div>
+					<select name="cd_category">
+						<option value="0">--선택--</option>
+						<c:forEach items="${categoryList}" var="item">
+							<c:if test="${shopInfo.cd_category == item.cd}">
+								<option value="${item.cd}" selected>${item.val}</option>
+							</c:if>
+							<c:if test="${shopInfo.cd_category != item.cd}">
+								<option value="${item.cd}">${item.val}</option>
+							</c:if>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div id="infoCenter">
+				<div>
+					<div id="addr">
+						<div>주소 및 우편번호</div>
+						<input type="button" onclick="openSearchAddr()" value="우편번호 찾기">
+					</div>
+					<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${shopInfo == null? '' : shopInfo.postcode }" readonly>
+					
+				</div>
+				<div><input type="text" id="address" name="addr" placeholder="주소" value="${shopInfo == null? '' : shopInfo.addr }" readonly></div>
+				<div><input type="text" id="detailAddress" name="detail_addr" placeholder="상세주소" value="${shopInfo == null? '' : shopInfo.detail_addr }"></div>
+				<div><input type="text" id="extraAddress" name="extra_addr" placeholder="참고항목" readonly value="${shopInfo == null? '' : shopInfo.extra_addr }"></div>
+			</div>
+			<div id="infoRight">
+				<div>사진등록</div>
+				<div id="uploadShopImg">
+					<div id="shopImg"></div>
+				</div>
+				<div>
+					<input type="file" accept="image/*" onchange="previewImage(this)" name="shop_pic" multiple>
+				</div>
+			</div>
+		</div>
+		<div id="shopPicContainer">
+			<div id="shopPic">
+				<c:if test="${shopPicList != null }">
+					<div>이미지 리스트</div>
+					<div>
+					<c:forEach items="${shopPicList}" var="item">
+						<div class="img" id="img${item.i_pic }">
+							<img src="/res/img/shop/${shopInfo.i_shop}/${item.shop_pic }">
+							<button	onclick="ajaxDelShopPic(${item.i_pic})">삭제</button>
+						</div>
+					</c:forEach>
+					</div>
+				</c:if>
+			</div>
+		</div>
+		<div id="submitContainer">
+			<div>
+				<a class="fontTitle" id="btnBack" href="javascript:history.back();">BACK</a>
+				<input class="fontTitle" type="submit" value="CONFIRM">
+			</div>		
+		</div>
+		</form>	
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script type="text/javascript"
@@ -173,7 +200,21 @@
           }).open();
       }
       
-
+	    function previewImage(f){
+	    	var file = f.files;
+	    	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
+	    		alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+	    		f.outerHTML = f.outerHTML;
+	    		document.getElementById('shopImg').innerHTML = '';
+	    	}
+	    	else {
+	    		var reader = new FileReader();
+	    		reader.onload = function(rst){
+	    			document.getElementById('shopImg').innerHTML = '<img src="' + rst.target.result + '">';
+	    		}
+	    		reader.readAsDataURL(file[0]);
+	    	}
+	    }
       
 
    </script>
