@@ -92,7 +92,8 @@ input[type="submit"] {
 #sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div > .img > img {
 	width: 80px;
 	height: 80px;
-	border: 3px solid #5c5b65;
+	border: 3px solid #5c5b65;	
+  	border-radius: 5%;
 }
 
 #sectionContainerCenter > #addContainer > #frm > #shopPicContainer > #shopPic > div > .img > button {
@@ -116,9 +117,9 @@ input[type="submit"] {
    width: 100px;
    height: 100px;
    margin: 18px 0;
-   border: 5px solid #fff;
+   border: 5px solid #d6d6d6;
    background: #d6d6d6;
-   border-radius: 100px;
+   border-radius: 5%;
    overflow: hidden;
 }
 
