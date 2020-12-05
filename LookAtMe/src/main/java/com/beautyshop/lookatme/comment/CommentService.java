@@ -23,6 +23,7 @@ public class CommentService {
 	public List<CommentDMI> selCommentList(ShopPARAM param) {
 		CommentPARAM commentParam = new CommentPARAM();
 		commentParam.setI_shop(param.getI_shop());
+		commentParam.setStartComment(param.getCommentPage() * 10);
 		return commentMapper.selCommentList(commentParam);
 	}
 

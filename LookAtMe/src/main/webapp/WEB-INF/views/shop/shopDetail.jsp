@@ -78,44 +78,15 @@
 <div class="cursor" onclick="orderBy(1)">최신순</div>
 <div class="cursor" onclick="orderBy(2)">별점 높은 순</div>
 <div class="cursor" onclick="orderBy(3)">별점 낮은 순</div>
-<c:forEach items="${commentList}" var="item">
-	<div id="comment${item.i_comment }">
-		<c:if test="${loginUser.i_user == item.i_user }">
-			<button onclick="modifyComment(${item.i_comment})">수정</button>
-			<button onclick="ajaxDelComment(${item.i_comment})">삭제</button>
-		</c:if>
-		<div>프사 : 
-			<img style="width:30px;" alt="profile" src="/res/img/user/${item.i_user}/${item.profile_img}">
-		</div>
-		<div>코멘트 쓴 사람 : ${item.nm}</div>
-		<div>코멘트 내용 : ${item.comment_ctnt}</div>
-		<!-- 날짜 표시도 해야되는데 년, 월, 일, 시, 분, 초 중에서 뭐뭐 보여줄지, 어떤 형태로 보여줄지 고민중 -->
-		<div>빛나라 지식의 별</div>
-		<div>꺄르르 : ${item.score }</div>
-		
-		<!-- 별점 출력 -->
-		<div class="starRadio"> 
-			<c:forEach var="i" begin="5" end="50" step="5">
-				<label class="starRadio__box normal_cursor"> 
-					<c:if test="${i == item.score * 10}">
-				        <input type="radio" checked disabled> 
-					</c:if>
-					<c:if test="${i != item.score * 10}">
-				        <input type="radio" disabled> 
-					</c:if>
-			        <span class="starRadio__img">
-			            <span class="blind">별 ${i / 10}개</span>
-			        </span> 
-				</label>
-			</c:forEach>
-		</div>
-		<hr>
-	</div>
-</c:forEach>
+
 
 <hr>
 <h1>코멘트 인피니트 스크롤 구현(위 코멘트와 내용 같음)</h1>
 <div id="commentContainer">
+	<c:if test="${fn:length(commentList) == 0 }">
+		<div>리뷰가 없습니다.</div>
+		<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=0"></a>
+	</c:if>
 	<c:forEach items="${commentList}" var="item">
 		<div id="comment${item.i_comment }" class="comment_item">
 			<c:if test="${loginUser.i_user == item.i_user }">
@@ -147,11 +118,10 @@
 					</label>
 				</c:forEach>
 			</div>
+			<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=1"></a>
 			<hr>
 		</div>
 	</c:forEach>
-	
-	<a href="/shop/detail?i_shop=25" class="pagination__next"></a>
 </div>
 
 
@@ -164,17 +134,12 @@
 	var elem = document.querySelector('#commentContainer');
 	var infScroll = new InfiniteScroll( elem, {
 	  // options
-	  path: '.pagination__next',
+	  path: '.paging_next',
 	  append: '.comment_item',
 	  history: false,
+	  checkLastPage: true,
+	  status: '.scroller-status'
 	});
-	
-	// element argument can be a selector string
-	//   for an individual element
-	var infScroll = new InfiniteScroll( '#commentContainer', {
-	  // options
-	});
-	
 	// 인피니트 스크롤 코드 끝
 	
 
