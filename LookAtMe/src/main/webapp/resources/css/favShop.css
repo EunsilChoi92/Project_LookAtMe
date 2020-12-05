@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+#sectionContainerCenter {
+	width: 100%;
+	background-image: url("../../res/img/bg_login.jpg");
+	background-repeat : no-repeat;
+	background-size : cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#sectionContainerCenter > #favContainer {
+	display: flex;
+	flex-direction: column;
+}

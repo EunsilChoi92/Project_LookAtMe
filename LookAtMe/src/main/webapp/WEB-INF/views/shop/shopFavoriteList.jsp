@@ -1,21 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<c:forEach items="${favoriteList}" var="item">
-	<div style="border:1px solid black">
-		<h2>가게이름 : ${item.shop }</h2>
-		<div>가게주소 : ${item.addr }</div>		
-		<h2>가게 사진 목록 이얍</h2>
-		<c:forEach items="${item.shopPicList }" var="pic">
-			<div>사진 : ${pic.shop_pic }</div>
-		</c:forEach>
-		<span class="material-icons cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
-			${item.is_favorite == 1 ? "favorite" : "favorite_border"}
-		</span>
+<link rel="stylesheet" type="text/css" href="/res/css/favShop.css">
+<div id="sectionContainerCenter">
+	<div id="favContainer">
+	<c:forEach items="${favoriteList}" var="item">
+		<div>
+			<h2>가게이름 : ${item.shop }</h2>
+			<div>가게주소 : ${item.addr }</div>		
+			<h2>가게 사진 목록 이얍</h2>
+			<c:forEach items="${item.shopPicList }" var="pic">
+				<div>사진 : ${pic.shop_pic }</div>
+			</c:forEach>
+			<span class="material-icons cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
+				${item.is_favorite == 1 ? "favorite" : "favorite_border"}
+			</span>
+		</div>
+	</c:forEach>
 	</div>
-</c:forEach>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	function toggleFavoriteInList(ele, i_shop) {
