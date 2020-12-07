@@ -14,3 +14,13 @@
 	display: flex;
 	flex-direction: column;
 }
+
+#sectionContainerCenter > #favContainer > div { 
+	border: 3px solid black;
+    width: 1000px;
+    height: 300px;
+    border-radius: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+}
