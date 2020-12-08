@@ -4,17 +4,21 @@
 <link rel="stylesheet" type="text/css" href="/res/css/favShop.css">
 <div id="sectionContainerCenter">
 	<div id="favContainer">
+	<div class="fontTitle" id="title"><span>LOOKING LIST</span></div>
 	<c:forEach items="${favoriteList}" var="item">
-		<div>
-			<h2>가게이름 : ${item.shop }</h2>
-			<div>가게주소 : ${item.addr }</div>		
-			<h2>가게 사진 목록 이얍</h2>
-			<c:forEach items="${item.shopPicList }" var="pic">
-				<div>사진 : ${pic.shop_pic }</div>
-			</c:forEach>
-			<span class="material-icons cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
-				${item.is_favorite == 1 ? "favorite" : "favorite_border"}
+		<div class="shopList">
+			<div class="looking">
+			<span class="fontTitle cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
+				${item.is_favorite == 1 ? "DELETE" : "favorite_border"}
 			</span>
+			</div>
+			<div class="shopNm">${item.shop }</div>
+			<div class="shopAddr">${item.addr }</div>
+			<div id="picContainer">
+				<c:forEach items="${item.shopPicList }" var="pic">
+					<div><img src="/res/img/shop/${item.i_shop}/${pic.shop_pic }"></div>
+				</c:forEach>
+			</div>
 		</div>
 	</c:forEach>
 	</div>
@@ -25,7 +29,7 @@
 		const param = {
 				params : {
 					'i_shop' : i_shop,
-					'proc_type' : (ele.innerText == 'favorite' ? 'del' : 'ins')
+					'proc_type' : (ele.innerText == 'DELETE' ? 'del' : 'ins')
 				}
 		}
 		
@@ -33,7 +37,7 @@
 			.then(function(res) {
 				console.log(res.data);
 				if(res.data == 1) {
-					ele.innerText = (ele.innerText == 'favorite' ? 'favorite_border' : 'favorite');
+					ele.innerText = (ele.innerText == 'DELETE' ? 'favorite_border' : 'favorite');
 					ele.parentNode.remove();
 				}
 			})
