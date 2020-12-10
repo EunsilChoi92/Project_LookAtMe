@@ -8,9 +8,9 @@
 	<c:forEach items="${favoriteList}" var="item">
 		<div class="shopList">
 			<div class="looking">
-			<span class="fontTitle cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
-				${item.is_favorite == 1 ? "DELETE" : "favorite_border"}
-			</span>
+				<span class="fontTitle cursor" onclick="toggleFavoriteInList(this, ${item.i_shop})">
+					DELETE
+				</span>
 			</div>
 			<div class="shopNm">${item.shop }</div>
 			<div class="shopAddr">${item.addr }</div>
@@ -26,20 +26,21 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	function toggleFavoriteInList(ele, i_shop) {
-		const param = {
-				params : {
-					'i_shop' : i_shop,
-					'proc_type' : (ele.innerText == 'DELETE' ? 'del' : 'ins')
-				}
+		if(confirm('삭제하시겠습니까?')) {
+			const param = {
+					params : {
+						'i_shop' : i_shop,
+						'proc_type' : (ele.innerText == 'DELETE' ? 'del' : 'ins')
+					}
+			}
+			
+			axios.get('/shop/ajaxLikeShop', param)
+				.then(function(res) {
+					console.log(res.data);
+					if(res.data == 1) {
+						ele.parentNode.parentNode.remove();
+					}
+				})
 		}
-		
-		axios.get('/shop/ajaxLikeShop', param)
-			.then(function(res) {
-				console.log(res.data);
-				if(res.data == 1) {
-					ele.innerText = (ele.innerText == 'DELETE' ? 'favorite_border' : 'favorite');
-					ele.parentNode.remove();
-				}
-			})
 	}
 </script>
