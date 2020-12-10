@@ -51,7 +51,7 @@
 <c:if test="${loginUser != null }">
 	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()" method="post">
 		<!-- 별점 입력 -->
-		<!-- 별점은 starRadio 클래스 위치 말고 코드 자체는 손대지 말렴 -->
+		<!-- 별점은 starRadio 클래스  div 위치 말고 코드 자체는 손대지 말렴 -->
 		<div class="starRadio"> 
 			<c:forEach var="i" begin="5" end="50" step="5">
 				<label class="starRadio__box starRadio_box_label"> 

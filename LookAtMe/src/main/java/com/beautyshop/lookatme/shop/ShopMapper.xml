@@ -142,7 +142,8 @@
       JOIN t_location G
          ON A.cd_sigungu = G.cd_sigungu
          AND A.cd_sido = G.cd_sido
-      WHERE E.i_shop IS NOT NULL;
+      WHERE E.i_shop IS NOT NULL
+      ORDER BY E.r_dt DESC
    </select>
    
    <insert id="insShop" parameterType="ShopPARAM">
