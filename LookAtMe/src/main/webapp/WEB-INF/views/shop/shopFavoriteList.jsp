@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" type="text/css" href="/res/css/favShop.css">
 <div id="sectionContainerCenter">
 	<div id="favContainer">
 	<div class="fontTitle" id="title"><span>LOOKING LIST</span></div>
+	<c:if test="${fn:length(favoriteList) == 0}">
+		<div id="noShopList">
+			<div class="fontTitle" id="msg"><span>나만의 LOOKING LIST 를 만들어보세요</span></div>
+		</div>
+	</c:if>
 	<c:forEach items="${favoriteList}" var="item">
 		<div class="shopList">
 			<div class="looking">

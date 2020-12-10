@@ -38,6 +38,27 @@
     background: #fff;
 }
 
+#sectionContainerCenter > #favContainer > #noShopList { 
+	border: 8px solid black;
+    width: 1000px;
+    height: 300px;
+    border-radius: 20px;
+    margin: 20px 0;
+    padding: 50px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sectionContainerCenter > #favContainer > #noShopList > #msg {
+	font-size: 2em;
+}
+
+#sectionContainerCenter > #favContainer > #noShopList > #msg > span {
+	background: #fff;
+	padding: 0 20px;
+}
+
 #sectionContainerCenter > #favContainer > .shopList:hover {
 	transition: 0.2s;
 	background: #fff;
