@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<link rel="stylesheet" type="text/css" href="/res/css/shopList.css?ver=1">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<link rel="stylesheet" type="text/css" href="/res/css/shopList.css?ver=7">
 <div id="msgSection">
 	<div>
 		예뻐지기 위한 놀이터, loOKatme
@@ -39,28 +40,61 @@
 			<button>검색</button>
 		</form>
 	</div>
-	<div id="listFlex">
-	<c:forEach items="${shopList}" var="item">
-		<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
-			<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
-			<div id="shopInfo${item.i_shop}" class="shopInfo">
-				<div class="shopLooking">${item.cnt_favorite }명이 LOOKING 합니다</div>
-				<div class="shopMain">
-					<div class="shopNm">${item.shop }</div>
-					<div>${item.cd_category_name}</div>
+	
+	<div id="listFlex" class="swiper-container">
+		<div class="swiper-wrapper">
+			<c:forEach items="${shopList}" var="item" varStatus="status">
+				<c:if test="${status.index % 6 == 0}"><div class="swiper-slide"></c:if>
+				<div class="shopContainer cursor" onmouseover="hoverShopConatainer(${item.i_shop})" onmouseout="hoverShopConatainer(${item.i_shop})" onclick="location.href='/shop/detail?i_shop=${item.i_shop}'">
+					<img id="shopContainerImg${item.i_shop }" src="/res/img/shop/${item.i_shop}/${item.shop_pic}">
+					<div id="shopInfo${item.i_shop}" class="shopInfo">
+						<div class="shopLooking">${item.cnt_favorite }명이 LOOKING 합니다</div>
+						<div class="shopMain">
+							<div class="shopNm">${item.shop }</div>
+							<div>${item.cd_category_name}</div>
+						</div>
+						<div class="shopRate">
+							<span class="material-icons">grade</span>
+							<div>${item.scoreAvg }</div>
+						</div>
+						<div class="shopAddr">${item.addr }</div>	
+						<div>${item.tel }</div>
+					</div>		
 				</div>
-				<div class="shopRate">
-					<span class="material-icons">grade</span>
-					<div>${item.scoreAvg }</div>
-				</div>
-				<div class="shopAddr">${item.addr }</div>	
-				<div>${item.tel }</div>
-			</div>		
+				<c:if test="${status.index != 0 && (status.index % 6 == 5 || status.index == (fn:length(shopList) - 1))}"></div></c:if>
+			</c:forEach>
 		</div>
-	</c:forEach>
+		<!-- If we need pagination -->
+	    <div class="swiper-pagination"></div>
+	
+	    <!-- If we need navigation buttons -->
+	    <div class="swiper-button-prev"></div>
+	    <div class="swiper-button-next"></div>
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script>
+
+	// swiper 코드 시작
+	var mySwiper = new Swiper('.swiper-container', {
+	  // Optional parameters
+	  direction: 'horizontal',
+	  loop: true,
+	
+	  // If we need pagination
+	  pagination: {
+	    el: '.swiper-pagination',
+	  },
+	
+	  // Navigation arrows
+	  navigation: {
+	    nextEl: '.swiper-button-next',
+	    prevEl: '.swiper-button-prev',
+	  },
+	
+	})
+	// swiper 코드 끝
+	
 	function hoverShopConatainer(i_shop) {
 		var div = document.getElementById('shopInfo'+i_shop);
 		var img = document.getElementById('shopContainerImg'+i_shop);

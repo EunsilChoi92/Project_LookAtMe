@@ -65,7 +65,12 @@
     justify-content: center;	
 }
 
-#listContainer > #listFlex > .shopContainer {
+.swiper-container {
+	width: 100%;
+	height: 100%
+}
+
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer {
     width: 360px;
     padding: 40px;
     height: 360px;
@@ -81,7 +86,7 @@
     align-items: center;
 }
 
-#listContainer > #listFlex > .shopContainer > img {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer img {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -92,17 +97,17 @@
     border-radius: 10%;  
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo {
     display: block;
     font-size: 20px;
     font-weight: 500;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopLooking {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopLooking {
 	margin-bottom: 24px;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopMain {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopMain {
     font-size: 20px;
     display: flex;
     width: 360px;
@@ -110,7 +115,7 @@
     align-items: center;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopMain > .shopNm {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopMain > .shopNm {
 	font-size: 32px;
     font-family: 'Black Han Sans', sans-serif;
     width: 270px;
@@ -120,18 +125,18 @@
     
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopRate {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopRate {
 	display: flex;
 	align-items: center;
 	font-size: 24px;
 	margin-bottom: 18px;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopRate > .material-icons {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopRate > .material-icons {
 	margin-right: 4px;
 }
 
-#listContainer > #listFlex > .shopContainer > .shopInfo > .shopAddr {
+#listContainer > #listFlex > .swiper-wrapper > .swiper-slide > .shopContainer > .shopInfo > .shopAddr {
     width: 360px;
     overflow: hidden;
     text-overflow: clip;

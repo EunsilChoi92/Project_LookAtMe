@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/res/css/star.css?ver=2">
 <link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <style>
 	html, body {
 		margin: 0;
