@@ -14,6 +14,7 @@
 #sectionContainerCenter > #favContainer {
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 100px;
 }
 
 #sectionContainerCenter > #favContainer > #title {
