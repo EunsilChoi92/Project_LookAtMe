@@ -4,8 +4,8 @@
 	width: 100%;
 	min-height: 73vh;
 	background-image: url("../../res/img/bg_login.jpg");
-	background-repeat : no-repeat;
-	background-size : cover;
+	background-repeat : repeat;
+	background-size : contain;
 	display: flex;
 	align-items: center;
 	justify-content: center;

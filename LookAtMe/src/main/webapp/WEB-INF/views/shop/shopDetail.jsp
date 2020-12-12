@@ -3,125 +3,137 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<!-- 글 수정, 삭제 버튼 -->
-<h1>글  수정, 삭제~~~~~(작성한 사람과 로그인한 사람이 같으면 보임)</h1>
-<c:if test="${loginUser.i_user == shopDetail.i_user }">
-	<button onclick="location.href='/shop/regMod?i_shop=${shopDetail.i_shop}'">수정</button>
-	<button onclick="delShop()">삭제</button>
-</c:if>
-
-<!-- 샵 사진 -->
-<h1>샵 사진~~(사진 있어야 보임)</h1>
-<c:forEach items="${shopPicList}" var="item">
-	<div id="img${item.i_pic }">
-		<c:if test="${loginUser.i_user == shopDetail.i_user }">
-			<button style="background:pink" onclick="ajaxDelShopPic(${item.i_pic})">오른쪾사진삭제슝슝</button>
-		</c:if>
-		<span>${item.shop_pic }</span>
-	</div>
-</c:forEach>
-<hr>
-
-<!-- 가게 정보 -->
-<h1>가게 정보</h1>
-<div>가게이름 : ${shopDetail.shop}</div>
-<div>가게주소 : ${shopDetail.addr }</div>
-<div>우편번호 : ${shopDetail.postcode }</div>
-<div>카테고리 : ${shopDetail.cd_category_name }</div>
-<div>좋아요 수 : ${shopDetail.cnt_favorite }</div>
-<div>평균 별점: ${shopDetail.scoreAvg }</div>
-<hr>
-<!-- 좋아요 -->
-<h1>좋아요?!?!?!?!!?!?!?!?!?!(로그인 해야 보임)</h1>
-<c:if test="${loginUser != null }">
-	<span id="favorite" class="material-icons cursor" onclick="toggleFavorite()">
-		${shopDetail.is_favorite == 1 ? "favorite" : "favorite_border"}
-	</span>
-</c:if>
-
-<hr>
-<!-- 지도 -->
-<h1>지도</h1>
-<div id="mapContainer" style="width:500px; height:400px;"></div>
-
-<hr>
-<!-- 코멘트 작성 -->
-<h1>코멘트 작성!!!!(로그인 해야 보임)</h1>
-<c:if test="${loginUser != null }">
-	<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()" method="post">
-		<!-- 별점 입력 -->
-		<!-- 별점은 starRadio 클래스  div 위치 말고 코드 자체는 손대지 말렴 -->
-		<div class="starRadio"> 
-			<c:forEach var="i" begin="5" end="50" step="5">
-				<label class="starRadio__box starRadio_box_label"> 
-			        <input type="radio" name="score" value="${i / 10}"> 
-			        <span class="starRadio__img">
-			            <span class="blind">별 ${i / 10}개</span>
-			        </span> 
-				</label>
+<link rel="stylesheet" type="text/css" href="/res/css/shopDetail.css">
+<div id="sectionContainerCenter">
+	<div id="detailContainer">
+		<!-- 글 수정, 삭제 버튼 -->
+		<div class="fontTitle" id="btnContainer">
+			<c:if test="${loginUser.i_user == shopDetail.i_user }">
+				<button onclick="location.href='/shop/regMod?i_shop=${shopDetail.i_shop}'">UPDATE</button>
+				<button onclick="delShop()">DELETE</button>
+			</c:if>
+		</div>
+		
+		<!-- 샵 사진 -->
+		<div>
+			<h1>샵 사진~~(사진 있어야 보임)</h1>
+			<c:forEach items="${shopPicList}" var="item">
+				<div id="img${item.i_pic }">
+					<c:if test="${loginUser.i_user == shopDetail.i_user }">
+						<button style="background:pink" onclick="ajaxDelShopPic(${item.i_pic})">오른쪾사진삭제슝슝</button>
+					</c:if>
+					<span>${item.shop_pic }</span>
+				</div>
 			</c:forEach>
 		</div>
 		
-		<!-- 코멘트 작성 -->
-		<textarea name="comment_ctnt"></textarea>
-		<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
-		<input type="hidden" name="i_comment" value="0">
-		<input type="submit" value="등록">
-		<input type="button" value="취소" onclick="cancleComment()">
-	</form>
-</c:if>
-
-<hr>
-<!-- 코멘트 출력 -->
-<h1>코멘트 출력</h1>
-<div class="cursor" onclick="orderBy(1)">최신순</div>
-<div class="cursor" onclick="orderBy(2)">별점 높은 순</div>
-<div class="cursor" onclick="orderBy(3)">별점 낮은 순</div>
-
-
-<hr>
-<h1>코멘트 인피니트 스크롤 구현(위 코멘트와 내용 같음)</h1>
-<div id="commentContainer">
-	<c:if test="${fn:length(commentList) == 0 }">
-		<div>리뷰가 없습니다.</div>
-		<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=0"></a>
-	</c:if>
-	<c:forEach items="${commentList}" var="item">
-		<div id="comment${item.i_comment }" class="comment_item">
-			<c:if test="${loginUser.i_user == item.i_user }">
-				<button onclick="modifyComment(${item.i_comment})">수정</button>
-				<button onclick="ajaxDelComment(${item.i_comment})">삭제</button>
+		<!-- 좋아요 -->
+		<div id="looking">
+			<c:if test="${loginUser != null }">
+				<div id="favorite" class="material-icons cursor" onclick="toggleFavorite()">
+					${shopDetail.is_favorite == 1 ? "favorite" : "favorite_border"}
+				</div>
 			</c:if>
-			<div>프사 : 
-				<img style="width:30px;" alt="profile" src="/res/img/user/${item.i_user}/${item.profile_img}">
+			<div id="lookingMsg">${shopDetail.cnt_favorite }명의 회원님들이 LOOKING 중이에요
 			</div>
-			<div>코멘트 쓴 사람 : ${item.nm}</div>
-			<div>코멘트 내용 : ${item.comment_ctnt}</div>
-			<!-- 날짜 표시도 해야되는데 년, 월, 일, 시, 분, 초 중에서 뭐뭐 보여줄지, 어떤 형태로 보여줄지 고민중 -->
-			<div>빛나라 지식의 별</div>
-			<div>꺄르르 : ${item.score }</div>
-			
-			<!-- 별점 출력 -->
-			<div class="starRadio"> 
-				<c:forEach var="i" begin="5" end="50" step="5">
-					<label class="starRadio__box normal_cursor"> 
-						<c:if test="${i == item.score * 10}">
-					        <input type="radio" checked disabled> 
+		</div>
+		
+		<!-- 가게 정보 -->
+		<div id="infoContainer">
+			<div id="shopInfo">
+				<div id="category">${shopDetail.cd_category_name }</div>
+				<div id="shopNm">${shopDetail.shop}
+					<span id="rate"><span class="material-icons">grade</span>${shopDetail.scoreAvg }</span>
+				</div>
+				<div id="shopAddr">${shopDetail.addr }</div>
+				<div id="shopTel">${shopDetail.tel }</div>
+			</div>
+			<div id="map">
+				<div id="mapContainer" style="width:500px; height:400px;"></div>
+			</div>	
+		</div>
+		
+		<!-- 코멘트 작성 -->
+		<div>
+			<h1>코멘트 작성!!!!(로그인 해야 보임)</h1>
+			<c:if test="${loginUser != null }">
+				<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()" method="post">
+					<!-- 별점 입력 -->
+					<!-- 별점은 starRadio 클래스  div 위치 말고 코드 자체는 손대지 말렴 -->
+					<div class="starRadio"> 
+						<c:forEach var="i" begin="5" end="50" step="5">
+							<label class="starRadio__box starRadio_box_label"> 
+						        <input type="radio" name="score" value="${i / 10}"> 
+						        <span class="starRadio__img">
+						            <span class="blind">별 ${i / 10}개</span>
+						        </span> 
+							</label>
+						</c:forEach>
+					</div>
+					
+					<!-- 코멘트 작성 -->
+					<textarea name="comment_ctnt"></textarea>
+					<input type="hidden" name="i_shop" value="${shopDetail.i_shop }">
+					<input type="hidden" name="i_comment" value="0">
+					<input type="submit" value="등록">
+					<input type="button" value="취소" onclick="cancleComment()">
+				</form>
+			</c:if>
+		</div>
+
+		<!-- 코멘트 출력 -->
+		<div>
+			<h1>코멘트 출력</h1>
+			<div class="cursor" onclick="orderBy(1)">최신순</div>
+			<div class="cursor" onclick="orderBy(2)">별점 높은 순</div>
+			<div class="cursor" onclick="orderBy(3)">별점 낮은 순</div>
+		</div>
+		
+		<div>
+			<h1>코멘트 인피니트 스크롤 구현(위 코멘트와 내용 같음)</h1>
+			<div id="commentContainer">
+				<c:if test="${fn:length(commentList) == 0 }">
+					<div>리뷰가 없습니다.</div>
+					<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=0"></a>
+				</c:if>
+				<c:forEach items="${commentList}" var="item">
+					<div id="comment${item.i_comment }" class="comment_item">
+						<c:if test="${loginUser.i_user == item.i_user }">
+							<button onclick="modifyComment(${item.i_comment})">수정</button>
+							<button onclick="ajaxDelComment(${item.i_comment})">삭제</button>
 						</c:if>
-						<c:if test="${i != item.score * 10}">
-					        <input type="radio" disabled> 
-						</c:if>
-				        <span class="starRadio__img">
-				            <span class="blind">별 ${i / 10}개</span>
-				        </span> 
-					</label>
+						<div>프사 : 
+							<img style="width:30px;" alt="profile" src="/res/img/user/${item.i_user}/${item.profile_img}">
+						</div>
+						<div>코멘트 쓴 사람 : ${item.nm}</div>
+						<div>코멘트 내용 : ${item.comment_ctnt}</div>
+						<!-- 날짜 표시도 해야되는데 년, 월, 일, 시, 분, 초 중에서 뭐뭐 보여줄지, 어떤 형태로 보여줄지 고민중 -->
+						<div>빛나라 지식의 별</div>
+						<div>꺄르르 : ${item.score }</div>
+						
+						<!-- 별점 출력 -->
+						<div class="starRadio"> 
+							<c:forEach var="i" begin="5" end="50" step="5">
+								<label class="starRadio__box normal_cursor"> 
+									<c:if test="${i == item.score * 10}">
+								        <input type="radio" checked disabled> 
+									</c:if>
+									<c:if test="${i != item.score * 10}">
+								        <input type="radio" disabled> 
+									</c:if>
+							        <span class="starRadio__img">
+							            <span class="blind">별 ${i / 10}개</span>
+							        </span> 
+								</label>
+							</c:forEach>
+						</div>
+						<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=1"></a>
+						<hr>
+					</div>
 				</c:forEach>
 			</div>
-			<a class="paging_next" href="/shop/detail?i_shop=${shopDetail.i_shop }&commentPage=1"></a>
-			<hr>
 		</div>
-	</c:forEach>
+	</div>
 </div>
 
 
