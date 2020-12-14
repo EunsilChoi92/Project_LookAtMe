@@ -49,13 +49,13 @@
 				<div id="shopTel">${shopDetail.tel }</div>
 			</div>
 			<div id="map">
-				<div id="mapContainer" style="width:500px; height:400px;"></div>
+				<div id="mapContainer"></div>
 			</div>	
 		</div>
 		
 		<!-- 코멘트 작성 -->
 		<div>
-			<h1>코멘트 작성!!!!(로그인 해야 보임)</h1>
+			<h1>코멘트 작성!!!!(로그인 해야 보임)!!!!</h1>
 			<c:if test="${loginUser != null }">
 				<form id="commentFrm" action="/comment/regModComment" onsubmit="return chkComment()" method="post">
 					<!-- 별점 입력 -->
