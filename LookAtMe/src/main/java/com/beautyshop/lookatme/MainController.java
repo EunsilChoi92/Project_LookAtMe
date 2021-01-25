@@ -26,7 +26,7 @@ public class MainController {
 		if(LocationUtils.locationList == null) {
 			LocationUtils.locationList = locationService.selLocation();
 		}
-		System.out.println("root");
+		System.out.println("root");   
 		return "redirect:/shop/main";
 	}
 
