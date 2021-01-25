@@ -16,7 +16,7 @@ import com.beautyshop.lookatme.location.model.LocationDMI;
 public class MainController {
 	
 	@Autowired
-	private LocationService locationService;
+	private LocationService locationService; 
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request) {
